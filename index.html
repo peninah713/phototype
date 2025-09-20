@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Score - Football Highlights</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0c29;
+      color: white;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #1c1c3a 0%, #24244a 100%);
+      padding: 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-180px);
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      color: #ff0000;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      padding: 10px;
+      background: rgba(255, 0, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 0, 0, 0.3);
+    }
+
+    .sidebar nav ul { list-style: none; }
+    .sidebar nav ul li {
+      margin: 12px 0;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .sidebar nav ul li:hover {
+      background: rgba(255, 0, 0, 0.15);
+      transform: translateX(5px);
+      border-left: 3px solid #ff0000;
+    }
+
+    .sidebar nav ul li.active {
+      background: rgba(255, 0, 0, 0.2);
+      border-left: 3px solid #ff0000;
+    }
+
+    .sidebar nav ul li i {
+      font-size: 18px;
+      color: #ff0000;
+      width: 20px;
+    }
+
+    /* Mobile toggle button */
+    .sidebar-toggle {
+      position: fixed;
+      top: 80px;
+      left: 10px;
+      z-index: 1000;
+      background: #1c1c3a;
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Main layout */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 25px;
+      background: linear-gradient(135deg, #1a1a33 0%, #2a2a50 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .logo i { 
+      color: #ff0000; 
+      font-size: 28px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    .search-bar {
+      display: flex;
+      flex: 0.6;
+      max-width: 500px;
+      position: relative;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .search-bar input:focus {
+      border-color: #ff0000;
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.02);
+    }
+    .search-bar button {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ff0000;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .search-bar button:hover {
+      background: #cc0000;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .top-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 22px;
+    }
+    .top-icons i {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 50%;
+    }
+    .top-icons i:hover {
+      color: #ff0000;
+      background: rgba(255, 0, 0, 0.1);
+      transform: scale(1.2);
+    }
+    .profile-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+    }
+    .profile-circle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Highlights */
+    .highlights {
+      padding: 25px;
+      overflow-y: auto;
+      height: calc(100vh - 80px);
+    }
+    .highlights h1 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff0000, #ff4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Filter buttons */
+    .filter-section {
+      margin-bottom: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: #ff0000;
+      border-color: #ff0000;
+      transform: translateY(-2px);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+    .video-card {
+      background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .video-card:hover { 
+      transform: translateY(-8px) scale(1.02); 
+      box-shadow: 0 15px 40px rgba(255, 0, 0, 0.2);
+      border-color: rgba(255, 0, 0, 0.3);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      overflow: hidden;
+    }
+    .video-card iframe, 
+    .video-card img {
+      width: 100%;
+      height: 200px;
+      border: none;
+      transition: transform 0.3s ease;
+    }
+    .video-card:hover iframe,
+    .video-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 0, 0, 0.8);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+    }
+    .video-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    .video-info { 
+      padding: 15px; 
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .video-info .title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .video-info .meta {
+      font-size: 13px;
+      color: #bbb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .video-info .duration {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .video-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .video-actions i {
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    .video-actions i:hover {
+      background: rgba(255, 0, 0, 0.2);
+      color: #ff0000;
+      transform: scale(1.2);
+    }
+
+    /* Loading animation */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      color: #ff0000;
+    }
+    .loading.show {
+      display: block;
+    }
+
+    /* Scrollbar styling */
+    .highlights::-webkit-scrollbar {
+      width: 8px;
+    }
+    .highlights::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    .highlights::-webkit-scrollbar-thumb {
+      background: #ff0000;
+      border-radius: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        z-index: 999;
+        height: 100%;
+        transform: translateX(-100%);
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .sidebar-toggle {
+        display: block;
+      }
+      main {
+        width: 100%;
+      }
+      .top-bar {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .search-bar {
+        order: 3;
+        flex: 1;
+        max-width: none;
+        margin-top: 10px;
+      }
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .highlights {
+        padding: 15px;
+      }
+    }
+    .sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar nav ul li a:hover {
+  color: #ff0000;
+}
+  </style>
+</head>
+<body>
+  <!-- Sidebar Toggle -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">
+    <i class='bx bx-menu'></i>
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+  <h2>MENU</h2>
+  <nav>
+    <ul>
+      <li class="active">
+        <i class='bx bx-home'></i> 
+        <a href="home.html">Home</a>
+      </li>
+      <li>
+        <i class='bx bx-play-circle'></i> 
+        <a href="highlights.html">Highlights</a>
+      </li>
+      <li>
+        <i class='bx bx-calendar-event'></i> 
+        <a href="events.html">Events</a>
+      </li>
+    </ul>
+  </nav>
+</aside>
+
+  <!-- Main -->
+  <main>
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="logo">
+        <i class='bx bx-football'></i> <span>Live Score</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search football highlights..." onkeyup="searchVideos()" />
+        <button onclick="performSearch()"><i class='bx bx-search'></i></button>
+      </div>
+      <div class="top-icons">
+        <i class='bx bx-bell' title="Notifications" onclick="showNotifications()"></i>
+        <i class='bx bx-video-plus' title="Upload" onclick="uploadVideo()"></i>
+        <div class="profile-circle" onclick="showProfile()">P</div>
+      </div>
+    </header>
+
+    <!-- Highlights -->
+    <section class="highlights">
+      <h1>Top Football Highlights</h1>
+      
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <button class="filter-btn active" onclick="filterVideos('all')">All</button>
+        <button class="filter-btn" onclick="filterVideos('goals')">Goals</button>
+        <button class="filter-btn" onclick="filterVideos('skills')">Skills</button>
+        <button class="filter-btn" onclick="filterVideos('matches')">Full Matches</button>
+        <button class="filter-btn" onclick="filterVideos('training')">Training</button>
+      </div>
+
+      <div class="loading" id="loading">
+        <i class='bx bx-loader-alt bx-spin'></i> Loading videos...
+      </div>
+
+      <div class="video-grid" id="videoGrid">
+        <!-- Enhanced video cards -->
+        <div class="video-card" data-category="goals">
+          <div class="video-thumbnail">
+             <iframe 
+        width="100%" 
+        height="200" 
+        src="https://www.youtube.com/embed/Io0fBr1XBUA?list=RDIo0fBr1XBUA" 
+        title="Messi Top 10 Goals" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Messi Top 10 Goals - Legendary Moments</p>
+            <div class="meta">
+              <span>2.3M views • 1 year ago</span>
+              <span class="duration">10:45</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/zZxL8Ky-fYI" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Cristiano Ronaldo Skills & Tricks Collection</p>
+            <div class="meta">
+              <span>1.8M views • 2 months ago</span>
+              <span class="duration">8:32</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Neymar Jr Ultimate Skill Compilation</p>
+            <div class="meta">
+              <span>960k views • 3 weeks ago</span>
+              <span class="duration">12:20</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="matches">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Champions League Final Best Moments</p>
+            <div class="meta">
+              <span>3.2M views • 1 week ago</span>
+              <span class="duration">15:30</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="goals">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Premier League Goals of the Season</p>
+            <div class="meta">
+              <span>1.5M views • 2 days ago</span>
+              <span class="duration">9:45</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="training">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Professional Football Training Session</p>
+            <div class="meta">
+              <span>680k views • 4 days ago</span>
+              <span class="duration">22:15</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">Amazing Football Freestyle Skills</p>
+            <div class="meta">
+              <span>425k views • 1 week ago</span>
+              <span class="duration">6:30</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="matches">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay">
+              <i class='bx bx-play'></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <p class="title">World Cup Final Extended Highlights</p>
+            <div class="meta">
+              <span>5.7M views • 3 months ago</span>
+              <span class="duration">18:42</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More" onclick="showMoreOptions(this)"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Sidebar functionality
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('show');
+    }
+
+    function setActive(element) {
+      document.querySelectorAll('.sidebar nav ul li').forEach(li => {
+        li.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+
+    // Video interaction functions
+    function likeVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 0, 0)' ? '' : '#ff0000';
+      showToast(element.style.color === 'rgb(255, 0, 0)' ? 'Video liked!' : 'Like removed');
+    }
+
+    function saveVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 215, 0)' ? '' : '#ffd700';
+      showToast(element.style.color === 'rgb(255, 215, 0)' ? 'Video saved!' : 'Video unsaved');
+    }
+
+    function shareVideo(element) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Football Highlight',
+          text: 'Check out this amazing football highlight!',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('Link copied to clipboard!');
+      }
+    }
+
+    function showMoreOptions(element) {
+      showToast('More options coming soon!');
+    }
+
+    // Filter functionality
+    function filterVideos(category) {
+      const cards = document.querySelectorAll('.video-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Search functionality
+    function searchVideos() {
+      const input = document.getElementById('searchInput');
+      const cards = document.querySelectorAll('.video-card');
+      const searchTerm = input.value.toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.querySelector('.title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function performSearch() {
+      searchVideos();
+      showToast('Search completed!');
+    }
+
+    // Top bar functions
+    function showNotifications() {
+      showToast('🔔 You have 3 new notifications');
+    }
+
+    function uploadVideo() {
+      showToast('📤 Upload feature coming soon!');
+    }
+
+    function showProfile() {
+      showToast('👤 Profile menu coming soon!');
+    }
+</script>
+</body>
+    

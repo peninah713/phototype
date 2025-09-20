@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Score - Events</title>
+  <!-- Boxicons for icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(180deg, #2c2b45 0%, #141228 100%);
+      color: white;
+      -webkit-font-smoothing: antialiased;
+      padding: 0;
+    }
+
+    /* Header */
+    .top-bar {
+      background: #1a1832;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .logo i {
+      font-size: 1.5rem;
+      margin-right: 8px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      font-size: 1.4rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: red;
+    }
+
+    /* Profile circle */
+    .profile {
+      width: 35px;
+      height: 35px;
+      background: rgb(209, 12, 12);
+      color: #1a1832;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Events Section */
+    .events-section {
+      padding: 20px;
+    }
+
+    .events-section h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .event-card {
+      background: #1f1c3a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-content {
+      padding: 15px;
+    }
+
+    .event-content h3 {
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .event-details {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      color: white;
+    }
+
+    .event-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-ticket {
+      background: red;
+      color: white;
+    }
+
+    .btn-ticket:hover {
+      background: white;
+      color: red;
+    }
+
+    .event-icons i {
+      font-size: 1.2rem;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      color: white;
+    }
+
+    .event-icons i:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-bar">
+    <div class="logo">
+      <i class='bx bx-football'></i> <span>Live Score</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="index.html" title="Home"><i class='bx bxs-home'></i></a>
+      
+      <a href="highlights.html" title="highlights"><i class='bx bxs-videos'></i></a>
+      <a href="events.html" title="Events"><i class='bx bxs-calendar-event'></i></a>
+    </nav>
+
+    <div class="profile">P</div>
+  </header>
+
+  <!-- Events Section -->
+  <section class="events-section">
+    <h2>Upcoming Live Football Events</h2>
+
+    <div class="events-container">
+      
+      <!-- Event 1 -->
+      <div class="event-card">
+        <img src="5.jfif" alt="Event 1">
+        <div class="event-content">
+          <h3>Champions League Final</h3>
+          <p class="event-details">📍 Wembley Stadium, London <br> 🗓️ June 5, 2025 <br> ⏰ 20:00 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event-card">
+        <img src="4.jfif" alt="Event 2">
+        <div class="event-content">
+          <h3>El Clásico</h3>
+          <p class="event-details">📍 Camp Nou, Barcelona <br> 🗓️ July 12, 2025 <br> ⏰ 19:30 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event-card">
+        <img src="3.jfif" alt="Event 3">
+        <div class="event-content">
+          <h3>Africa Cup of Nations</h3>
+          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="event-card">
+        <img src="1.jfif" alt="Event 3">
+        <div class="event-content">
+          <h3>Africa Cup of Nations</h3>
+          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <img src="4.jfif" alt="Event 3">
+        <div class="event-content">
+          <h3>Africa Cup of Nations</h3>
+          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <img src="2.jfif" alt="Event 3">
+        <div class="event-content">
+          <h3>Africa Cup of Nations</h3>
+          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <div class="event-actions">
+            <button class="btn btn-ticket">Buy Ticket</button>
+            <div class="event-icons">
+              <i class='bx bx-share-alt'></i>
+              <i class='bx bx-bell'></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
