@@ -10,7 +10,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0c29;
+      background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
       color: white;
       display: flex;
       height: 100vh;
@@ -96,7 +96,7 @@
       overflow: hidden;
     }
 
-    /* Top Bar */
+    /* Top Bar - Updated Layout */
     .top-bar {
       display: flex;
       align-items: center;
@@ -104,7 +104,7 @@
       padding: 15px 25px;
       background: linear-gradient(135deg, #1a1a33 0%, #2a2a50 100%);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
     }
 
     .logo {
@@ -115,6 +115,7 @@
       gap: 10px;
       color: white;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
     }
     .logo i { 
       color: #ff0000; 
@@ -130,9 +131,10 @@
 
     .search-bar {
       display: flex;
-      flex: 0.6;
+      flex: 0.5;
       max-width: 500px;
       position: relative;
+      margin: 0 30px;
     }
     .search-bar input {
       flex: 1;
@@ -144,6 +146,7 @@
       color: white;
       font-size: 14px;
       transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
     .search-bar input::placeholder {
       color: rgba(255, 255, 255, 0.6);
@@ -152,13 +155,14 @@
       border-color: #ff0000;
       background: rgba(255, 255, 255, 0.15);
       transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
     }
     .search-bar button {
       position: absolute;
       right: 5px;
       top: 50%;
       transform: translateY(-50%);
-      background: #ff0000;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
       border: none;
       padding: 8px 12px;
       border-radius: 20px;
@@ -167,27 +171,56 @@
       transition: all 0.3s ease;
     }
     .search-bar button:hover {
-      background: #cc0000;
+      background: linear-gradient(135deg, #cc0000, #aa0000);
       transform: translateY(-50%) scale(1.1);
     }
 
     .top-icons {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       font-size: 22px;
+      flex-shrink: 0;
     }
-    .top-icons i {
+    
+    .upload-btn {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+      font-size: 14px;
+    }
+    
+    .upload-btn:hover {
+      background: linear-gradient(135deg, #cc0000, #aa0000);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+    }
+    
+    .upload-btn i {
+      font-size: 18px;
+    }
+    
+    .top-icons > i {
       cursor: pointer;
       transition: all 0.3s ease;
       padding: 8px;
       border-radius: 50%;
     }
-    .top-icons i:hover {
+    .top-icons > i:hover {
       color: #ff0000;
       background: rgba(255, 0, 0, 0.1);
       transform: scale(1.2);
     }
+    
     .profile-circle {
       width: 40px;
       height: 40px;
@@ -232,63 +265,68 @@
       flex-wrap: wrap;
     }
     .filter-btn {
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
       color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
     }
     .filter-btn:hover, .filter-btn.active {
-      background: #ff0000;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
       border-color: #ff0000;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
     }
 
+    /* Enhanced Video Grid */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
       gap: 30px;
       margin-top: 20px;
     }
     
     .video-card {
-      background: linear-gradient(145deg, #1a1a2e, #2d2d5a);
-      border-radius: 16px;
+      background: linear-gradient(145deg, #1a1a2e 0%, #2d2d5a 100%);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
+      backdrop-filter: blur(10px);
     }
     
     .video-card:hover { 
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(255, 0, 0, 0.25);
-      border-color: rgba(255, 0, 0, 0.4);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 60px rgba(255, 0, 0, 0.3);
+      border-color: rgba(255, 0, 0, 0.5);
     }
 
     .video-thumbnail {
       position: relative;
       overflow: hidden;
       background: #000;
+      border-radius: 20px 20px 0 0;
     }
     
     .video-card iframe, 
     .video-card img {
       width: 100%;
-      height: 240px;
+      height: 250px;
       border: none;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease;
       object-fit: cover;
     }
     
     .video-card:hover iframe,
     .video-card:hover img {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
 
     .play-overlay {
@@ -297,19 +335,19 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(204, 0, 0, 0.9));
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
+      font-size: 30px;
       color: white;
       opacity: 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
-      backdrop-filter: blur(5px);
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
     }
     
     .video-card:hover .play-overlay {
@@ -317,43 +355,44 @@
       transform: translate(-50%, -50%) scale(1.1);
     }
     
-    /* Add profile avatar style for video authors */
+    /* Enhanced video author styling */
     .video-author {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 12px;
+      margin-bottom: 10px;
     }
     
     .author-avatar {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: linear-gradient(135deg, #ff0000, #cc0000);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: bold;
       color: white;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
     }
     
     .author-name {
-      font-size: 13px;
+      font-size: 14px;
       color: #b8b8c8;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .video-info { 
-      padding: 20px; 
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
-      backdrop-filter: blur(10px);
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
+      backdrop-filter: blur(15px);
     }
     
     .video-info .title {
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 18px;
       line-height: 1.4;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -375,36 +414,36 @@
     .video-info .duration {
       background: linear-gradient(135deg, #ff0000, #cc0000);
       color: white;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 5px 10px;
+      border-radius: 8px;
       font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(255, 0, 0, 0.3);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
     }
 
     .video-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
-      background: rgba(0, 0, 0, 0.4);
+      padding: 15px 22px;
+      background: rgba(0, 0, 0, 0.6);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
     }
     
     .video-actions i {
       cursor: pointer;
-      padding: 10px;
+      padding: 12px;
       border-radius: 50%;
       transition: all 0.3s ease;
-      font-size: 18px;
+      font-size: 20px;
       color: #b8b8c8;
     }
     
     .video-actions i:hover {
-      background: rgba(255, 0, 0, 0.15);
+      background: rgba(255, 0, 0, 0.2);
       color: #ff0000;
-      transform: scale(1.15);
+      transform: scale(1.2);
     }
 
     /* Loading animation */
@@ -428,7 +467,7 @@
       border-radius: 10px;
     }
     .highlights::-webkit-scrollbar-thumb {
-      background: #ff0000;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
       border-radius: 10px;
     }
 
@@ -699,6 +738,9 @@
       background: linear-gradient(135deg, #cc0000, #aa0000);
       transform: translateY(-1px);
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
       .sidebar {
         position: fixed;
         z-index: 999;
@@ -723,7 +765,7 @@
         order: 3;
         flex: 1;
         max-width: none;
-        margin-top: 10px;
+        margin: 10px 0 0 0;
       }
       .video-grid {
         grid-template-columns: 1fr;
@@ -732,6 +774,25 @@
       .highlights {
         padding: 15px;
       }
+    }
+
+    /* Additional animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); }
+      to { transform: translateX(100%); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -786,8 +847,11 @@
         <button onclick="performSearch()"><i class='bx bx-search'></i></button>
       </div>
       <div class="top-icons">
+        <button class="upload-btn" onclick="openUploadModal()">
+          <i class='bx bx-plus'></i>
+          <span>Upload</span>
+        </button>
         <i class='bx bx-bell' title="Notifications" onclick="showNotifications()"></i>
-        <i class='bx bx-video-plus' title="Upload" onclick="uploadVideo()"></i>
         <div class="profile-circle" onclick="showProfile()">P</div>
       </div>
     </header>
@@ -938,12 +1002,16 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-          <iframe width="431" height="767" src="https://www.youtube.com/embed/efxOScRIfRM" title="Messi vs Ronaldo 😳" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="431" height="767" src="https://www.youtube.com/embed/efxOScRIfRM" title="Messi vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">CL</div>
+              <div class="author-name">Champions League</div>
+            </div>
             <p class="title">Champions League Final Best Moments</p>
             <div class="meta">
               <span>3.2M views • 1 week ago</span>
@@ -960,12 +1028,16 @@
 
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
-          <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">PL</div>
+              <div class="author-name">Premier League</div>
+            </div>
             <p class="title">Premier League Goals of the Season</p>
             <div class="meta">
               <span>1.5M views • 2 days ago</span>
@@ -982,12 +1054,16 @@
 
         <div class="video-card" data-category="training">
           <div class="video-thumbnail">
-          <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="791" height="445" src="https://www.youtube.com/embed/J---aiyznGQ" title="Football Training" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FT</div>
+              <div class="author-name">Football Training</div>
+            </div>
             <p class="title">Professional Football Training Session</p>
             <div class="meta">
               <span>680k views • 4 days ago</span>
@@ -1004,12 +1080,16 @@
 
         <div class="video-card" data-category="skills">
           <div class="video-thumbnail">
-           <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="791" height="445" src="https://www.youtube.com/embed/Xvpm2Z1kbeI" title="Football Freestyle" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FF</div>
+              <div class="author-name">Freestyle Football</div>
+            </div>
             <p class="title">Amazing Football Freestyle Skills</p>
             <div class="meta">
               <span>425k views • 1 week ago</span>
@@ -1026,12 +1106,16 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-           <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="791" height="445" src="https://www.youtube.com/embed/6tYfA_DzUQo" title="World Cup Final" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">WC</div>
+              <div class="author-name">World Cup</div>
+            </div>
             <p class="title">World Cup Final Extended Highlights</p>
             <div class="meta">
               <span>5.7M views • 3 months ago</span>
@@ -1048,107 +1132,105 @@
       </div>
     </section>
   
-  <!-- Post Creation Modal -->
-  <div class="modal" id="postModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Create New Post</h3>
-        <button class="close-btn" onclick="closePostModal()">×</button>
-      </div>
-      
-      <form id="postForm">
-        <div class="form-group">
-          <label class="form-label">Post Type</label>
-          <select class="form-select" id="postType">
-            <option value="highlight">Video Highlight</option>
-            <option value="match">Match Report</option>
-            <option value="news">News Article</option>
-            <option value="opinion">Opinion Piece</option>
-          </select>
+    <!-- Post Creation Modal -->
+    <div class="modal" id="postModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Create New Post</h3>
+          <button class="close-btn" onclick="closePostModal()">×</button>
         </div>
         
-        <div class="form-group">
-          <label class="form-label">Title</label>
-          <input type="text" class="form-input" id="postTitle" placeholder="Enter an engaging title...">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Description</label>
-          <textarea class="form-textarea" id="postDescription" placeholder="Describe your post..."></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Upload Media</label>
-          <div class="file-upload" id="fileUpload">
-            <div class="upload-icon">📎</div>
-            <p>Drag & drop your video/image here or click to browse</p>
-            <p style="font-size: 12px; color: #ccc; margin-top: 10px;">Supported: MP4, AVI, MOV, JPG, PNG (Max 100MB)</p>
-            <input type="file" id="fileInput" style="display: none;" accept="video/*,image/*">
+        <form id="postForm">
+          <div class="form-group">
+            <label class="form-label">Post Type</label>
+            <select class="form-select" id="postType">
+              <option value="highlight">Video Highlight</option>
+              <option value="match">Match Report</option>
+              <option value="news">News Article</option>
+              <option value="opinion">Opinion Piece</option>
+            </select>
           </div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Tags</label>
-          <input type="text" class="form-input" id="postTags" placeholder="Add tags (e.g., #football, #goals, #skills)">
-        </div>
-        
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" onclick="closePostModal()">Cancel</button>
-          <button type="submit" class="btn-primary">Publish Post</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Upload Video Modal -->
-  <div class="modal" id="uploadModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Upload Video Highlight</h3>
-        <button class="close-btn" onclick="closeUploadModal()">×</button>
-      </div>
-      
-      <form id="uploadForm">
-        <div class="form-group">
-          <label class="form-label">Video Category</label>
-          <select class="form-select" id="videoCategory">
-            <option value="goals">Goals</option>
-            <option value="skills">Skills & Tricks</option>
-            <option value="matches">Full Matches</option>
-            <option value="training">Training</option>
-            <option value="celebrations">Celebrations</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Video Title</label>
-          <input type="text" class="form-input" id="videoTitle" placeholder="e.g., Amazing Goal by Messi">
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Upload Video</label>
-          <div class="file-upload" id="videoUpload">
-            <div class="upload-icon">🎥</div>
-            <p>Drop your video file here or click to select</p>
-            <p style="font-size: 12px; color: #ccc; margin-top: 10px;">MP4, AVI, MOV up to 500MB</p>
-            <input type="file" id="videoInput" style="display: none;" accept="video/*">
+          
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-input" id="postTitle" placeholder="Enter an engaging title...">
           </div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Teams/Players</label>
-          <input type="text" class="form-input" id="videoPlayers" placeholder="e.g., Barcelona, Lionel Messi">
-        </div>
-        
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" onclick="closeUploadModal()">Cancel</button>
-          <button type="submit" class="btn-primary">Upload Video</button>
-        </div>
-      </form>
+          
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" id="postDescription" placeholder="Describe your post..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Upload Media</label>
+            <div class="file-upload" id="fileUpload">
+              <div class="upload-icon">📎</div>
+              <p>Drag & drop your video/image here or click to browse</p>
+              <p style="font-size: 12px; color: #ccc; margin-top: 10px;">Supported: MP4, AVI, MOV, JPG, PNG (Max 100MB)</p>
+              <input type="file" id="fileInput" style="display: none;" accept="video/*,image/*">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Tags</label>
+            <input type="text" class="form-input" id="postTags" placeholder="Add tags (e.g., #football, #goals, #skills)">
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" onclick="closePostModal()">Cancel</button>
+            <button type="submit" class="btn-primary">Publish Post</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
 
-  </section>
+    <!-- Upload Video Modal -->
+    <div class="modal" id="uploadModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Upload Video Highlight</h3>
+          <button class="close-btn" onclick="closeUploadModal()">×</button>
+        </div>
+        
+        <form id="uploadForm">
+          <div class="form-group">
+            <label class="form-label">Video Category</label>
+            <select class="form-select" id="videoCategory">
+              <option value="goals">Goals</option>
+              <option value="skills">Skills & Tricks</option>
+              <option value="matches">Full Matches</option>
+              <option value="training">Training</option>
+              <option value="celebrations">Celebrations</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Video Title</label>
+            <input type="text" class="form-input" id="videoTitle" placeholder="e.g., Amazing Goal by Messi">
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Upload Video</label>
+            <div class="file-upload" id="videoUpload">
+              <div class="upload-icon">🎥</div>
+              <p>Drop your video file here or click to select</p>
+              <p style="font-size: 12px; color: #ccc; margin-top: 10px;">MP4, AVI, MOV up to 500MB</p>
+              <input type="file" id="videoInput" style="display: none;" accept="video/*">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Teams/Players</label>
+            <input type="text" class="form-input" id="videoPlayers" placeholder="e.g., Barcelona, Lionel Messi">
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" onclick="closeUploadModal()">Cancel</button>
+            <button type="submit" class="btn-primary">Upload Video</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <script>
@@ -1165,12 +1247,11 @@
       element.classList.add('active');
     }
 
-    // Navigation functions - Add these to navigate to different pages
+    // Navigation functions
     function navigateToPage(page) {
-      // Method 1: Direct navigation (if you have separate HTML files)
       switch(page) {
         case 'home':
-          window.location.href = 'index.html'; // or your main page
+          window.location.href = 'index.html';
           break;
         case 'history':
           window.location.href = 'history.html';
@@ -1185,7 +1266,7 @@
           window.location.href = 'browse.html';
           break;
         case 'events':
-          window.location.href = 'events.html'; // Your events page
+          window.location.href = 'events.html';
           break;
         case 'download':
           showToast('📱 Download app coming soon!');
@@ -1196,138 +1277,6 @@
         default:
           showToast('Page not found!');
       }
-    }
-
-    // Alternative: Single Page Application (SPA) approach
-    function loadPageContent(page) {
-      const mainContent = document.querySelector('.highlights');
-      
-      // Hide loading initially
-      const loading = document.getElementById('loading');
-      loading.classList.add('show');
-      
-      // Simulate loading different content
-      setTimeout(() => {
-        switch(page) {
-          case 'home':
-            mainContent.innerHTML = getHomeContent();
-            break;
-          case 'history':
-            mainContent.innerHTML = getHistoryContent();
-            break;
-          case 'watch-later':
-            mainContent.innerHTML = getWatchLaterContent();
-            break;
-          case 'favorites':
-            mainContent.innerHTML = getFavoritesContent();
-            break;
-          case 'browse':
-            mainContent.innerHTML = getBrowseContent();
-            break;
-          case 'events':
-            mainContent.innerHTML = getEventsContent();
-            break;
-          default:
-            mainContent.innerHTML = getHomeContent();
-        }
-        loading.classList.remove('show');
-      }, 500);
-    }
-
-    // Content templates for SPA approach
-    function getHomeContent() {
-      return `
-        <h1>Top Football Highlights</h1>
-        <div class="filter-section">
-          <button class="filter-btn active" onclick="filterVideos('all')">All</button>
-          <button class="filter-btn" onclick="filterVideos('goals')">Goals</button>
-          <button class="filter-btn" onclick="filterVideos('skills')">Skills</button>
-          <button class="filter-btn" onclick="filterVideos('matches')">Full Matches</button>
-          <button class="filter-btn" onclick="filterVideos('training')">Training</button>
-        </div>
-        ${document.getElementById('videoGrid').outerHTML}
-      `;
-    }
-
-    function getEventsContent() {
-      return `
-        <h1>Football Events</h1>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
-          <div class="video-card">
-            <div class="video-info" style="padding: 20px;">
-              <p class="title">Champions League Final</p>
-              <p style="color: #bbb; margin: 10px 0;">Manchester City vs Inter Milan</p>
-              <p style="color: #ff0000; font-weight: bold;">June 10, 2024 - 8:00 PM</p>
-              <button style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px; cursor: pointer;">Buy Tickets</button>
-            </div>
-          </div>
-          <div class="video-card">
-            <div class="video-info" style="padding: 20px;">
-              <p class="title">Premier League Derby</p>
-              <p style="color: #bbb; margin: 10px 0;">Arsenal vs Tottenham</p>
-              <p style="color: #ff0000; font-weight: bold;">June 15, 2024 - 3:00 PM</p>
-              <button style="background: #ff0000; color: white; border: none; padding: 10px 20px; border-radius: 5px; margin-top: 15px; cursor: pointer;">Buy Tickets</button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function getHistoryContent() {
-      return `
-        <h1>Watch History</h1>
-        <p style="color: #bbb; margin: 20px 0;">Your recently watched videos will appear here.</p>
-        <div class="video-grid">
-          <div class="video-card">
-            <div class="video-info" style="padding: 20px;">
-              <p class="title">Last watched: Messi Top 10 Goals</p>
-              <p style="color: #bbb;">Watched 2 hours ago</p>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function getFavoritesContent() {
-      return `
-        <h1>Favorite Videos</h1>
-        <p style="color: #bbb; margin: 20px 0;">Your saved favorite videos will appear here.</p>
-        <div class="video-grid" id="favoritesGrid">
-          <!-- Favorite videos will be loaded here -->
-        </div>
-      `;
-    }
-
-    function getWatchLaterContent() {
-      return `
-        <h1>Watch Later</h1>
-        <p style="color: #bbb; margin: 20px 0;">Videos you've saved to watch later.</p>
-        <div class="video-grid">
-          <!-- Watch later videos will be loaded here -->
-        </div>
-      `;
-    }
-
-    function getBrowseContent() {
-      return `
-        <h1>Browse Categories</h1>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-          <div class="video-card" style="cursor: pointer;" onclick="filterVideos('goals')">
-            <div class="video-info" style="padding: 30px; text-align: center;">
-              <i class='bx bx-football' style="font-size: 48px; color: #ff0000; margin-bottom: 15px;"></i>
-              <p class="title">Goals</p>
-              <p style="color: #bbb;">Best goals compilation</p>
-            </div>
-          </div>
-          <div class="video-card" style="cursor: pointer;" onclick="filterVideos('skills')">
-            <div class="video-info" style="padding: 30px; text-align: center;">
-              <i class='bx bx-run' style="font-size: 48px; color: #ff0000; margin-bottom: 15px;"></i>
-              <p class="title">Skills</p>
-              <p style="color: #bbb;">Amazing skills & tricks</p>
-            </div>
-          </div>
-        </div>
-      `;
     }
 
     // Video interaction functions
@@ -1417,6 +1366,15 @@
       document.getElementById('uploadForm').reset();
     }
 
+    // Notification and profile functions
+    function showNotifications() {
+      showToast('🔔 No new notifications');
+    }
+
+    function showProfile() {
+      showToast('👤 Profile page coming soon!');
+    }
+
     // File upload handlers
     function setupFileUploads() {
       const fileUpload = document.getElementById('fileUpload');
@@ -1474,7 +1432,7 @@
     }
 
     function handleFileSelect(file, type) {
-      const maxSize = type === 'video' ? 500 * 1024 * 1024 : 100 * 1024 * 1024; // 500MB for video, 100MB for posts
+      const maxSize = type === 'video' ? 500 * 1024 * 1024 : 100 * 1024 * 1024;
       
       if (file.size > maxSize) {
         showToast(`File too large! Maximum size is ${type === 'video' ? '500MB' : '100MB'}`);
@@ -1502,11 +1460,8 @@
           return;
         }
         
-        // Simulate post creation
         showToast('Post created successfully!');
         closePostModal();
-        
-        // You would normally send this data to your backend here
         console.log('New post:', { title, description, type });
       });
 
@@ -1521,11 +1476,8 @@
           return;
         }
         
-        // Simulate upload
         showToast('Video uploaded successfully! Processing...');
         closeUploadModal();
-        
-        // You would normally send this data to your backend here
         console.log('New video:', { title, category, players });
       });
     }
@@ -1550,7 +1502,7 @@
         position: fixed;
         top: 20px;
         right: 20px;
-        background: #ff0000;
+        background: linear-gradient(135deg, #ff0000, #cc0000);
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
@@ -1558,6 +1510,7 @@
         z-index: 1000;
         font-weight: 500;
         animation: slideIn 0.3s ease;
+        backdrop-filter: blur(10px);
       `;
       toast.textContent = message;
       document.body.appendChild(toast);
@@ -1572,26 +1525,16 @@
     document.addEventListener('DOMContentLoaded', function() {
       setupFileUploads();
       setupFormHandlers();
-      setActivePageOnLoad();
+      
+      // Close modals when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+          e.target.classList.remove('show');
+        }
+      });
     });
 
-    // Add CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @keyframes slideIn {
-        from { transform: translateX(100%); }
-        to { transform: translateX(0); }
-      }
-      @keyframes slideOut {
-        from { transform: translateX(0); }
-        to { transform: translateX(100%); }
-      }
-    `;
-    document.head.appendChild(style);
-
-    console.log("Live Score page ready!");
+    console.log("Live Score Football Highlights page ready!");
   </script>
+</body>
+</html>
