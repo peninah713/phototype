@@ -6,7 +6,7 @@
   <title>Live Score — Demo</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <!-- Icons (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -29,278 +29,534 @@
       background: linear-gradient(180deg, #2c2b45 0%, #141228 100%);
       color:var(--text);
       -webkit-font-smoothing:antialiased;
-      padding:20px;
-      display:flex;
-      justify-content:center;
+      padding:0;
+      min-height:100vh;
     }
 
-    .site {
-      width:100%;
-      max-width:var(--max-width);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.06) 100%);
-      border-radius:12px;
-      padding:28px 40px;
-      box-shadow: 0 30px 40px rgba(70,40,120,0.35);
+    /* Instagram-style Header */
+    .header {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
     }
 
-    /* Navigation */
-    .nav {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:20px;
+    .header-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
     }
 
-    .nav .left {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      font-size:22px;
-      letter-spacing:1px;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .nav .left i {
-      color:var(--accent);
+    .logo i {
+      color: var(--accent);
+      font-size: 24px;
     }
 
-    .nav .links {
-      display:flex;
-      gap:28px;
-      font-size:22px;
+    /* Navigation Menu */
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+      align-items: center;
     }
 
-    .nav .links a {
-      color:var(--muted);
-      text-decoration:none;
-      transition:color .2s;
+    .nav-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .nav .links a:hover {
-      color:var(--accent);
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--text);
     }
 
-    .profile {
-      width:48px;
-      height:48px;
-      border-radius:50%;
-      background:var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      font-size:20px;
-      color:white;
+    .nav-menu a i {
+      font-size: 18px;
+    }
+
+    /* Right Side Icons */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 20px;
     }
 
     /* Stories */
     .stories {
-      display:flex;
-      gap:28px;
-      align-items:center;
-      margin-bottom:28px;
-      flex-wrap:wrap;
-      padding-bottom:8px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      padding-bottom: 8px;
     }
 
     .story {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      text-align:center;
-      width:92px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      width: 92px;
     }
 
     .story .avatar {
-      width:76px;
-      height:76px;
-      border-radius:50%;
-      background:#e9e9ea;
-      border:4px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:#222;
-      box-shadow:0 2px 6px rgba(0,0,0,0.25);
-      overflow:hidden;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #e9e9ea;
+      border: 4px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #222;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      overflow: hidden;
     }
 
     .story .avatar img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      border-radius:50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
-    .story label{
-      font-size:13px;
-      color:var(--muted);
-      font-weight:600;
+    .story label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
     }
 
     /* Feed grid */
     .feed {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:28px;
-      align-items:start;
+      gap: 28px;
+      align-items: start;
     }
 
     .card {
-      background:var(--card-bg);
-      border-radius:16px;
-      padding:16px;
-      min-height:360px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 360px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .card .head {
-      display:flex;
-      align-items:center;
-      gap:12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .card .head .pf {
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      background:#e9e9ea;
-      border:3px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#222;
-      font-weight:700;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #e9e9ea;
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+      font-weight: 700;
     }
 
-    .card .head h3{
-      margin:0;
-      font-size:20px;
-      font-weight:800;
-      color:var(--text);
+    .card .head h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
     }
 
     .card .media {
-      width:100%;
-      height:190px;
-      border-radius:18px;
-      overflow:hidden;
-      display:block;
-      background:#222;
+      width: 100%;
+      height: 190px;
+      border-radius: 18px;
+      overflow: hidden;
+      display: block;
+      background: #222;
     }
 
-    .card .media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
+    .card .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .card .actions {
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-top:8px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
     }
 
-    .icon-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      user-select:none;
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      background: none;
+      border: none;
+      color: var(--text);
     }
 
-    .icon{
-      width:24px;
-      height:24px;
-      color:var(--accent);
-      transition:transform .12s ease;
+    .action-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+      transition: transform 0.12s ease;
     }
 
-    .icon-btn .icon:hover{ transform:scale(1.08) }
-
-    .likes{
-      color:var(--muted);
-      font-weight:600;
-      margin-top:6px;
-      font-size:14px;
+    .action-btn:hover .action-icon {
+      transform: scale(1.08);
     }
 
-    .desc{
-      color:var(--muted);
-      font-size:14px;
+    .likes {
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 6px;
+      font-size: 14px;
     }
 
-    .comments{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:6px;
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .comment-row{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-top:auto;
+    .comments {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
     }
 
-    .comment-row .dot{
-      width:34px;
-      height:34px;
-      border-radius:50%;
-      background:var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:white;
+    .comment-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
     }
 
-    .comment-row input{
-      flex:1;
-      background:transparent;
-      border:0;
-      border-bottom:1px dashed rgba(255,255,255,0.06);
-      padding:6px 8px;
-      color:var(--muted);
-      outline:none;
+    .comment-row .dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+    }
+
+    .comment-row input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.06);
+      padding: 6px 8px;
+      color: var(--muted);
+      outline: none;
+    }
+
+    /* Post Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg1);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .close-btn:hover {
+      color: var(--text);
+    }
+
+    .post-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-input,
+    .form-textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .file-upload {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .file-upload:hover {
+      border-color: var(--accent);
+    }
+
+    .file-upload input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-upload-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .file-upload-text i {
+      font-size: 32px;
+      color: var(--accent);
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background: #a82424;
     }
 
     /* Responsive */
-    @media (max-width:1100px){
-      .feed { grid-template-columns: repeat(2, 1fr) }
-      .story { width:auto }
+    @media (max-width: 1100px) {
+      .feed { grid-template-columns: repeat(2, 1fr); }
+      .story { width: auto; }
     }
-    @media (max-width:720px){
-      .feed { grid-template-columns: 1fr }
-      .stories { justify-content:flex-start; overflow:auto; padding-bottom:8px }
-      .story { width:86px; flex:0 0 auto }
-      .site { padding:20px }
-      .nav { flex-direction:column; gap:16px }
+
+    @media (max-width: 768px) {
+      .feed { grid-template-columns: 1fr; }
+      .stories { justify-content: flex-start; overflow: auto; padding-bottom: 8px; }
+      .story { width: 86px; flex: 0 0 auto; }
+      .header-content { padding: 0 15px; }
+      .nav-menu { gap: 20px; }
+      .nav-menu a { font-size: 14px; }
+      .header-actions { gap: 15px; }
+      .main-content { padding: 15px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu a span { display: none; }
+      .header-actions { gap: 10px; }
+      .logo { font-size: 18px; }
     }
   </style>
 </head>
 <body>
-  <div class="site">
-    <!-- Navigation -->
-    <div class="nav">
-      <div class="left">
-        <i class="fa-solid fa-futbol"></i> LIVE SCORE
+  <!-- Instagram-style Header -->
+  <header class="header">
+    <div class="header-content">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <i class="fa-solid fa-futbol"></i>
+        Live Score
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu">
+        <a href="index.html" class="active">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="highlights.html">
+          <i class="fa-solid fa-video"></i>
+          <span>Highlights</span>
+        </a>
+        <a href="events.html">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Events</span>
+        </a>
+        <a href="live.html">
+          <i class="fa-solid fa-broadcast-tower"></i>
+          <span>Live</span>
+        </a>
+        <a href="stats.html">
+          <i class="fa-solid fa-chart-simple"></i>
+          <span>Stats</span>
+        </a>
+        <a href="news.html">
+          <i class="fa-solid fa-newspaper"></i>
+          <span>News</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="header-actions">
+        <button class="icon-btn" onclick="openPostModal()" title="Create Post">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button class="icon-btn" title="Direct Messages">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <i class="fa-solid fa-bell"></i>
+        </button>
+        <div class="profile-pic">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        </div>
       </div>
-      <div class="links">
-  <a href="index.html" title="Home"><i class="fa-solid fa-house"></i></a>
-  <a href="highlights.html" title="Highlights"><i class="fa-solid fa-video"></i></a>
-  <a href="events.html" title="Events"><i class="fa-solid fa-calendar-days"></i></a>
-</div>
-
-      <div class="profile">P</div>
     </div>
+  </header>
 
+  <!-- Main Content -->
+  <div class="main-content">
     <!-- Stories -->
     <div class="stories">
       <div class="story">
@@ -308,19 +564,19 @@
         <label>Your Story</label>
       </div>
       <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
+        <div class="avatar"><img src="https://images.unsplash.com/photo-1594736797933-d0da14e15d4f?w=150&h=150&fit=crop&crop=face" alt="Messi"></div>
         <label>Messi</label>
       </div>
       <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
+        <div class="avatar"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=150&h=150&fit=crop&crop=face" alt="Ronaldo"></div>
         <label>Ronaldo</label>
       </div>
       <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
+        <div class="avatar"><img src="https://images.unsplash.com/photo-1494790108755-2616b612b8c5?w=150&h=150&fit=crop&crop=face" alt="Marta"></div>
         <label>Marta</label>
       </div>
       <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
+        <div class="avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Neymar"></div>
         <label>Neymar</label>
       </div>
     </div>
@@ -333,16 +589,32 @@
           <div class="pf">PL</div>
           <h3>footyhighlights</h3>
         </div>
-        <a class="media" href="#"><img src="1.jfif" alt=""></a>
+        <div class="media">
+          <img src="https://picsum.photos/400/300?random=1" alt="Football highlight">
+        </div>
         <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(1)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          <button class="action-btn" onclick="toggleLike(1)">
+            <i class="fa-solid fa-heart action-icon"></i>
+            Like
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-comment action-icon"></i>
+            Comment
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-share action-icon"></i>
+            Share
+          </button>
         </div>
         <div class="likes">15,420 likes</div>
-        <div class="desc">Amazing goal 🔥</div>
+        <div class="desc">Amazing goal from the weekend match! 🔥⚽</div>
         <div class="comments">View all 892 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        <div class="comment-row">
+          <div class="dot">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="You" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <input type="text" placeholder="Add a comment...">
+        </div>
       </article>
 
       <!-- Card 2 -->
@@ -351,16 +623,32 @@
           <div class="pf">CR</div>
           <h3>cr7updates</h3>
         </div>
-        <a class="media" href="#"><img src="2.jfif" alt=""></a>
+        <div class="media">
+          <img src="https://picsum.photos/400/300?random=2" alt="Cristiano highlight">
+        </div>
         <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(2)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          <button class="action-btn" onclick="toggleLike(2)">
+            <i class="fa-solid fa-heart action-icon"></i>
+            Like
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-comment action-icon"></i>
+            Comment
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-share action-icon"></i>
+            Share
+          </button>
         </div>
         <div class="likes">30,112 likes</div>
-        <div class="desc">Cristiano is on fire! 💥</div>
+        <div class="desc">Cristiano is on fire! Another masterclass performance 💥</div>
         <div class="comments">View all 1,200 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        <div class="comment-row">
+          <div class="dot">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="You" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <input type="text" placeholder="Add a comment...">
+        </div>
       </article>
 
       <!-- Card 3 -->
@@ -369,70 +657,80 @@
           <div class="pf">LM</div>
           <h3>messiupdates</h3>
         </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
+        <div class="media">
+          <img src="https://picsum.photos/400/300?random=3" alt="Messi highlight">
+        </div>
         <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          <button class="action-btn" onclick="toggleLike(3)">
+            <i class="fa-solid fa-heart action-icon"></i>
+            Like
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-comment action-icon"></i>
+            Comment
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-share action-icon"></i>
+            Share
+          </button>
         </div>
         <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
+        <div class="desc">Legend at work! Pure magic on the field ⚡✨</div>
         <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
+        <div class="comment-row">
+          <div class="dot">P</div>
+          <input type="text" placeholder="Add a comment...">
         </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
       </article>
     </div>
   </div>
 
+  <!-- Post Creation Modal -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Create New Post</h2>
+        <button class="close-btn" onclick="closePostModal()">&times;</button>
+      </div>
+      
+      <form class="post-form" onsubmit="handlePostSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Post Title</label>
+          <input type="text" class="form-input" placeholder="Enter post title..." required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" placeholder="What's happening in the world of football?" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Upload Media</label>
+          <div class="file-upload">
+            <input type="file" accept="image/*,video/*" multiple>
+            <div class="file-upload-text">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>Click to upload photos or videos</span>
+              <small>Support: JPG, PNG, MP4, MOV</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Tags</label>
+          <input type="text" class="form-input" placeholder="#football #goals #highlights">
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <i class="fa-solid fa-paper-plane"></i>
+          Post Now
+        </button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    function toggleLike(id){
+    function toggleLike(id) {
       const card = document.querySelector(`.card[data-id="${id}"]`);
       if(!card) return;
 
@@ -441,16 +739,64 @@
       let baseLikes = parseInt(card.dataset.likes);
       const liked = card.dataset.liked === "true";
 
-      if(liked){
+      if(liked) {
         card.dataset.liked = "false";
         icon.style.color = 'var(--accent)';
         likesElem.textContent = baseLikes.toLocaleString() + " likes";
       } else {
         card.dataset.liked = "true";
-        icon.style.color = 'red';
+        icon.style.color = '#ff0040';
         likesElem.textContent = (baseLikes + 1).toLocaleString() + " likes";
       }
     }
+
+    function openPostModal() {
+      document.getElementById('postModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePostModal() {
+      document.getElementById('postModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function handlePostSubmit(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const formData = new FormData(event.target);
+      const title = event.target.querySelector('input[type="text"]').value;
+      const description = event.target.querySelector('textarea').value;
+      
+      // Create new post (demo functionality)
+      alert(`Post Created!\nTitle: ${title}\nDescription: ${description}`);
+      
+      // Reset form and close modal
+      event.target.reset();
+      closePostModal();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('postModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePostModal();
+      }
+    });
+
+    // Handle file upload preview
+    document.querySelector('.file-upload input').addEventListener('change', function(e) {
+      const files = e.target.files;
+      const uploadText = document.querySelector('.file-upload-text');
+      
+      if (files.length > 0) {
+        uploadText.innerHTML = `
+          <i class="fa-solid fa-check-circle"></i>
+          <span>${files.length} file(s) selected</span>
+          <small>Click to change</small>
+        `;
+        uploadText.style.color = 'var(--accent)';
+      }
+    });
   </script>
 </body>
 </html>
