@@ -4,10 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Live Score - Events</title>
-  <!-- Boxicons for icons -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
   <style>
-    /* General Reset */
+    :root{
+      --bg1: #25233c;
+      --bg2: #141228;
+      --accent: #c92b2b;
+      --card-bg: rgba(255,255,255,0.04);
+      --text: #f3f3f6;
+      --muted: #d9dbe3;
+      --max-width: 1200px;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -17,193 +31,453 @@
     body {
       font-family: "Montserrat", sans-serif;
       background: linear-gradient(180deg, #2c2b45 0%, #141228 100%);
-      color: white;
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
       padding: 0;
+      min-height: 100vh;
     }
 
-    /* Header */
-    .top-bar {
-      background: #1a1832;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
+    /* Instagram-style Header */
+    .header {
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 0;
       position: sticky;
       top: 0;
       z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: white;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--text);
+      text-decoration: none;
     }
 
     .logo i {
-      font-size: 1.5rem;
-      margin-right: 8px;
+      color: var(--accent);
+      font-size: 24px;
     }
 
-    /* Nav links */
-    .nav-links {
+    /* Navigation Menu */
+    .nav-menu {
       display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-menu a:hover {
+      color: var(--text);
+    }
+
+    .nav-menu a.active {
+      color: var(--text);
+    }
+
+    .nav-menu a i {
+      font-size: 18px;
+    }
+
+    /* Right Side Icons */
+    .header-actions {
+      display: flex;
+      align-items: center;
       gap: 20px;
     }
 
-    .nav-links a {
-      color: white;
-      font-size: 1.4rem;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: red;
-    }
-
-    /* Profile circle */
-    .profile {
-      width: 35px;
-      height: 35px;
-      background: rgb(209, 12, 12);
-      color: #1a1832;
-      font-weight: bold;
+    .icon-btn {
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    /* Events Section */
-    .events-section {
-      padding: 20px;
+    .icon-btn:hover {
+      background: rgba(255,255,255,0.1);
     }
 
-    .events-section h2 {
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 1.8rem;
+    .profile-pic {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
       color: white;
+      cursor: pointer;
+      overflow: hidden;
     }
 
+    /* Main Content */
+    .main-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* Page Title */
+    .page-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .page-title h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .page-title p {
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    /* Events Grid */
     .events-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
     }
 
     .event-card {
-      background: #1f1c3a;
-      border-radius: 12px;
+      background: var(--card-bg);
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      transition: transform 0.3s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .event-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      border-color: var(--accent);
     }
 
-    .event-card img {
+    .event-image {
+      position: relative;
       width: 100%;
-      height: 180px;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .event-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover .event-image img {
+      transform: scale(1.05);
+    }
+
+    .event-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--accent);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
     .event-content {
-      padding: 15px;
+      padding: 25px;
     }
 
     .event-content h3 {
-      margin-bottom: 8px;
-      color: white;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 15px;
+      line-height: 1.3;
     }
 
     .event-details {
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      line-height: 1.4;
-      color: white;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .event-detail {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .event-detail i {
+      color: var(--accent);
+      width: 16px;
     }
 
     .event-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .btn {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .btn-ticket {
-      background: red;
+      background: linear-gradient(135deg, var(--accent), #a82424);
       color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-ticket:hover {
-      background: white;
-      color: red;
+      background: linear-gradient(135deg, #a82424, var(--accent));
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(201, 43, 43, 0.4);
     }
 
-    .event-icons i {
-      font-size: 1.2rem;
-      margin-left: 10px;
-      cursor: pointer;
-      transition: 0.3s;
+    .event-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .event-icons .icon-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .event-icons .icon-btn:hover {
+      background: var(--accent);
       color: white;
     }
 
-    .event-icons i:hover {
-      color: red;
+    /* Post Modal (same as main page) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--bg1);
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .close-btn:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content { padding: 0 15px; }
+      .nav-menu { gap: 20px; }
+      .nav-menu a { font-size: 14px; }
+      .header-actions { gap: 15px; }
+      .main-content { padding: 20px 15px; }
+      .page-title h1 { font-size: 2rem; }
+      .events-container { grid-template-columns: 1fr; gap: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-menu a span { display: none; }
+      .header-actions { gap: 10px; }
+      .logo { font-size: 18px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="top-bar">
-    <div class="logo">
-      <i class='bx bx-football'></i> <span>Live Score</span>
+  <!-- Instagram-style Header -->
+  <header class="header">
+    <div class="header-content">
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-futbol"></i>
+        Live Score
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu">
+        <a href="index.html">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="highlights.html">
+          <i class="fa-solid fa-video"></i>
+          <span>Highlights</span>
+        </a>
+        <a href="events.html" class="active">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Events</span>
+        </a>
+        <a href="live.html">
+          <i class="fa-solid fa-broadcast-tower"></i>
+          <span>Live</span>
+        </a>
+        <a href="stats.html">
+          <i class="fa-solid fa-chart-simple"></i>
+          <span>Stats</span>
+        </a>
+        <a href="news.html">
+          <i class="fa-solid fa-newspaper"></i>
+          <span>News</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="header-actions">
+        <button class="icon-btn" onclick="openPostModal()" title="Create Post">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button class="icon-btn" title="Direct Messages">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+        <button class="icon-btn" title="Notifications">
+          <i class="fa-solid fa-bell"></i>
+        </button>
+        <div class="profile-pic">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        </div>
+      </div>
     </div>
-
-    <nav class="nav-links">
-      <a href="index.html" title="Home"><i class='bx bxs-home'></i></a>
-      
-      <a href="highlights.html" title="highlights"><i class='bx bxs-videos'></i></a>
-      <a href="events.html" title="Events"><i class='bx bxs-calendar-event'></i></a>
-    </nav>
-
-    <div class="profile">P</div>
   </header>
 
-  <!-- Events Section -->
-  <section class="events-section">
-    <h2>Upcoming Live Football Events</h2>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Page Title -->
+    <div class="page-title">
+      <h1>Upcoming Events</h1>
+      <p>Don't miss the biggest football matches and tournaments</p>
+    </div>
 
+    <!-- Events Container -->
     <div class="events-container">
       
       <!-- Event 1 -->
       <div class="event-card">
-        <img src="5.jfif" alt="Event 1">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=300&fit=crop" alt="Champions League Final">
+          <div class="event-badge">Live</div>
+        </div>
         <div class="event-content">
-          <h3>Champions League Final</h3>
-          <p class="event-details">📍 Wembley Stadium, London <br> 🗓️ June 5, 2025 <br> ⏰ 20:00 GMT</p>
+          <h3>UEFA Champions League Final</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Wembley Stadium, London</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>June 5, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>20:00 GMT</span>
+            </div>
+          </div>
           <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
             <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -211,15 +485,38 @@
 
       <!-- Event 2 -->
       <div class="event-card">
-        <img src="4.jfif" alt="Event 2">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="El Clásico">
+          <div class="event-badge">Featured</div>
+        </div>
         <div class="event-content">
-          <h3>El Clásico</h3>
-          <p class="event-details">📍 Camp Nou, Barcelona <br> 🗓️ July 12, 2025 <br> ⏰ 19:30 GMT</p>
+          <h3>El Clásico: Barcelona vs Real Madrid</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Camp Nou, Barcelona</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>July 12, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>19:30 GMT</span>
+            </div>
+          </div>
           <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
             <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -227,63 +524,220 @@
 
       <!-- Event 3 -->
       <div class="event-card">
-        <img src="3.jfif" alt="Event 3">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=500&h=300&fit=crop" alt="Africa Cup">
+          <div class="event-badge">Popular</div>
+        </div>
         <div class="event-content">
-          <h3>Africa Cup of Nations</h3>
-          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <h3>Africa Cup of Nations Final</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Cairo International Stadium</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>August 20, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>18:00 GMT</span>
+            </div>
+          </div>
           <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
             <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-<div class="event-card">
-        <img src="1.jfif" alt="Event 3">
-        <div class="event-content">
-          <h3>Africa Cup of Nations</h3>
-          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
-          <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
-            <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <!-- Event 4 -->
       <div class="event-card">
-        <img src="4.jfif" alt="Event 3">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500&h=300&fit=crop" alt="World Cup">
+          <div class="event-badge">Hot</div>
+        </div>
         <div class="event-content">
-          <h3>Africa Cup of Nations</h3>
-          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <h3>FIFA World Cup Qualifier</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Santiago Bernabéu, Madrid</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>September 15, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>21:00 GMT</span>
+            </div>
+          </div>
           <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
             <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Event 5 -->
       <div class="event-card">
-        <img src="2.jfif" alt="Event 3">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop" alt="Premier League">
+          <div class="event-badge">New</div>
+        </div>
         <div class="event-content">
-          <h3>Africa Cup of Nations</h3>
-          <p class="event-details">📍 Cairo International Stadium <br> 🗓️ August 20, 2025 <br> ⏰ 18:00 GMT</p>
+          <h3>Premier League Derby</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Old Trafford, Manchester</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>October 2, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>16:30 GMT</span>
+            </div>
+          </div>
           <div class="event-actions">
-            <button class="btn btn-ticket">Buy Ticket</button>
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
             <div class="event-icons">
-              <i class='bx bx-share-alt'></i>
-              <i class='bx bx-bell'></i>
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Event 6 -->
+      <div class="event-card">
+        <div class="event-image">
+          <img src="https://images.unsplash.com/photo-1508768787810-6adc1f613514?w=500&h=300&fit=crop" alt="Copa America">
+          <div class="event-badge">Trending</div>
+        </div>
+        <div class="event-content">
+          <h3>Copa América Semi-Final</h3>
+          <div class="event-details">
+            <div class="event-detail">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Estádio do Maracanã, Rio</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-calendar"></i>
+              <span>November 8, 2025</span>
+            </div>
+            <div class="event-detail">
+              <i class="fa-solid fa-clock"></i>
+              <span>22:00 GMT</span>
+            </div>
+          </div>
+          <div class="event-actions">
+            <button class="btn-ticket">
+              <i class="fa-solid fa-ticket"></i>
+              Buy Ticket
+            </button>
+            <div class="event-icons">
+              <button class="icon-btn" title="Share">
+                <i class="fa-solid fa-share"></i>
+              </button>
+              <button class="icon-btn" title="Set Reminder">
+                <i class="fa-solid fa-bell"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+
+  <!-- Post Creation Modal -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Create Event Post</h2>
+        <button class="close-btn" onclick="closePostModal()">&times;</button>
+      </div>
+      
+      <form class="post-form" onsubmit="handlePostSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Event Title</label>
+          <input type="text" class="form-input" placeholder="Enter event title..." required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Event Details</label>
+          <textarea class="form-textarea" placeholder="Describe the event..." required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <i class="fa-solid fa-calendar-plus"></i>
+          Create Event
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openPostModal() {
+      document.getElementById('postModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePostModal() {
+      document.getElementById('postModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function handlePostSubmit(event) {
+      event.preventDefault();
+      
+      const title = event.target.querySelector('input[type="text"]').value;
+      const details = event.target.querySelector('textarea').value;
+      
+      alert(`Event Created!\nTitle: ${title}\nDetails: ${details}`);
+      
+      event.target.reset();
+      closePostModal();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('postModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePostModal();
+      }
+    });
+  </script>
 
 </body>
 </html>
