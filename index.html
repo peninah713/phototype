@@ -250,38 +250,45 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
     }
+    
     .video-card {
-      background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
-      border-radius: 15px;
+      background: linear-gradient(145deg, #1a1a2e, #2d2d5a);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
     }
+    
     .video-card:hover { 
-      transform: translateY(-8px) scale(1.02); 
-      box-shadow: 0 15px 40px rgba(255, 0, 0, 0.2);
-      border-color: rgba(255, 0, 0, 0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(255, 0, 0, 0.25);
+      border-color: rgba(255, 0, 0, 0.4);
     }
 
     .video-thumbnail {
       position: relative;
       overflow: hidden;
+      background: #000;
     }
+    
     .video-card iframe, 
     .video-card img {
       width: 100%;
-      height: 200px;
+      height: 240px;
       border: none;
       transition: transform 0.3s ease;
+      object-fit: cover;
     }
+    
     .video-card:hover iframe,
     .video-card:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
     .play-overlay {
@@ -289,71 +296,115 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255, 0, 0, 0.8);
-      width: 60px;
-      height: 60px;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(204, 0, 0, 0.9));
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 26px;
       color: white;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
     }
+    
     .video-card:hover .play-overlay {
       opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    /* Add profile avatar style for video authors */
+    .video-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .author-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .author-name {
+      font-size: 13px;
+      color: #b8b8c8;
+      font-weight: 500;
     }
 
     .video-info { 
-      padding: 15px; 
-      background: rgba(0, 0, 0, 0.2);
+      padding: 20px; 
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+      backdrop-filter: blur(10px);
     }
+    
     .video-info .title {
       font-weight: 600;
-      margin-bottom: 8px;
-      font-size: 16px;
+      margin-bottom: 10px;
+      font-size: 17px;
       line-height: 1.4;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
+    
     .video-info .meta {
-      font-size: 13px;
-      color: #bbb;
+      font-size: 14px;
+      color: #b8b8c8;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 15px;
     }
+    
     .video-info .duration {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 500;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(255, 0, 0, 0.3);
     }
 
     .video-actions {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 15px;
-      background: rgba(0, 0, 0, 0.3);
+      padding: 12px 20px;
+      background: rgba(0, 0, 0, 0.4);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
     }
+    
     .video-actions i {
       cursor: pointer;
-      padding: 8px;
+      padding: 10px;
       border-radius: 50%;
       transition: all 0.3s ease;
-      font-size: 16px;
+      font-size: 18px;
+      color: #b8b8c8;
     }
+    
     .video-actions i:hover {
-      background: rgba(255, 0, 0, 0.2);
+      background: rgba(255, 0, 0, 0.15);
       color: #ff0000;
-      transform: scale(1.2);
+      transform: scale(1.15);
     }
 
     /* Loading animation */
@@ -815,6 +866,10 @@
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FS</div>
+              <div class="author-name">Football Stars</div>
+            </div>
             <p class="title">Messi Top 10 Goals - Legendary Moments</p>
             <div class="meta">
               <span>2.3M views • 1 year ago</span>
@@ -837,6 +892,10 @@
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">CR</div>
+              <div class="author-name">CR7 Highlights</div>
+            </div>
             <p class="title">Cristiano Ronaldo Skills & Tricks Collection</p>
             <div class="meta">
               <span>1.8M views • 2 months ago</span>
@@ -853,12 +912,16 @@
 
         <div class="video-card" data-category="skills">
           <div class="video-thumbnail">
-           <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
           <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">NJ</div>
+              <div class="author-name">Neymar Jr FC</div>
+            </div>
             <p class="title">Neymar Jr Ultimate Skill Compilation</p>
             <div class="meta">
               <span>960k views • 3 weeks ago</span>
@@ -875,7 +938,7 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-           <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="431" height="767" src="https://www.youtube.com/embed/efxOScRIfRM" title="Messi vs Ronaldo 😳" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -897,7 +960,7 @@
 
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
-          <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -919,7 +982,7 @@
 
         <div class="video-card" data-category="training">
           <div class="video-thumbnail">
-            <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -941,7 +1004,7 @@
 
         <div class="video-card" data-category="skills">
           <div class="video-thumbnail">
-          <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+           <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -963,7 +1026,7 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-           <iframe width="575" height="767" src="https://www.youtube.com/embed/xTy54ajzsx4" title="Messi Skill Vs Ronaldo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+           <iframe width="791" height="445" src="https://www.youtube.com/embed/kqphejRKaU0" title="Extraordinary Moments By Lionel Messi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -1532,6 +1595,3 @@
 
     console.log("Live Score page ready!");
   </script>
-</body>
-</html>
-
