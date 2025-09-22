@@ -3,71 +3,208 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Highlights</title>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="highlights.css">
+  <title>FootballHub</title>
+  <style>
+    /* ===== General Styles ===== */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    nav button.active {
+      border-bottom: 2px solid #1e40af;
+      font-weight: bold;
+    }
+
+    /* ===== Container & Cards ===== */
+    .container {
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* ===== Form Styles ===== */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    form input, form textarea, form select, form button {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    form button {
+      background: #1e40af;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #2563eb;
+    }
+
+    /* ===== Feed Section ===== */
+    .feed {
+      margin-top: 20px;
+    }
+    .feed-item {
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+    .feed-item:last-child {
+      border-bottom: none;
+    }
+    .feed-item h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #111827;
+    }
+    .feed-item p {
+      margin: 5px 0;
+      color: #374151;
+    }
+  </style>
 </head>
 <body>
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <div class="logo">
-      <i class='bx bx-football'></i> <span>Live Score</span>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search football highlights..." onkeyup="searchVideos()" />
-      <button><i class='bx bx-search'></i></button>
-    </div>
-    <div class="top-icons">
-      <i class='bx bx-bell' title="Notifications"></i>
-      <i class='bx bx-video-plus' title="Upload" onclick="toggleUploadForm()"></i>
-      <div class="profile-circle">P</div>
-    </div>
-    <!-- Nav Links -->
-    <div class="links">
-      <a href="index.html"><i class="bx bx-home"></i></a>
-      <a href="highlights.html"><i class="bx bx-video"></i></a>
-      <a href="events.html"><i class="bx bx-calendar"></i></a>
-    </div>
+
+  <!-- ===== Header & Navigation ===== -->
+  <header>
+    <h1>FootballHub</h1>
+    <nav>
+      <button class="active" onclick="showPage('videos')">Videos</button>
+      <button onclick="showPage('posts')">Posts</button>
+      <button onclick="showPage('events')">Events</button>
+    </nav>
   </header>
 
-  <!-- Upload Form -->
-  <div class="upload-form" id="uploadForm">
-    <h2>Create Post</h2>
-    <input type="text" id="videoUrl" placeholder="Paste YouTube Embed URL">
-    <input type="text" id="videoTitle" placeholder="Video Title">
-    <select id="videoCategory">
-      <option value="goals">Goals</option>
-      <option value="skills">Skills</option>
-      <option value="matches">Matches</option>
-      <option value="training">Training</option>
-    </select>
-    <button onclick="postVideo()">Post</button>
+  <!-- ===== Pages ===== -->
+  <div class="container">
+
+    <!-- Upload Video Page -->
+    <div id="videos" class="page">
+      <h2>Upload Video</h2>
+      <form id="videoForm">
+        <input type="text" id="videoTitle" placeholder="Video Title" required>
+        <input type="url" id="videoUrl" placeholder="Video URL (YouTube/MP4)" required>
+        <button type="submit">Upload</button>
+      </form>
+      <div class="feed" id="videoFeed"></div>
+    </div>
+
+    <!-- Upload Post Page -->
+    <div id="posts" class="page" style="display:none;">
+      <h2>Create Post</h2>
+      <form id="postForm">
+        <textarea id="postText" rows="3" placeholder="What's on your mind?" required></textarea>
+        <input type="file" id="postImage" accept="image/*">
+        <button type="submit">Post</button>
+      </form>
+      <div class="feed" id="postFeed"></div>
+    </div>
+
+    <!-- Create Event Page -->
+    <div id="events" class="page" style="display:none;">
+      <h2>Create Event</h2>
+      <form id="eventForm">
+        <input type="text" id="eventName" placeholder="Event Name" required>
+        <input type="date" id="eventDate" required>
+        <input type="text" id="eventLocation" placeholder="Location" required>
+        <textarea id="eventDetails" rows="3" placeholder="Event Details"></textarea>
+        <button type="submit">Create Event</button>
+      </form>
+      <div class="feed" id="eventFeed"></div>
+    </div>
+
   </div>
 
-  <!-- Highlights Section -->
-  <main>
-    <section class="highlights">
-      <h1>Top Highlights</h1>
-      <div class="video-grid" id="videoGrid">
-        <!-- Example video card -->
-        <div class="video-card" data-category="goals">
-          <div class="video-thumbnail">
-            <iframe src="https://www.youtube.com/embed/Io0fBr1XBUA" allowfullscreen></iframe>
-          </div>
-          <div class="video-info">
-            <p class="title">Amazing Goal Compilation</p>
-            <div class="meta"><span>2.3M views</span> · <span>1 week ago</span></div>
-          </div>
-          <div class="video-actions">
-            <i class='bx bx-like'></i>
-            <i class='bx bx-bookmark'></i>
-            <i class='bx bx-share'></i>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+  <!-- ===== JavaScript ===== -->
+  <script>
+    // Page switching
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+      document.getElementById(pageId).style.display = 'block';
+      document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
 
-  <script src="highlights.js"></script>
+    // Handle Video Upload
+    document.getElementById('videoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const title = document.getElementById('videoTitle').value;
+      const url = document.getElementById('videoUrl').value;
+      const feed = document.getElementById('videoFeed');
+      const item = document.createElement('div');
+      item.classList.add('feed-item');
+      item.innerHTML = `<h3>${title}</h3>
+                        <p><a href="${url}" target="_blank">Watch Video</a></p>`;
+      feed.prepend(item);
+      this.reset();
+    });
+
+    // Handle Post Upload
+    document.getElementById('postForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = document.getElementById('postText').value;
+      const imageFile = document.getElementById('postImage').files[0];
+      const feed = document.getElementById('postFeed');
+      const item = document.createElement('div');
+      item.classList.add('feed-item');
+      let content = `<p>${text}</p>`;
+      if (imageFile) {
+        const imgURL = URL.createObjectURL(imageFile);
+        content += `<img src="${imgURL}" alt="Post Image" style="max-width:100%; margin-top:10px; border-radius:8px;">`;
+      }
+      item.innerHTML = content;
+      feed.prepend(item);
+      this.reset();
+    });
+
+    // Handle Event Creation
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('eventName').value;
+      const date = document.getElementById('eventDate').value;
+      const location = document.getElementById('eventLocation').value;
+      const details = document.getElementById('eventDetails').value;
+      const feed = document.getElementById('eventFeed');
+      const item = document.createElement('div');
+      item.classList.add('feed-item');
+      item.innerHTML = `<h3>${name}</h3>
+                        <p><strong>Date:</strong> ${date}</p>
+                        <p><strong>Location:</strong> ${location}</p>
+                        <p>${details}</p>`;
+      feed.prepend(item);
+      this.reset();
+    });
+  </script>
+
 </body>
 </html>
