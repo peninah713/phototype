@@ -683,6 +683,43 @@
     <button class="upload-btn" onclick="openUploadModal()">
       <i class="fa-solid fa-upload"></i> Upload
     </button>
+    <div class="user-controls">
+            <div class="notification-container" style="position: relative;">
+              <button class="control-btn" id="notificationBtn">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notification-badge">3</span>
+              </button>
+              <div class="dropdown" id="notificationDropdown">
+                <a href="#" class="dropdown-item">New goal by Messi</a>
+                <a href="#" class="dropdown-item">Match starting in 10 mins</a>
+                <a href="#" class="dropdown-item">Weekly highlights ready</a>
+              </div>
+            </div>
+
+            <div class="message-container" style="position: relative;">
+              <button class="control-btn" id="messageBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span class="notification-badge">2</span>
+              </button>
+              <div class="dropdown" id="messageDropdown">
+                <a href="#" class="dropdown-item">Message from John</a>
+                <a href="#" class="dropdown-item">Team chat update</a>
+              </div>
+            </div>
+
+            <div class="profile-container" style="position: relative;">
+              <div class="profile" id="profileBtn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
+              </div>
+              <div class="dropdown" id="profileDropdown">
+                <a href="#" class="dropdown-item">My Profile</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <a href="#" class="dropdown-item">Help</a>
+                <a href="#" class="dropdown-item">Logout</a>
+              </div>
+            </div>
+          </div>
+
   </header>
 
   <!-- Events -->
@@ -1385,3 +1422,4 @@
   </script>
 </body>
 </html>
+
