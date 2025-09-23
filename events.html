@@ -11,6 +11,9 @@
   <!-- Icons (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  
   <style>
     :root{
       --bg1: #25233c;
@@ -20,6 +23,8 @@
       --text: #f3f3f6;
       --muted: #d9dbe3;
       --max-width: 1200px;
+      --header-bg: #2c2b45;
+      --nav-active: #ff4757;
     }
 
     * {
@@ -30,118 +35,229 @@
 
     body {
       font-family: "Montserrat", sans-serif;
-      background: linear-gradient(180deg, #2c2b45 0%, #141228 100%);
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
-      padding: 0;
       min-height: 100vh;
     }
 
-    /* Instagram-style Header */
+    /* Header exactly like the image */
     .header {
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 12px 0;
+      background: var(--header-bg);
+      padding: 0 2rem;
       position: sticky;
       top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .header-content {
-      max-width: var(--max-width);
-      margin: 0 auto;
+    .header-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 70px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: 1px;
-      color: var(--text);
+      gap: 0.5rem;
       text-decoration: none;
+      color: var(--nav-active);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
 
-    .logo i {
-      color: var(--accent);
-      font-size: 24px;
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--nav-active);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
     }
 
-    /* Navigation Menu */
     .nav-menu {
       display: flex;
-      gap: 32px;
-      align-items: center;
+      list-style: none;
+      gap: 2.5rem;
     }
 
-    .nav-menu a {
-      color: var(--muted);
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8);
       text-decoration: none;
-      font-size: 16px;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
       font-weight: 600;
-      transition: color 0.3s ease;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link.active {
+      color: var(--nav-active);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--nav-active);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .upload-btn {
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
+      font-size: 14px;
+    }
+    
+    .upload-btn:hover {
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+    }
+    
+    .upload-btn i {
+      font-size: 16px;
     }
 
-    .nav-menu a:hover {
-      color: var(--text);
-    }
-
-    .nav-menu a.active {
-      color: var(--text);
-    }
-
-    .nav-menu a i {
-      font-size: 18px;
-    }
-
-    /* Right Side Icons */
-    .header-actions {
+    .user-controls {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 1rem;
     }
 
-    .icon-btn {
+    .control-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.8);
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 18px;
     }
 
-    .icon-btn:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .profile-pic {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 16px;
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
       color: white;
-      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--nav-active);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile:hover {
+      transform: scale(1.05);
+    }
+
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+    }
+
+    .dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(255, 71, 87, 0.1);
+      color: white;
     }
 
     /* Main Content */
@@ -151,7 +267,6 @@
       padding: 30px 20px;
     }
 
-    /* Page Title */
     .page-title {
       text-align: center;
       margin-bottom: 40px;
@@ -220,6 +335,36 @@
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
+    }
+
+    .live-stream-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      animation: pulse 2s infinite;
+    }
+
+    .live-stream-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
     }
 
     .event-content {
@@ -293,6 +438,14 @@
       height: 36px;
       font-size: 16px;
       background: rgba(255,255,255,0.05);
+      border: none;
+      border-radius: 50%;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .event-icons .icon-btn:hover {
@@ -300,7 +453,54 @@
       color: white;
     }
 
-    /* Post Modal (same as main page) */
+    /* Stories Section */
+    .stories {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      padding-bottom: 8px;
+    }
+
+    .story {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      width: 92px;
+    }
+
+    .story .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #e9e9ea;
+      border: 4px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #222;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .story .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .story label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Post Modal */
     .modal {
       display: none;
       position: fixed;
@@ -309,7 +509,7 @@
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.8);
-      z-index: 1000;
+      z-index: 2000;
       backdrop-filter: blur(5px);
     }
 
@@ -352,82 +552,258 @@
       font-size: 24px;
       cursor: pointer;
       padding: 5px;
+      transition: color 0.3s ease;
     }
 
     .close-btn:hover {
       color: var(--text);
     }
 
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--accent), #a82424);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #a82424, var(--accent));
+      transform: translateY(-2px);
+    }
+
+    /* Live Stream Modal */
+    .stream-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 3000;
+      backdrop-filter: blur(10px);
+    }
+
+    .stream-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stream-content {
+      background: var(--bg1);
+      border-radius: 20px;
+      padding: 20px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .stream-video {
+      width: 100%;
+      height: 400px;
+      background: #000;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .stream-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stream-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .stream-btn:hover {
+      background: #a82424;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
-      .header-content { padding: 0 15px; }
-      .nav-menu { gap: 20px; }
-      .nav-menu a { font-size: 14px; }
-      .header-actions { gap: 15px; }
-      .main-content { padding: 20px 15px; }
-      .page-title h1 { font-size: 2rem; }
-      .events-container { grid-template-columns: 1fr; gap: 20px; }
+      .header {
+        padding: 0 1rem;
+      }
+
+      .header-left {
+        gap: 1rem;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .user-controls {
+        gap: 0.5rem;
+      }
+
+      .main-content {
+        padding: 20px 15px;
+      }
+
+      .page-title h1 {
+        font-size: 2rem;
+      }
+
+      .events-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .stories {
+        justify-content: flex-start;
+        overflow: auto;
+        padding-bottom: 8px;
+      }
+
+      .story {
+        width: 86px;
+        flex: 0 0 auto;
+      }
     }
 
     @media (max-width: 480px) {
-      .nav-menu a span { display: none; }
-      .header-actions { gap: 10px; }
-      .logo { font-size: 18px; }
+      .logo {
+        font-size: 18px;
+      }
+
+      .upload-btn span {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Instagram-style Header -->
+  <!-- Header exactly matching the image -->
   <header class="header">
-    <div class="header-content">
-      <!-- Logo -->
-      <a href="index.html" class="logo">
-        <i class="fa-solid fa-futbol"></i>
-        Live Score
-      </a>
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="logo">
+          <div class="logo-icon">⚽</div>
+          Live Score
+        </a>
+        
+        <nav class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Highlights</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">Events</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Live</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Stats</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">News</a>
+          </li>
+        </nav>
+      </div>
 
-      <!-- Navigation Menu -->
-      <nav class="nav-menu">
-        <a href="index.html">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="highlights.html">
-          <i class="fa-solid fa-video"></i>
-          <span>Highlights</span>
-        </a>
-        <a href="events.html" class="active">
-          <i class="fa-solid fa-calendar-days"></i>
-          <span>Events</span>
-        </a>
-        <a href="live.html">
-          <i class="fa-solid fa-broadcast-tower"></i>
-          <span>Live</span>
-        </a>
-        <a href="stats.html">
-          <i class="fa-solid fa-chart-simple"></i>
-          <span>Stats</span>
-        </a>
-        <a href="news.html">
-          <i class="fa-solid fa-newspaper"></i>
-          <span>News</span>
-        </a>
-      </nav>
+      <div class="header-right">
+        <button class="upload-btn" onclick="openUploadModal()">
+          <i class='bx bx-plus'></i>
+          <span>Upload</span>
+        </button>
 
-      <!-- Right Actions -->
-      <div class="header-actions">
-        <button class="icon-btn" onclick="openPostModal()" title="Create Post">
-          <i class="fa-solid fa-plus"></i>
-        </button>
-        <button class="icon-btn" title="Direct Messages">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-        <button class="icon-btn" title="Notifications">
-          <i class="fa-solid fa-bell"></i>
-        </button>
-        <div class="profile-pic">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        <div class="user-controls">
+          <div class="notification-container" style="position: relative;">
+            <button class="control-btn" id="notificationBtn">
+              <i class="fa-solid fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+            <div class="dropdown" id="notificationDropdown">
+              <a href="#" class="dropdown-item">New goal by Messi</a>
+              <a href="#" class="dropdown-item">Match starting in 10 mins</a>
+              <a href="#" class="dropdown-item">Weekly highlights ready</a>
+            </div>
+          </div>
+
+          <div class="message-container" style="position: relative;">
+            <button class="control-btn" id="messageBtn">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span class="notification-badge">2</span>
+            </button>
+            <div class="dropdown" id="messageDropdown">
+              <a href="#" class="dropdown-item">Message from John</a>
+              <a href="#" class="dropdown-item">Team chat update</a>
+            </div>
+          </div>
+
+          <div class="profile-container" style="position: relative;">
+            <div class="profile" id="profileBtn">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
+            </div>
+            <div class="dropdown" id="profileDropdown">
+              <a href="#" class="dropdown-item">My Profile</a>
+              <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">Help</a>
+              <a href="#" class="dropdown-item">Logout</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -435,6 +811,9 @@
 
   <!-- Main Content -->
   <div class="main-content">
+    <!-- Stories Section -->
+    
+
     <!-- Page Title -->
     <div class="page-title">
       <h1>Upcoming Events</h1>
@@ -449,6 +828,10 @@
         <div class="event-image">
           <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=300&fit=crop" alt="Champions League Final">
           <div class="event-badge">Live</div>
+          <button class="live-stream-btn" onclick="openLiveStream('UEFA Champions League Final')">
+            <i class="fa-solid fa-play"></i>
+            LIVE
+          </button>
         </div>
         <div class="event-content">
           <h3>UEFA Champions League Final</h3>
@@ -488,6 +871,10 @@
         <div class="event-image">
           <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="El Clásico">
           <div class="event-badge">Featured</div>
+          <button class="live-stream-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')">
+            <i class="fa-solid fa-play"></i>
+            STREAM
+          </button>
         </div>
         <div class="event-content">
           <h3>El Clásico: Barcelona vs Real Madrid</h3>
@@ -527,6 +914,10 @@
         <div class="event-image">
           <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=500&h=300&fit=crop" alt="Africa Cup">
           <div class="event-badge">Popular</div>
+          <button class="live-stream-btn" onclick="openLiveStream('Africa Cup of Nations Final')">
+            <i class="fa-solid fa-play"></i>
+            LIVE
+          </button>
         </div>
         <div class="event-content">
           <h3>Africa Cup of Nations Final</h3>
@@ -551,193 +942,3 @@
             </button>
             <div class="event-icons">
               <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event 4 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500&h=300&fit=crop" alt="World Cup">
-          <div class="event-badge">Hot</div>
-        </div>
-        <div class="event-content">
-          <h3>FIFA World Cup Qualifier</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Santiago Bernabéu, Madrid</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>September 15, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>21:00 GMT</span>
-            </div>
-          </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event 5 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop" alt="Premier League">
-          <div class="event-badge">New</div>
-        </div>
-        <div class="event-content">
-          <h3>Premier League Derby</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Old Trafford, Manchester</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>October 2, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>16:30 GMT</span>
-            </div>
-          </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Event 6 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1508768787810-6adc1f613514?w=500&h=300&fit=crop" alt="Copa America">
-          <div class="event-badge">Trending</div>
-        </div>
-        <div class="event-content">
-          <h3>Copa América Semi-Final</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Estádio do Maracanã, Rio</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>November 8, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>22:00 GMT</span>
-            </div>
-          </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Post Creation Modal -->
-  <div id="postModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Create Event Post</h2>
-        <button class="close-btn" onclick="closePostModal()">&times;</button>
-      </div>
-      
-      <form class="post-form" onsubmit="handlePostSubmit(event)">
-        <div class="form-group">
-          <label class="form-label">Event Title</label>
-          <input type="text" class="form-input" placeholder="Enter event title..." required>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Event Details</label>
-          <textarea class="form-textarea" placeholder="Describe the event..." required></textarea>
-        </div>
-        
-        <button type="submit" class="submit-btn">
-          <i class="fa-solid fa-calendar-plus"></i>
-          Create Event
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    function openPostModal() {
-      document.getElementById('postModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePostModal() {
-      document.getElementById('postModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function handlePostSubmit(event) {
-      event.preventDefault();
-      
-      const title = event.target.querySelector('input[type="text"]').value;
-      const details = event.target.querySelector('textarea').value;
-      
-      alert(`Event Created!\nTitle: ${title}\nDetails: ${details}`);
-      
-      event.target.reset();
-      closePostModal();
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('postModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closePostModal();
-      }
-    });
-  </script>
-
-</body>
-</html>
