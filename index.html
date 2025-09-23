@@ -17,58 +17,7 @@
       overflow: hidden;
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background: linear-gradient(180deg, #1c1c3a 0%, #24244a 100%);
-      padding: 20px;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.3s ease;
-    }
-
-    .sidebar.collapsed {
-      transform: translateX(-180px);
-    }
-
-    .sidebar h2 {
-      margin-bottom: 30px;
-      color: #ff0000;
-      font-size: 18px;
-      font-weight: 700;
-      text-align: center;
-      padding: 10px;
-      background: rgba(255, 0, 0, 0.1);
-      border-radius: 8px;
-      border: 1px solid rgba(255, 0, 0, 0.3);
-    }
-
-    .sidebar nav ul { list-style: none; }
-    .sidebar nav ul li {
-      margin: 12px 0;
-      cursor: pointer;
-      padding: 12px 16px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-      position: relative;
-    }
-
-    .sidebar nav ul li:hover {
-      background: rgba(255, 0, 0, 0.15);
-      transform: translateX(5px);
-      border-left: 3px solid #ff0000;
-    }
-
-    .sidebar nav ul li.active {
-      background: rgba(255, 0, 0, 0.2);
-      border-left: 3px solid #ff0000;
-    }
-
-    .sidebar nav ul li i {
-      font-size: 18px;
+    
       color: #ff0000;
       width: 20px;
     }
@@ -825,15 +774,15 @@
       <div class="nav-container">
         <div class="nav-links">
           <a href="index.html" class="nav-link">
-            <i class='bx bx-home'></i>
+           
             <span>Home</span>
           </a>
           <a href="highlights.html" class="nav-link active">
-            <i class='bx bx-play-circle'></i>
+           
             <span>Highlights</span>
           </a>
           <a href="events.html" class="nav-link">
-            <i class='bx bx-calendar-event'></i>
+           
             <span>Events</span>
           </a>
           <a href="#" class="nav-link" onclick="showLiveMatches()">
@@ -841,11 +790,11 @@
             <span>Live</span>
           </a>
           <a href="#" class="nav-link" onclick="showStats()">
-            <i class='bx bx-bar-chart'></i>
+          
             <span>Stats</span>
           </a>
           <a href="#" class="nav-link" onclick="showNews()">
-            <i class='bx bx-news'></i>
+           
             <span>News</span>
           </a>
         </div>
@@ -1499,5 +1448,6 @@
   </script>
 </body>
 </html>
+
 
 
