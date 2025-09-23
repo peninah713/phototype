@@ -283,12 +283,13 @@
       box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
     }
 
-    /* Enhanced Video Grid */
+    /* Fixed Video Grid - Equal columns */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 25px;
       margin-top: 20px;
+      align-items: start;
     }
     
     .video-card {
@@ -300,6 +301,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
       backdrop-filter: blur(10px);
+      height: fit-content;
     }
     
     .video-card:hover { 
@@ -313,12 +315,13 @@
       overflow: hidden;
       background: #000;
       border-radius: 20px 20px 0 0;
+      height: 220px;
     }
     
     .video-card iframe, 
     .video-card img {
       width: 100%;
-      height: 250px;
+      height: 100%;
       border: none;
       transition: transform 0.4s ease;
       object-fit: cover;
@@ -740,6 +743,12 @@
     }
 
     /* Responsive Design */
+    @media (max-width: 1200px) {
+      .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+    }
+
     @media (max-width: 768px) {
       .sidebar {
         position: fixed;
@@ -797,8 +806,6 @@
   </style>
 </head>
 <body>
- 
-
   <!-- Main -->
   <main>
     <!-- Top Bar -->
@@ -863,10 +870,6 @@
     <section class="highlights">
       <div class="section-header">
         <h1>Top Football Highlights</h1>
-        <div class="header-actions">
-         
-          
-        </div>
       </div>
       
       <!-- Filter Section -->
@@ -883,7 +886,7 @@
       </div>
 
       <div class="video-grid" id="videoGrid">
-        <!-- Enhanced video cards -->
+        <!-- Enhanced video cards with consistent structure -->
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
             <iframe src="https://www.youtube.com/embed/8-92w5L55Zg" allowfullscreen></iframe>
@@ -964,7 +967,8 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-            <iframe width="791" height="445" src="https://www.youtube.com/embed/H_IDhgKNsbQ" title="Every Goal of Matchday 34!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
           </div>
@@ -989,8 +993,7 @@
 
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
-           
-            <iframe width="791" height="445" src="https://www.youtube.com/embed/H_IDhgKNsbQ" title="Every Goal of Matchday 34!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -1016,7 +1019,7 @@
 
         <div class="video-card" data-category="training">
           <div class="video-thumbnail">
-            <iframe width="791" height="445" src="https://www.youtube.com/embed/H_IDhgKNsbQ" title="Every Goal of Matchday 34!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -1042,7 +1045,7 @@
 
         <div class="video-card" data-category="skills">
           <div class="video-thumbnail">
-           <iframe width="791" height="445" src="https://www.youtube.com/embed/H_IDhgKNsbQ" title="Every Goal of Matchday 34!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -1068,7 +1071,7 @@
 
         <div class="video-card" data-category="matches">
           <div class="video-thumbnail">
-            <iframe width="791" height="445" src="https://www.youtube.com/embed/H_IDhgKNsbQ" title="Every Goal of Matchday 34!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
             <div class="play-overlay">
               <i class='bx bx-play'></i>
             </div>
@@ -1480,7 +1483,7 @@
       setTimeout(() => {
         toast.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => document.body.removeChild(toast), 300);
-      }, 3000);
+      }, 300);
     }
 
     // Initialize app
@@ -1500,4 +1503,3 @@
   </script>
 </body>
 </html>
-
