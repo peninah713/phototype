@@ -530,100 +530,60 @@
 </head>
 <body>
   <!-- Header -->
-  <header class="header">
-    <div class="header-container">
-      <div class="header-left">
-        <a href="#" class="logo">
-          <div class="logo-icon">⚽</div>
-          Live Score
-        </a>
-        
-        <nav class="nav-menu">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link">
-              <i class="fa-solid fa-house"></i>
-              <span>Home</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="highlights.html" class="nav-link active">
-              <i class="fa-solid fa-video"></i>
-              <span>Highlights</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="events.html" class="nav-link">
-              <i class="fa-solid fa-calendar-days"></i>
-              <span>Events</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa-solid fa-broadcast-tower"></i>
-              <span>Live</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa-solid fa-chart-simple"></i>
-              <span>Stats</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fa-solid fa-newspaper"></i>
-              <span>News</span>
-            </a>
-          </li>
-        </nav>
+  <main>
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="logo">
+        <i class='bx bx-football'></i> <span>Live Score</span>
       </div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search football highlights..." onkeyup="searchVideos()" />
+        <button onclick="performSearch()"><i class='bx bx-search'></i></button>
+      </div>
+      
+    </header>
 
-      <div class="header-right">
-        <div class="user-controls">
-          <button class="upload-btn">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-
-          <div class="notification-container" style="position: relative;">
-            <button class="control-btn" id="notificationBtn">
-              <i class="fa-solid fa-bell"></i>
-              <span class="notification-badge">3</span>
-            </button>
-            <div class="dropdown" id="notificationDropdown">
-              <a href="#" class="dropdown-item">New goal by Messi</a>
-              <a href="#" class="dropdown-item">Match starting in 10 mins</a>
-              <a href="#" class="dropdown-item">Weekly highlights ready</a>
-            </div>
-          </div>
-
-          <div class="message-container" style="position: relative;">
-            <button class="control-btn" id="messageBtn">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span class="notification-badge">2</span>
-            </button>
-            <div class="dropdown" id="messageDropdown">
-              <a href="#" class="dropdown-item">Message from John</a>
-              <a href="#" class="dropdown-item">Team chat update</a>
-            </div>
-          </div>
-
-          <div class="profile-container" style="position: relative;">
-            <div class="profile" id="profileBtn">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
-            </div>
-            <div class="dropdown" id="profileDropdown">
-              <a href="#" class="dropdown-item">My Profile</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">Help</a>
-              <a href="#" class="dropdown-item">Logout</a>
-            </div>
-          </div>
+    <!-- Horizontal Navigation Menu -->
+    <nav class="horizontal-nav">
+      <div class="nav-container">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">
+            <i class='bx bx-home'></i>
+            <span>Home</span>
+          </a>
+          <a href="highlights.html" class="nav-link active">
+            <i class='bx bx-play-circle'></i>
+            <span>Highlights</span>
+          </a>
+          <a href="events.html" class="nav-link">
+            <i class='bx bx-calendar-event'></i>
+            <span>Events</span>
+          </a>
+          <a href="#" class="nav-link" onclick="showLiveMatches()">
+            <i class='bx bx-broadcast'></i>
+            <span>Live</span>
+          </a>
+          <a href="#" class="nav-link" onclick="showStats()">
+            <i class='bx bx-bar-chart'></i>
+            <span>Stats</span>
+          </a>
+          <a href="#" class="nav-link" onclick="showNews()">
+            <i class='bx bx-news'></i>
+            <span>News</span>
+          </a>
         </div>
-
-        <button class="mobile-menu-btn">☰</button>
+        
+       
+        <div class="top-icons">
+        <button class="upload-btn" onclick="openUploadModal()">
+          <i class='bx bx-plus'></i>
+          <span>Upload</span>
+        </button>
+        <i class='bx bx-bell' title="Notifications" onclick="showNotifications()"></i>
+        <div class="profile-circle" onclick="showProfile()">P</div>
       </div>
-    </div>
-  </header>
+      </div>
+    </nav>
 
   <!-- Main Content -->
   <div class="main-container">
@@ -871,4 +831,5 @@
       const header = document.querySelector('.header');
       if (window.scrollY > lastScrollY && window.scrollY > 100) {
         header.style.transform = 'translateY(-100%)';
+
 
