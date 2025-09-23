@@ -20,12 +20,31 @@
       --text: #f3f3f6;
       --muted: #d9dbe3;
       --max-width: 1200px;
+      --header-bg: rgba(37, 35, 60, 0.95);
+      --nav-active: #c92b2b;
     }
-    .horizontal-nav {
-  background: rgba(255,255,255,0.02);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding: 0;
-}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
     /* Header exactly like the image */
     .header {
       background: var(--header-bg);
@@ -34,6 +53,7 @@
       top: 0;
       z-index: 1000;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
     }
 
     .header-container {
@@ -245,7 +265,6 @@
       color: white;
     }
 
-
     /* Main Content Area */
     .main-container {
       max-width: var(--max-width);
@@ -384,6 +403,8 @@
       font-size: 14px;
       font-weight: 600;
       transition: color 0.3s ease;
+      background: none;
+      border: none;
     }
 
     .icon-btn:hover {
@@ -448,6 +469,15 @@
       outline: none;
     }
 
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     /* Responsive */
     @media (max-width: 1100px) {
       .feed { 
@@ -501,234 +531,236 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
   <main>
-   !-- Header exactly matching the image -->
-  <header class="header">
-    <div class="header-container">
-      <div class="header-left">
-        <a href="#" class="logo">
-          <div class="logo-icon">⚽</div>
-          Live Score
-        </a>
-        
-        <nav class="nav-menu">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="highlights.html" class="nav-link">Highlights</a>
-          </li>
-          <li class="nav-item">
-            <a href="events.html" class="nav-link active">Events</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Live</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Stats</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">News</a>
-          </li>
-        </nav>
+    <!-- Header exactly matching the image -->
+    <header class="header">
+      <div class="header-container">
+        <div class="header-left">
+          <a href="#" class="logo">
+            <div class="logo-icon">⚽</div>
+            LiveScore
+          </a>
+          
+          <nav class="nav-menu">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="highlights.html" class="nav-link">Highlights</a>
+            </li>
+            <li class="nav-item">
+              <a href="events.html" class="nav-link active">Events</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Live</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">News</a>
+            </li>
+          </nav>
+        </div>
+
+        <div class="header-right">
+          <button class="upload-btn" onclick="openUploadModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Upload</span>
+          </button>
+
+          <div class="user-controls">
+            <div class="notification-container" style="position: relative;">
+              <button class="control-btn" id="notificationBtn">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notification-badge">3</span>
+              </button>
+              <div class="dropdown" id="notificationDropdown">
+                <a href="#" class="dropdown-item">New goal by Messi</a>
+                <a href="#" class="dropdown-item">Match starting in 10 mins</a>
+                <a href="#" class="dropdown-item">Weekly highlights ready</a>
+              </div>
+            </div>
+
+            <div class="message-container" style="position: relative;">
+              <button class="control-btn" id="messageBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span class="notification-badge">2</span>
+              </button>
+              <div class="dropdown" id="messageDropdown">
+                <a href="#" class="dropdown-item">Message from John</a>
+                <a href="#" class="dropdown-item">Team chat update</a>
+              </div>
+            </div>
+
+            <div class="profile-container" style="position: relative;">
+              <div class="profile" id="profileBtn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
+              </div>
+              <div class="dropdown" id="profileDropdown">
+                <a href="#" class="dropdown-item">My Profile</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <a href="#" class="dropdown-item">Help</a>
+                <a href="#" class="dropdown-item">Logout</a>
+              </div>
+            </div>
+          </div>
+
+          <button class="mobile-menu-btn">☰</button>
+        </div>
       </div>
+    </header>
 
-      <div class="header-right">
-        <button class="upload-btn" onclick="openUploadModal()">
-          <i class='bx bx-plus'></i>
-          <span>Upload</span>
-        </button>
-
-        <div class="user-controls">
-          <div class="notification-container" style="position: relative;">
-            <button class="control-btn" id="notificationBtn">
-              <i class="fa-solid fa-bell"></i>
-              <span class="notification-badge">3</span>
-            </button>
-            <div class="dropdown" id="notificationDropdown">
-              <a href="#" class="dropdown-item">New goal by Messi</a>
-              <a href="#" class="dropdown-item">Match starting in 10 mins</a>
-              <a href="#" class="dropdown-item">Weekly highlights ready</a>
-            </div>
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="site">
+        <!-- Stories -->
+        <div class="stories">
+          <div class="story">
+            <div class="avatar" style="border-style:dashed;">+</div>
+            <label>Your Story</label>
           </div>
-
-          <div class="message-container" style="position: relative;">
-            <button class="control-btn" id="messageBtn">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span class="notification-badge">2</span>
-            </button>
-            <div class="dropdown" id="messageDropdown">
-              <a href="#" class="dropdown-item">Message from John</a>
-              <a href="#" class="dropdown-item">Team chat update</a>
-            </div>
+          <div class="story">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
+            <label>Messi</label>
           </div>
-
-          <div class="profile-container" style="position: relative;">
-            <div class="profile" id="profileBtn">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
-            </div>
-            <div class="dropdown" id="profileDropdown">
-              <a href="#" class="dropdown-item">My Profile</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">Help</a>
-              <a href="#" class="dropdown-item">Logout</a>
-            </div>
+          <div class="story">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
+            <label>Ronaldo</label>
           </div>
+          <div class="story">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
+            <label>Marta</label>
+          </div>
+          <div class="story">
+            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
+            <label>Neymar</label>
+          </div>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+          <!-- Card 1 -->
+          <article class="card" data-id="1" data-likes="15420">
+            <div class="head">
+              <div class="pf">PL</div>
+              <h3>footyhighlights</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="Football highlight">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(1)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">15,420 likes</div>
+            <div class="desc">Amazing goal 🔥</div>
+            <div class="comments">View all 892 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card" data-id="2" data-likes="30112">
+            <div class="head">
+              <div class="pf">CR</div>
+              <h3>cr7updates</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=300&fit=crop" alt="Cristiano highlight">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(2)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">30,112 likes</div>
+            <div class="desc">Cristiano is on fire! 💥</div>
+            <div class="comments">View all 1,200 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card" data-id="3" data-likes="50890">
+            <div class="head">
+              <div class="pf">LM</div>
+              <h3>messiupdates</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=500&h=300&fit=crop" alt="Messi highlight">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">50,890 likes</div>
+            <div class="desc">Legend at work ⚡</div>
+            <div class="comments">View all 3,245 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
+
+          <!-- Additional Cards -->
+          <article class="card" data-id="4" data-likes="25640">
+            <div class="head">
+              <div class="pf">NJ</div>
+              <h3>neymarjr</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&h=300&fit=crop" alt="Football action">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(4)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">25,640 likes</div>
+            <div class="desc">Skills on point! ⭐</div>
+            <div class="comments">View all 1,890 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
+
+          <article class="card" data-id="5" data-likes="18750">
+            <div class="head">
+              <div class="pf">MB</div>
+              <h3>mbappeupdates</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=500&h=300&fit=crop" alt="Football match">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(5)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">18,750 likes</div>
+            <div class="desc">Speed demon! 🚀</div>
+            <div class="comments">View all 967 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
+
+          <article class="card" data-id="6" data-likes="42100">
+            <div class="head">
+              <div class="pf">RL</div>
+              <h3>realmadrid</h3>
+            </div>
+            <div class="media">
+              <img src="https://images.unsplash.com/photo-1606107557309-065b95e60b44?w=500&h=300&fit=crop" alt="Team celebration">
+            </div>
+            <div class="actions">
+              <button class="icon-btn" onclick="toggleLike(6)"><i class="fa-solid fa-heart icon"></i> Like</button>
+              <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+              <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+            </div>
+            <div class="likes">42,100 likes</div>
+            <div class="desc">Hala Madrid! 👑</div>
+            <div class="comments">View all 2,156 comments</div>
+            <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+          </article>
         </div>
       </div>
     </div>
-  </header>
-
-  <!-- Main Content -->
-  <div class="main-container">
-    <div class="site">
-      <!-- Stories -->
-      <div class="stories">
-        <div class="story">
-          <div class="avatar" style="border-style:dashed;">+</div>
-          <label>Your Story</label>
-        </div>
-        <div class="story">
-          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
-          <label>Messi</label>
-        </div>
-        <div class="story">
-          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
-          <label>Ronaldo</label>
-        </div>
-        <div class="story">
-          <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
-          <label>Marta</label>
-        </div>
-        <div class="story">
-          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
-          <label>Neymar</label>
-        </div>
-      </div>
-
-      <!-- Feed -->
-      <div class="feed">
-        <!-- Card 1 -->
-        <article class="card" data-id="1" data-likes="15420">
-          <div class="head">
-            <div class="pf">PL</div>
-            <h3>footyhighlights</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="Football highlight">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(1)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">15,420 likes</div>
-          <div class="desc">Amazing goal 🔥</div>
-          <div class="comments">View all 892 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card" data-id="2" data-likes="30112">
-          <div class="head">
-            <div class="pf">CR</div>
-            <h3>cr7updates</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=300&fit=crop" alt="Cristiano highlight">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(2)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">30,112 likes</div>
-          <div class="desc">Cristiano is on fire! 💥</div>
-          <div class="comments">View all 1,200 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card" data-id="3" data-likes="50890">
-          <div class="head">
-            <div class="pf">LM</div>
-            <h3>messiupdates</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=500&h=300&fit=crop" alt="Messi highlight">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">50,890 likes</div>
-          <div class="desc">Legend at work ⚡</div>
-          <div class="comments">View all 3,245 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-
-        <!-- Additional Cards -->
-        <article class="card" data-id="4" data-likes="25640">
-          <div class="head">
-            <div class="pf">NJ</div>
-            <h3>neymarjr</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&h=300&fit=crop" alt="Football action">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(4)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">25,640 likes</div>
-          <div class="desc">Skills on point! ⭐</div>
-          <div class="comments">View all 1,890 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-
-        <article class="card" data-id="5" data-likes="18750">
-          <div class="head">
-            <div class="pf">MB</div>
-            <h3>mbappeupdates</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=500&h=300&fit=crop" alt="Football match">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(5)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">18,750 likes</div>
-          <div class="desc">Speed demon! 🚀</div>
-          <div class="comments">View all 967 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-
-        <article class="card" data-id="6" data-likes="42100">
-          <div class="head">
-            <div class="pf">RL</div>
-            <h3>realmadrid</h3>
-          </div>
-          <div class="media">
-            <img src="https://images.unsplash.com/photo-1606107557309-065b95e60b44?w=500&h=300&fit=crop" alt="Team celebration">
-          </div>
-          <div class="actions">
-            <div class="icon-btn" onclick="toggleLike(6)"><i class="fa-solid fa-heart icon"></i> Like</div>
-            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-          </div>
-          <div class="likes">42,100 likes</div>
-          <div class="desc">Hala Madrid! 👑</div>
-          <div class="comments">View all 2,156 comments</div>
-          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-        </article>
-      </div>
-    </div>
-  </div>
+  </main>
 
   <script>
     // Dropdown functionality
@@ -759,10 +791,12 @@
     setupDropdown('profileBtn', 'profileDropdown');
 
     // Close dropdowns when clicking outside
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.dropdown').forEach(dropdown => {
-        dropdown.classList.remove('show');
-      });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown') && !e.target.closest('.control-btn') && !e.target.closest('.profile')) {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('show');
+        });
+      }
     });
 
     // Navigation active state
@@ -801,34 +835,23 @@
       }
     }
 
+    // Upload modal placeholder
+    function openUploadModal() {
+      alert('Upload modal would open here!');
+    }
+
     // Mobile menu toggle
-    document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-      const navMenu = document.querySelector('.nav-menu');
-      if (navMenu.style.display === 'flex') {
-        navMenu.style.display = 'none';
-      } else {
-        navMenu.style.display = 'flex';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '70px';
-        navMenu.style.left = '0';
-        navMenu.style.right = '0';
-        navMenu.style.background = 'rgba(26, 26, 46, 0.95)';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.padding = '1rem';
-        navMenu.style.gap = '0.5rem';
-        navMenu.style.zIndex = '999';
-      }
-    });
-
-    // Header scroll effect
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('.header');
-      if (window.scrollY > lastScrollY && window.scrollY > 100) {
-        header.style.transform = 'translateY(-100%)';
-
-
-
-
-
-
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu.style.display === 'flex') {
+          navMenu.style.display = 'none';
+        } else {
+          navMenu.style.display = 'flex';
+          navMenu.style.position = 'absolute';
+          navMenu.style.top = '70px';
+          navMenu.style.left = '0';
+          navMenu.style.right = '0';
+          navMenu.style.background = 'var(--header-bg)';
+          navMenu.style.flexDirection
