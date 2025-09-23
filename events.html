@@ -156,6 +156,14 @@
       text-transform: uppercase;
     }
 
+    .live-badge.upcoming {
+      background: #4CAF50;
+    }
+
+    .live-badge.popular {
+      background: #FF9500;
+    }
+
     .event-card .content {
       padding: 20px;
     }
@@ -459,7 +467,7 @@
       padding: 20px;
       border-radius: 15px;
       width: 90%;
-      max-width: 800px;
+      max-width: 900px;
       color: #fff;
       position: relative;
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -500,7 +508,7 @@
 
     .video-container {
       width: 100%;
-      height: 400px;
+      height: 450px;
       background: #000;
       border-radius: 12px;
       display: flex;
@@ -527,6 +535,7 @@
       justify-content: center;
       gap: 15px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .stream-btn {
@@ -638,10 +647,20 @@
       .stream-modal-content {
         width: 95%;
         margin: 20px;
+        padding: 20px;
       }
       
       .video-container {
         height: 250px;
+      }
+      
+      .stream-controls {
+        gap: 10px;
+      }
+      
+      .stream-btn {
+        padding: 8px 12px;
+        font-size: 12px;
       }
     }
   </style>
@@ -657,6 +676,9 @@
       <a href="index.html">Home</a>
       <a href="highlights.html">Highlights</a>
       <a href="events.html" class="active">Events</a>
+      <a href="#" onclick="showLiveMatches()">Live</a>
+      <a href="#" onclick="showStats()">Stats</a>
+      <a href="#" onclick="showNews()">News</a>
     </nav>
     <button class="upload-btn" onclick="openUploadModal()">
       <i class="fa-solid fa-upload"></i> Upload
@@ -687,17 +709,17 @@
           </div>
         </div>
         <div class="event-actions">
-          <button class="btn-ticket">
+          <button class="btn-ticket" onclick="buyTicket('Champions League Final')">
             <i class="fa-solid fa-ticket"></i> Buy Ticket
           </button>
           <div class="event-icons">
             <button class="icon-btn" onclick="openLiveStream('Champions League Final')" title="Watch Live">
               <i class="fa-solid fa-play"></i>
             </button>
-            <button class="icon-btn" title="Share">
+            <button class="icon-btn" onclick="shareEvent('Champions League Final')" title="Share">
               <i class="fa-solid fa-share"></i>
             </button>
-            <button class="icon-btn" title="Set Reminder">
+            <button class="icon-btn" onclick="setReminder('Champions League Final')" title="Set Reminder">
               <i class="fa-solid fa-bell"></i>
             </button>
           </div>
@@ -708,7 +730,7 @@
     <div class="event-card">
       <div class="event-image">
         <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
-        <div class="live-badge">UPCOMING</div>
+        <div class="live-badge upcoming">UPCOMING</div>
       </div>
       <div class="content">
         <h3>El Clásico: Barca vs Madrid</h3>
@@ -727,134 +749,57 @@
           </div>
         </div>
         <div class="event-actions">
-          <button class="btn-ticket">
+          <button class="btn-ticket" onclick="buyTicket('El Clásico')">
             <i class="fa-solid fa-ticket"></i> Buy Ticket
           </button>
           <div class="event-icons">
             <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
               <i class="fa-solid fa-play"></i>
             </button>
-            <button class="icon-btn" title="Share">
+            <button class="icon-btn" onclick="shareEvent('El Clásico')" title="Share">
               <i class="fa-solid fa-share"></i>
             </button>
-            <button class="icon-btn" title="Set Reminder">
+            <button class="icon-btn" onclick="setReminder('El Clásico')" title="Set Reminder">
               <i class="fa-solid fa-bell"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
+
     <div class="event-card">
       <div class="event-image">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
-        <div class="live-badge">UPCOMING</div>
+        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=500" alt="Premier League">
+        <div class="live-badge upcoming">UPCOMING</div>
       </div>
       <div class="content">
-        <h3>El Clásico: Barca vs Madrid</h3>
+        <h3>Premier League Derby</h3>
         <div class="event-details">
           <div class="event-detail">
             <i class="fa-solid fa-location-dot"></i>
-            <span>Camp Nou, Barcelona</span>
+            <span>Old Trafford, Manchester</span>
           </div>
           <div class="event-detail">
             <i class="fa-solid fa-calendar"></i>
-            <span>July 12, 2025</span>
+            <span>August 15, 2025</span>
           </div>
           <div class="event-detail">
             <i class="fa-solid fa-clock"></i>
-            <span>19:30 GMT</span>
+            <span>16:30 GMT</span>
           </div>
         </div>
         <div class="event-actions">
-          <button class="btn-ticket">
+          <button class="btn-ticket" onclick="buyTicket('Premier League Derby')">
             <i class="fa-solid fa-ticket"></i> Buy Ticket
           </button>
           <div class="event-icons">
-            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
+            <button class="icon-btn" onclick="openLiveStream('Premier League Derby')" title="Watch Live">
               <i class="fa-solid fa-play"></i>
             </button>
-            <button class="icon-btn" title="Share">
+            <button class="icon-btn" onclick="shareEvent('Premier League Derby')" title="Share">
               <i class="fa-solid fa-share"></i>
             </button>
-            <button class="icon-btn" title="Set Reminder">
-              <i class="fa-solid fa-bell"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="event-card">
-      <div class="event-image">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
-        <div class="live-badge">UPCOMING</div>
-      </div>
-      <div class="content">
-        <h3>El Clásico: Barca vs Madrid</h3>
-        <div class="event-details">
-          <div class="event-detail">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Camp Nou, Barcelona</span>
-          </div>
-          <div class="event-detail">
-            <i class="fa-solid fa-calendar"></i>
-            <span>July 12, 2025</span>
-          </div>
-          <div class="event-detail">
-            <i class="fa-solid fa-clock"></i>
-            <span>19:30 GMT</span>
-          </div>
-        </div>
-        <div class="event-actions">
-          <button class="btn-ticket">
-            <i class="fa-solid fa-ticket"></i> Buy Ticket
-          </button>
-          <div class="event-icons">
-            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
-              <i class="fa-solid fa-play"></i>
-            </button>
-            <button class="icon-btn" title="Share">
-              <i class="fa-solid fa-share"></i>
-            </button>
-            <button class="icon-btn" title="Set Reminder">
-              <i class="fa-solid fa-bell"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="event-card">
-      <div class="event-image">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
-        <div class="live-badge">UPCOMING</div>
-      </div>
-      <div class="content">
-        <h3>El Clásico: Barca vs Madrid</h3>
-        <div class="event-details">
-          <div class="event-detail">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>Camp Nou, Barcelona</span>
-          </div>
-          <div class="event-detail">
-            <i class="fa-solid fa-calendar"></i>
-            <span>July 12, 2025</span>
-          </div>
-          <div class="event-detail">
-            <i class="fa-solid fa-clock"></i>
-            <span>19:30 GMT</span>
-          </div>
-        </div>
-        <div class="event-actions">
-          <button class="btn-ticket">
-            <i class="fa-solid fa-ticket"></i> Buy Ticket
-          </button>
-          <div class="event-icons">
-            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
-              <i class="fa-solid fa-play"></i>
-            </button>
-            <button class="icon-btn" title="Share">
-              <i class="fa-solid fa-share"></i>
-            </button>
-            <button class="icon-btn" title="Set Reminder">
+            <button class="icon-btn" onclick="setReminder('Premier League Derby')" title="Set Reminder">
               <i class="fa-solid fa-bell"></i>
             </button>
           </div>
@@ -865,7 +810,7 @@
     <div class="event-card">
       <div class="event-image">
         <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=500" alt="Africa Cup">
-        <div class="live-badge">POPULAR</div>
+        <div class="live-badge popular">POPULAR</div>
       </div>
       <div class="content">
         <h3>Africa Cup of Nations Final</h3>
@@ -884,17 +829,97 @@
           </div>
         </div>
         <div class="event-actions">
-          <button class="btn-ticket">
+          <button class="btn-ticket" onclick="buyTicket('Africa Cup Final')">
             <i class="fa-solid fa-ticket"></i> Buy Ticket
           </button>
           <div class="event-icons">
             <button class="icon-btn" onclick="openLiveStream('Africa Cup of Nations Final')" title="Watch Live">
               <i class="fa-solid fa-play"></i>
             </button>
-            <button class="icon-btn" title="Share">
+            <button class="icon-btn" onclick="shareEvent('Africa Cup Final')" title="Share">
               <i class="fa-solid fa-share"></i>
             </button>
-            <button class="icon-btn" title="Set Reminder">
+            <button class="icon-btn" onclick="setReminder('Africa Cup Final')" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500" alt="World Cup">
+        <div class="live-badge upcoming">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>FIFA World Cup Qualifiers</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Various Stadiums</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>September 10, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>Multiple Times</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket" onclick="buyTicket('World Cup Qualifiers')">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('FIFA World Cup Qualifiers')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" onclick="shareEvent('World Cup Qualifiers')" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" onclick="setReminder('World Cup Qualifiers')" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=500" alt="Europa League">
+        <div class="live-badge upcoming">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>Europa League Semi-Final</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Allianz Arena, Munich</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>May 18, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>21:00 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket" onclick="buyTicket('Europa League Semi-Final')">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('Europa League Semi-Final')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" onclick="shareEvent('Europa League Semi-Final')" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" onclick="setReminder('Europa League Semi-Final')" title="Set Reminder">
               <i class="fa-solid fa-bell"></i>
             </button>
           </div>
@@ -973,7 +998,8 @@
       </div>
       
       <div class="video-container" id="videoContainer">
-        <div class="video-placeholder">
+        <iframe id="streamFrame" width="100%" height="100%" frameborder="0" allowfullscreen style="display: none;"></iframe>
+        <div class="video-placeholder" id="videoPlaceholder">
           <i class="fa-solid fa-play-circle"></i>
           <p>Loading live stream...</p>
         </div>
@@ -989,7 +1015,7 @@
         <button class="stream-btn" onclick="toggleFullscreen()">
           <i class="fa-solid fa-expand"></i> Fullscreen
         </button>
-        <button class="stream-btn" onclick="toggleMute()">
+        <button class="stream-btn" onclick="toggleMute()" id="muteBtn">
           <i class="fa-solid fa-volume-up" id="muteIcon"></i> Audio
         </button>
       </div>
@@ -1014,6 +1040,12 @@
     let streamQuality = 'hd';
     let isMuted = false;
 
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      setupFileUpload();
+      setupFormHandlers();
+    });
+
     // Upload Modal Functions
     function openUploadModal() {
       document.getElementById('uploadModal').classList.add('active');
@@ -1033,7 +1065,323 @@
       document.getElementById('uploadForm').reset();
       selectedFile = null;
       resetFileUploadArea();
+      hideProgress();
+    }
+
+    function resetFileUploadArea() {
+      const uploadArea = document.getElementById('fileUploadArea');
+      uploadArea.innerHTML = `
+        <div class="upload-icon">
+          <i class="fa-solid fa-video"></i>
+        </div>
+        <div class="upload-text">Drop your video file here or click to select</div>
+        <div class="upload-subtext">MP4, AVI, MOV up to 500MB</div>
+        <input type="file" id="videoFileInput" class="file-input" accept="video/*">
+      `;
+      setupFileUpload();
+    }
+
+    function hideProgress() {
       document.getElementById('progressBar').style.display = 'none';
-      </script>
-      </body>
-      </html>
+      document.getElementById('uploadStatus').style.display = 'none';
+    }
+
+    // File Upload Setup
+    function setupFileUpload() {
+      const uploadArea = document.getElementById('fileUploadArea');
+      const fileInput = document.getElementById('videoFileInput');
+
+      if (!uploadArea || !fileInput) return;
+
+      uploadArea.addEventListener('click', () => fileInput.click());
+      uploadArea.addEventListener('dragover', handleDragOver);
+      uploadArea.addEventListener('dragleave', handleDragLeave);
+      uploadArea.addEventListener('drop', handleDrop);
+      fileInput.addEventListener('change', handleFileSelect);
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        processFile(files[0]);
+      }
+    }
+
+    function handleFileSelect(e) {
+      if (e.target.files.length > 0) {
+        processFile(e.target.files[0]);
+      }
+    }
+
+    function processFile(file) {
+      const maxSize = 500 * 1024 * 1024; // 500MB
+
+      if (file.size > maxSize) {
+        showToast('File too large! Maximum size is 500MB', 'error');
+        return;
+      }
+
+      if (!file.type.startsWith('video/')) {
+        showToast('Please select a valid video file', 'error');
+        return;
+      }
+
+      selectedFile = file;
+      showSelectedFile(file);
+    }
+
+    function showSelectedFile(file) {
+      const uploadArea = document.getElementById('fileUploadArea');
+      uploadArea.innerHTML = `
+        <div class="selected-file">
+          <i class="fa-solid fa-check-circle"></i>
+          <div><strong>${file.name}</strong></div>
+          <div style="font-size: 12px; margin-top: 5px;">${(file.size / (1024*1024)).toFixed(2)} MB</div>
+        </div>
+      `;
+    }
+
+    // Form Handlers
+    function setupFormHandlers() {
+      const uploadForm = document.getElementById('uploadForm');
+      if (uploadForm) {
+        uploadForm.addEventListener('submit', handleUploadSubmit);
+      }
+    }
+
+    function handleUploadSubmit(e) {
+      e.preventDefault();
+      
+      if (isUploading) return;
+      
+      const title = document.getElementById('videoTitle').value;
+      const category = document.getElementById('videoCategory').value;
+      
+      if (!title || !category || !selectedFile) {
+        showToast('Please fill in all required fields and select a file', 'error');
+        return;
+      }
+      
+      simulateUpload();
+    }
+
+    function simulateUpload() {
+      isUploading = true;
+      const uploadBtn = document.getElementById('uploadBtn');
+      const progressBar = document.getElementById('progressBar');
+      const progressFill = document.getElementById('progressFill');
+      const uploadStatus = document.getElementById('uploadStatus');
+      
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Uploading...';
+      progressBar.style.display = 'block';
+      uploadStatus.style.display = 'block';
+      uploadStatus.textContent = 'Preparing upload...';
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          uploadComplete();
+        }
+        
+        progressFill.style.width = progress + '%';
+        uploadStatus.textContent = `Uploading... ${Math.round(progress)}%`;
+      }, 200);
+    }
+
+    function uploadComplete() {
+      const uploadStatus = document.getElementById('uploadStatus');
+      uploadStatus.textContent = 'Upload completed successfully!';
+      uploadStatus.style.color = '#4CAF50';
+      
+      setTimeout(() => {
+        showToast('Video uploaded successfully!', 'success');
+        closeModal('uploadModal');
+      }, 1000);
+      
+      isUploading = false;
+      document.getElementById('uploadBtn').disabled = false;
+      document.getElementById('uploadBtn').textContent = 'Upload Video';
+    }
+
+    // Live Stream Functions
+    function openLiveStream(eventName) {
+      document.getElementById('streamModal').classList.add('active');
+      document.getElementById('streamTitle').textContent = eventName;
+      document.body.style.overflow = 'hidden';
+      
+      // Simulate loading stream
+      setTimeout(() => {
+        loadStream();
+      }, 1500);
+      
+      // Simulate viewer count updates
+      updateViewerCount();
+    }
+
+    function loadStream() {
+      const placeholder = document.getElementById('videoPlaceholder');
+      const frame = document.getElementById('streamFrame');
+      
+      // For demo, load a YouTube embed
+      frame.src = 'https://www.youtube.com/embed/H_IDhgKNsbQ?autoplay=1&mute=1';
+      placeholder.style.display = 'none';
+      frame.style.display = 'block';
+    }
+
+    function updateViewerCount() {
+      const viewerCountElement = document.getElementById('viewerCount');
+      let count = 12547;
+      
+      const interval = setInterval(() => {
+        count += Math.floor(Math.random() * 20) - 5; // Random change
+        if (count < 1000) count = 1000;
+        viewerCountElement.textContent = count.toLocaleString();
+      }, 3000);
+      
+      // Store interval to clear later
+      window.viewerInterval = interval;
+    }
+
+    // Stream Controls
+    function setStreamQuality(quality) {
+      streamQuality = quality;
+      const buttons = document.querySelectorAll('.stream-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      showToast(`Stream quality set to ${quality.toUpperCase()}`, 'info');
+    }
+
+    function toggleFullscreen() {
+      const container = document.getElementById('videoContainer');
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        container.requestFullscreen().catch(err => {
+          showToast('Fullscreen not available', 'error');
+        });
+      }
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      const muteIcon = document.getElementById('muteIcon');
+      const muteBtn = document.getElementById('muteBtn');
+      
+      if (isMuted) {
+        muteIcon.className = 'fa-solid fa-volume-xmark';
+        muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Muted';
+        showToast('Audio muted', 'info');
+      } else {
+        muteIcon.className = 'fa-solid fa-volume-up';
+        muteBtn.innerHTML = '<i class="fa-solid fa-volume-up"></i> Audio';
+        showToast('Audio unmuted', 'info');
+      }
+    }
+
+    // Event Actions
+    function buyTicket(eventName) {
+      showToast(`Redirecting to ticket purchase for ${eventName}...`, 'info');
+    }
+
+    function shareEvent(eventName) {
+      if (navigator.share) {
+        navigator.share({
+          title: `Live Score - ${eventName}`,
+          text: `Check out this upcoming event: ${eventName}`,
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('Event link copied to clipboard!', 'success');
+      }
+    }
+
+    function setReminder(eventName) {
+      showToast(`Reminder set for ${eventName}!`, 'success');
+    }
+
+    // Navigation Functions
+    function showLiveMatches() {
+      showToast('Live matches page coming soon!', 'info');
+    }
+
+    function showStats() {
+      showToast('Statistics page coming soon!', 'info');
+    }
+
+    function showNews() {
+      showToast('Football news page coming soon!', 'info');
+    }
+
+    // Toast Notification
+    function showToast(message, type = 'info') {
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      
+      const colors = {
+        success: 'linear-gradient(135deg, #4CAF50, #45a049)',
+        error: 'linear-gradient(135deg, #f44336, #d32f2f)',
+        info: 'linear-gradient(135deg, #ff4757, #c92b2b)'
+      };
+      
+      toast.style.background = colors[type] || colors.info;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => toast.classList.add('show'), 100);
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.parentNode.removeChild(toast);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        const modalId = e.target.id;
+        closeModal(modalId);
+        
+        // Clear viewer interval if closing stream modal
+        if (modalId === 'streamModal' && window.viewerInterval) {
+          clearInterval(window.viewerInterval);
+        }
+      }
+    });
+
+    // Clean up on page unload
+    window.addEventListener('beforeunload', () => {
+      if (window.viewerInterval) {
+        clearInterval(window.viewerInterval);
+      }
+    });
+
+    console.log('Live Score Events page ready!');
+  </script>
+</body>
+</html>
