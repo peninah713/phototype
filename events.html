@@ -8,25 +8,13 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
   
-  <!-- Icons (Font Awesome) -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <!-- Boxicons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  
-  <style>
-    :root{
-      --bg1: #25233c;
-      --bg2: #141228;
-      --accent: #c92b2b;
-      --card-bg: rgba(255,255,255,0.04);
-      --text: #f3f3f6;
-      --muted: #d9dbe3;
-      --max-width: 1200px;
-      --header-bg: #2c2b45;
-      --nav-active: #ff4757;
-    }
 
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -35,300 +23,131 @@
 
     body {
       font-family: "Montserrat", sans-serif;
-       background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(135deg, #0f0c29, #24243e, #302b63);
+      color: #fff;
       min-height: 100vh;
     }
 
-    /* Header exactly like the image */
-    .header {
-      background: var(--header-bg);
-      padding: 0 2rem;
+    /* Header */
+    header {
+      background: #1f1f3f;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1400px;
-      margin: 0 auto;
-      height: 70px;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: var(--nav-active);
-      font-size: 1.5rem;
+    header .logo {
+      font-size: 22px;
       font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--nav-active);
-      border-radius: 50%;
+      color: #ff4757;
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1rem;
+      gap: 10px;
     }
 
-    .nav-menu {
+    nav {
       display: flex;
-      list-style: none;
-      gap: 2.5rem;
+      gap: 30px;
     }
 
-    .nav-item {
-      position: relative;
-    }
-
-    .nav-link {
-      color: rgba(255, 255, 255, 0.8);
+    nav a {
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
-      padding: 1rem 0;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
       font-weight: 600;
-      font-size: 16px;
+      padding: 10px 0;
       position: relative;
+      transition: color 0.3s ease;
     }
 
-    .nav-link:hover {
-      color: white;
+    nav a:hover,
+    nav a.active {
+      color: #ff4757;
     }
 
-    .nav-link.active {
-      color: var(--nav-active);
-    }
-
-    .nav-link.active::after {
+    nav a.active::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       height: 3px;
-      background: var(--nav-active);
+      background: #ff4757;
       border-radius: 2px 2px 0 0;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
     }
 
     .upload-btn {
       background: linear-gradient(135deg, #ff4757, #c92b2b);
-      color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 25px;
-      font-weight: 600;
+      color: #fff;
       cursor: pointer;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.3s ease;
       box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
-      font-size: 14px;
     }
-    
+
     .upload-btn:hover {
       background: linear-gradient(135deg, #c92b2b, #aa0000);
       transform: translateY(-2px);
       box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
     }
-    
-    .upload-btn i {
-      font-size: 16px;
-    }
 
-    .user-controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .control-btn {
-      background: transparent;
-      border: none;
-      color: rgba(255, 255, 255, 0.8);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      font-size: 18px;
-    }
-
-    .control-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    .notification-badge {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      background: var(--nav-active);
-      color: white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .profile {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .profile:hover {
-      transform: scale(1.05);
-    }
-
-    .profile img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background: var(--header-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 0.5rem 0;
-      min-width: 200px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-      z-index: 1001;
-    }
-
-    .dropdown.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .dropdown-item {
-      display: block;
-      padding: 0.75rem 1rem;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .dropdown-item:hover {
-      background: rgba(255, 71, 87, 0.1);
-      color: white;
-    }
-
-    /* Main Content */
-    .main-content {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 30px 20px;
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .page-title h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .page-title p {
-      color: var(--muted);
-      font-size: 1.1rem;
-    }
-
-    /* Events Grid */
-    .events-container {
+    /* Events Section */
+    .events {
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 30px;
     }
 
     .event-card {
-      background: var(--card-bg);
-      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
       transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .event-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border-color: #ff4757;
     }
 
     .event-image {
       position: relative;
-      width: 100%;
-      height: 220px;
+      height: 200px;
       overflow: hidden;
     }
 
-    .event-image img {
+    .event-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
     }
 
-    .event-card:hover .event-image img {
+    .event-card:hover img {
       transform: scale(1.05);
     }
 
-    .event-badge {
+    .live-badge {
       position: absolute;
       top: 15px;
       left: 15px;
-      background: var(--accent);
+      background: #ff4757;
       color: white;
       padding: 5px 12px;
       border-radius: 20px;
@@ -337,46 +156,15 @@
       text-transform: uppercase;
     }
 
-    .live-stream-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 20px;
-      font-size: 12px;
+    .event-card .content {
+      padding: 20px;
+    }
+
+    .event-card h3 {
+      margin: 0 0 15px;
+      font-size: 20px;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      animation: pulse 2s infinite;
-    }
-
-    .live-stream-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
-    }
-
-    .event-content {
-      padding: 25px;
-    }
-
-    .event-content h3 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 15px;
-      line-height: 1.3;
+      color: #fff;
     }
 
     .event-details {
@@ -390,12 +178,12 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      color: #ccc;
+      font-size: 14px;
     }
 
     .event-detail i {
-      color: var(--accent);
+      color: #ff4757;
       width: 16px;
     }
 
@@ -403,104 +191,55 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 20px;
+      padding-top: 15px;
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .btn-ticket {
-      background: linear-gradient(135deg, var(--accent), #a82424);
-      color: white;
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
       border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: #fff;
       cursor: pointer;
-      transition: all 0.3s ease;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
+      transition: all 0.3s ease;
     }
 
     .btn-ticket:hover {
-      background: linear-gradient(135deg, #a82424, var(--accent));
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(201, 43, 43, 0.4);
     }
 
     .event-icons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .event-icons .icon-btn {
+    .icon-btn {
       width: 36px;
       height: 36px;
-      font-size: 16px;
-      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
       border: none;
-      border-radius: 50%;
-      color: var(--muted);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      font-size: 14px;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .event-icons .icon-btn:hover {
-      background: var(--accent);
-      color: white;
+    .icon-btn:hover {
+      background: #ff4757;
+      transform: scale(1.1);
     }
 
-    /* Stories Section */
-    .stories {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      padding-bottom: 8px;
-    }
-
-    .story {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
-      width: 92px;
-    }
-
-    .story .avatar {
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      background: #e9e9ea;
-      border: 4px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: #222;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-      overflow: hidden;
-    }
-
-    .story .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .story label {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    /* Post Modal */
+    /* Modal Base Styles */
     .modal {
       display: none;
       position: fixed;
@@ -509,54 +248,61 @@
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
       z-index: 2000;
       backdrop-filter: blur(5px);
     }
 
     .modal.active {
       display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .modal-content {
-      background: var(--bg1);
-      border-radius: 20px;
+    /* Upload Modal - Matching the image design */
+    .upload-modal-content {
+      background: linear-gradient(145deg, #3b4a8c, #2d3561);
       padding: 30px;
+      border-radius: 20px;
       width: 90%;
       max-width: 500px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      color: #fff;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 25px;
     }
 
     .modal-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
+      font-size: 24px;
+      font-weight: 700;
+      color: #4dabf7;
     }
 
     .close-btn {
       background: none;
       border: none;
-      color: var(--muted);
+      color: #fff;
       font-size: 24px;
       cursor: pointer;
       padding: 5px;
-      transition: color 0.3s ease;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .close-btn:hover {
-      color: var(--text);
+      background: rgba(255, 71, 87, 0.2);
+      color: #ff4757;
     }
 
     .form-group {
@@ -566,93 +312,214 @@
     .form-label {
       display: block;
       margin-bottom: 8px;
-      color: var(--text);
+      font-weight: 600;
+      color: #4dabf7;
+      font-size: 16px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: #4dabf7;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .form-select option {
+      background: #2d3561;
+      color: #fff;
+    }
+
+    /* File Upload Area */
+    .file-upload-area {
+      border: 2px dashed rgba(77, 171, 247, 0.5);
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(77, 171, 247, 0.05);
+      position: relative;
+    }
+
+    .file-upload-area:hover {
+      border-color: #4dabf7;
+      background: rgba(77, 171, 247, 0.1);
+    }
+
+    .file-upload-area.dragover {
+      border-color: #4dabf7;
+      background: rgba(77, 171, 247, 0.15);
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      color: #4dabf7;
+      margin-bottom: 15px;
+    }
+
+    .upload-text {
+      font-size: 16px;
+      color: #4dabf7;
+      margin-bottom: 5px;
       font-weight: 600;
     }
 
-    .form-input, .form-textarea {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 14px;
-      transition: border-color 0.3s ease;
+    .upload-subtext {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
     }
 
-    .form-input:focus, .form-textarea:focus {
-      outline: none;
-      border-color: var(--accent);
+    .file-input {
+      display: none;
     }
 
-    .form-textarea {
-      min-height: 120px;
-      resize: vertical;
+    .selected-file {
+      background: rgba(76, 175, 80, 0.2);
+      border: 2px solid #4CAF50;
+      padding: 20px;
+      border-radius: 8px;
+      color: #4CAF50;
+      text-align: center;
     }
 
-    .submit-btn {
-      background: linear-gradient(135deg, var(--accent), #a82424);
-      color: white;
+    .selected-file i {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* Modal Actions */
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: #fff;
       border: none;
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      justify-content: center;
+      box-shadow: 0 2px 10px rgba(255, 71, 87, 0.3);
     }
 
-    .submit-btn:hover {
-      background: linear-gradient(135deg, #a82424, var(--accent));
-      transform: translateY(-2px);
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+    }
+
+    .btn-primary:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
 
     /* Live Stream Modal */
-    .stream-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 3000;
-      backdrop-filter: blur(10px);
-    }
-
-    .stream-modal.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .stream-content {
-      background: var(--bg1);
-      border-radius: 20px;
+    .stream-modal-content {
+      background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
       padding: 20px;
+      border-radius: 15px;
       width: 90%;
       max-width: 800px;
-      max-height: 90vh;
-      overflow-y: auto;
+      color: #fff;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
 
-    .stream-video {
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stream-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ff4757;
+    }
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ff4757;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+    }
+
+    .video-container {
       width: 100%;
       height: 400px;
       background: #000;
       border-radius: 12px;
-      margin-bottom: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted);
-      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder {
+      text-align: center;
+      color: #666;
+    }
+
+    .video-placeholder i {
+      font-size: 64px;
+      margin-bottom: 15px;
+      display: block;
     }
 
     .stream-controls {
@@ -663,284 +530,510 @@
     }
 
     .stream-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
       padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
+      font-weight: 500;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .stream-btn:hover {
-      background: #a82424;
+      background: rgba(255, 71, 87, 0.2);
+      border-color: #ff4757;
+      color: #ff4757;
+    }
+
+    .stream-btn.active {
+      background: #ff4757;
+      border-color: #ff4757;
+      color: #fff;
+    }
+
+    .stream-info {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .viewer-count {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #4CAF50;
+      font-weight: 600;
+    }
+
+    /* Progress indicator for upload */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4CAF50, #45a049);
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .upload-status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #4CAF50;
+      display: none;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 3000;
+      font-weight: 500;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateX(0);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .header {
-        padding: 0 1rem;
-      }
-
-      .header-left {
-        gap: 1rem;
-      }
-
-      .nav-menu {
-        display: none;
-      }
-
-      .user-controls {
-        gap: 0.5rem;
-      }
-
-      .main-content {
+      .events {
         padding: 20px 15px;
-      }
-
-      .page-title h1 {
-        font-size: 2rem;
-      }
-
-      .events-container {
         grid-template-columns: 1fr;
         gap: 20px;
       }
-
-      .stories {
-        justify-content: flex-start;
-        overflow: auto;
-        padding-bottom: 8px;
+      
+      header {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
       }
-
-      .story {
-        width: 86px;
-        flex: 0 0 auto;
+      
+      nav {
+        gap: 15px;
       }
-    }
-
-    @media (max-width: 480px) {
-      .logo {
-        font-size: 18px;
+      
+      .upload-modal-content,
+      .stream-modal-content {
+        width: 95%;
+        margin: 20px;
       }
-
-      .upload-btn span {
-        display: none;
+      
+      .video-container {
+        height: 250px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header exactly matching the image -->
-  <header class="header">
-    <div class="header-container">
-      <div class="header-left">
-        <a href="#" class="logo">
-          <div class="logo-icon">⚽</div>
-          Live Score
-        </a>
-        
-        <nav class="nav-menu">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="highlights.html" class="nav-link">Highlights</a>
-          </li>
-          <li class="nav-item">
-            <a href="events.html" class="nav-link active">Events</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Live</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Stats</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">News</a>
-          </li>
-        </nav>
-      </div>
-
-      <div class="header-right">
-        <button class="upload-btn" onclick="openUploadModal()">
-          <i class='bx bx-plus'></i>
-          <span>Upload</span>
-        </button>
-
-        <div class="user-controls">
-          <div class="notification-container" style="position: relative;">
-            <button class="control-btn" id="notificationBtn">
-              <i class="fa-solid fa-bell"></i>
-              <span class="notification-badge">3</span>
-            </button>
-            <div class="dropdown" id="notificationDropdown">
-              <a href="#" class="dropdown-item">New goal by Messi</a>
-              <a href="#" class="dropdown-item">Match starting in 10 mins</a>
-              <a href="#" class="dropdown-item">Weekly highlights ready</a>
-            </div>
-          </div>
-
-          <div class="message-container" style="position: relative;">
-            <button class="control-btn" id="messageBtn">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span class="notification-badge">2</span>
-            </button>
-            <div class="dropdown" id="messageDropdown">
-              <a href="#" class="dropdown-item">Message from John</a>
-              <a href="#" class="dropdown-item">Team chat update</a>
-            </div>
-          </div>
-
-          <div class="profile-container" style="position: relative;">
-            <div class="profile" id="profileBtn">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
-            </div>
-            <div class="dropdown" id="profileDropdown">
-              <a href="#" class="dropdown-item">My Profile</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">Help</a>
-              <a href="#" class="dropdown-item">Logout</a>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-futbol"></i> Live Score
     </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="highlights.html">Highlights</a>
+      <a href="events.html" class="active">Events</a>
+    </nav>
+    <button class="upload-btn" onclick="openUploadModal()">
+      <i class="fa-solid fa-upload"></i> Upload
+    </button>
   </header>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Stories Section -->
-    
-
-    <!-- Page Title -->
-    <div class="page-title">
-      <h1>Upcoming Events</h1>
-      <p>Don't miss the biggest football matches and tournaments</p>
+  <!-- Events -->
+  <section class="events">
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500" alt="Champions League">
+        <div class="live-badge">LIVE</div>
+      </div>
+      <div class="content">
+        <h3>Champions League Final</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Wembley Stadium, London</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>June 5, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>20:00 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('Champions League Final')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Events Container -->
-    <div class="events-container">
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
+        <div class="live-badge">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>El Clásico: Barca vs Madrid</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Camp Nou, Barcelona</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>July 12, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>19:30 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
+        <div class="live-badge">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>El Clásico: Barca vs Madrid</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Camp Nou, Barcelona</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>July 12, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>19:30 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
+        <div class="live-badge">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>El Clásico: Barca vs Madrid</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Camp Nou, Barcelona</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>July 12, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>19:30 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500" alt="El Clasico">
+        <div class="live-badge">UPCOMING</div>
+      </div>
+      <div class="content">
+        <h3>El Clásico: Barca vs Madrid</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Camp Nou, Barcelona</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>July 12, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>19:30 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-image">
+        <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=500" alt="Africa Cup">
+        <div class="live-badge">POPULAR</div>
+      </div>
+      <div class="content">
+        <h3>Africa Cup of Nations Final</h3>
+        <div class="event-details">
+          <div class="event-detail">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Cairo International Stadium</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-calendar"></i>
+            <span>August 20, 2025</span>
+          </div>
+          <div class="event-detail">
+            <i class="fa-solid fa-clock"></i>
+            <span>18:00 GMT</span>
+          </div>
+        </div>
+        <div class="event-actions">
+          <button class="btn-ticket">
+            <i class="fa-solid fa-ticket"></i> Buy Ticket
+          </button>
+          <div class="event-icons">
+            <button class="icon-btn" onclick="openLiveStream('Africa Cup of Nations Final')" title="Watch Live">
+              <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="icon-btn" title="Share">
+              <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="icon-btn" title="Set Reminder">
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Modal -->
+  <div class="modal" id="uploadModal">
+    <div class="upload-modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload Video Highlight</h2>
+        <button class="close-btn" onclick="closeModal('uploadModal')">×</button>
+      </div>
       
-      <!-- Event 1 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=500&h=300&fit=crop" alt="Champions League Final">
-          <div class="event-badge">Live</div>
-          <button class="live-stream-btn" onclick="openLiveStream('UEFA Champions League Final')">
-            <i class="fa-solid fa-play"></i>
-            LIVE
-          </button>
+      <form id="uploadForm">
+        <div class="form-group">
+          <label class="form-label">Video Category</label>
+          <select class="form-select" id="videoCategory" required>
+            <option value="">Select Category</option>
+            <option value="goals">Goals</option>
+            <option value="skills">Skills & Tricks</option>
+            <option value="matches">Full Matches</option>
+            <option value="training">Training</option>
+            <option value="celebrations">Celebrations</option>
+          </select>
         </div>
-        <div class="event-content">
-          <h3>UEFA Champions League Final</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Wembley Stadium, London</span>
+        
+        <div class="form-group">
+          <label class="form-label">Video Title</label>
+          <input type="text" class="form-input" id="videoTitle" placeholder="e.g., Amazing Goal by Messi" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Upload Video</label>
+          <div class="file-upload-area" id="fileUploadArea">
+            <div class="upload-icon">
+              <i class="fa-solid fa-video"></i>
             </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>June 5, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>20:00 GMT</span>
-            </div>
+            <div class="upload-text">Drop your video file here or click to select</div>
+            <div class="upload-subtext">MP4, AVI, MOV up to 500MB</div>
+            <input type="file" id="videoFileInput" class="file-input" accept="video/*">
           </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="upload-status" id="uploadStatus"></div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Teams/Players</label>
+          <input type="text" class="form-input" id="videoPlayers" placeholder="e.g., Barcelona, Lionel Messi">
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
+          <button type="submit" class="btn-primary" id="uploadBtn">Upload Video</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Live Stream Modal -->
+  <div class="modal" id="streamModal">
+    <div class="stream-modal-content">
+      <div class="stream-header">
+        <div>
+          <h2 class="stream-title" id="streamTitle">Live Stream</h2>
+          <div class="live-indicator">
+            <i class="fa-solid fa-circle"></i>
+            <span>LIVE</span>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeModal('streamModal')">×</button>
+      </div>
+      
+      <div class="video-container" id="videoContainer">
+        <div class="video-placeholder">
+          <i class="fa-solid fa-play-circle"></i>
+          <p>Loading live stream...</p>
+        </div>
+      </div>
+      
+      <div class="stream-controls">
+        <button class="stream-btn active" onclick="setStreamQuality('hd')">
+          <i class="fa-solid fa-tv"></i> HD
+        </button>
+        <button class="stream-btn" onclick="setStreamQuality('sd')">
+          <i class="fa-solid fa-mobile-screen"></i> SD
+        </button>
+        <button class="stream-btn" onclick="toggleFullscreen()">
+          <i class="fa-solid fa-expand"></i> Fullscreen
+        </button>
+        <button class="stream-btn" onclick="toggleMute()">
+          <i class="fa-solid fa-volume-up" id="muteIcon"></i> Audio
+        </button>
+      </div>
+      
+      <div class="stream-info">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="viewer-count">
+            <i class="fa-solid fa-eye"></i>
+            <span id="viewerCount">12,547</span> viewers
+          </div>
+          <div style="color: #4CAF50;">
+            <i class="fa-solid fa-signal"></i> Excellent connection
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- Event 2 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="El Clásico">
-          <div class="event-badge">Featured</div>
-          <button class="live-stream-btn" onclick="openLiveStream('El Clásico: Barcelona vs Real Madrid')">
-            <i class="fa-solid fa-play"></i>
-            STREAM
-          </button>
-        </div>
-        <div class="event-content">
-          <h3>El Clásico: Barcelona vs Real Madrid</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Camp Nou, Barcelona</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>July 12, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>19:30 GMT</span>
-            </div>
-          </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                <i class="fa-solid fa-share"></i>
-              </button>
-              <button class="icon-btn" title="Set Reminder">
-                <i class="fa-solid fa-bell"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <script>
+    let selectedFile = null;
+    let isUploading = false;
+    let streamQuality = 'hd';
+    let isMuted = false;
 
-      <!-- Event 3 -->
-      <div class="event-card">
-        <div class="event-image">
-          <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=500&h=300&fit=crop" alt="Africa Cup">
-          <div class="event-badge">Popular</div>
-          <button class="live-stream-btn" onclick="openLiveStream('Africa Cup of Nations Final')">
-            <i class="fa-solid fa-play"></i>
-            LIVE
-          </button>
-        </div>
-        <div class="event-content">
-          <h3>Africa Cup of Nations Final</h3>
-          <div class="event-details">
-            <div class="event-detail">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>Cairo International Stadium</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-calendar"></i>
-              <span>August 20, 2025</span>
-            </div>
-            <div class="event-detail">
-              <i class="fa-solid fa-clock"></i>
-              <span>18:00 GMT</span>
-            </div>
-          </div>
-          <div class="event-actions">
-            <button class="btn-ticket">
-              <i class="fa-solid fa-ticket"></i>
-              Buy Ticket
-            </button>
-            <div class="event-icons">
-              <button class="icon-btn" title="Share">
-                 <div class="event-card">
-       
+    // Upload Modal Functions
+    function openUploadModal() {
+      document.getElementById('uploadModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = 'auto';
+      
+      if (modalId === 'uploadModal') {
+        resetUploadForm();
+      }
+    }
+
+    function resetUploadForm() {
+      document.getElementById('uploadForm').reset();
+      selectedFile = null;
+      resetFileUploadArea();
+      document.getElementById('progressBar').style.display = 'none';
+      </script>
+      </body>
+      </html>
