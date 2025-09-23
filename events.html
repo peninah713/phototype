@@ -737,84 +737,60 @@
 </head>
 <body>
 
-  <header class="header">
-  <div class="header-container">
-    <div class="header-left">
-      <a href="#" class="logo">
-        <div class="logo-icon">⚽</div>
-        Live Score
-      </a>
-      
-      <nav class="nav-menu">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="highlights.html" class="nav-link">Highlights</a>
-        </li>
-        <li class="nav-item">
-          <a href="events.html" class="nav-link active">Events</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">Live</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">Stats</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">News</a>
-        </li>
-      </nav>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fa-solid fa-futbol"></i> Live Score
     </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="highlights.html">Highlights</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="#" onclick="showLiveMatches()">Live</a>
+      <a href="#" onclick="showStats()">Stats</a>
+      <a href="#" onclick="showNews()">News</a>
+    </nav>
+    <button class="upload-btn" onclick="openUploadModal()">
+      <i class="fa-solid fa-upload"></i> Upload
+    </button>
+    <div class="user-controls">
+            <div class="notification-container" style="position: relative;">
+              <button class="control-btn" id="notificationBtn">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notification-badge">3</span>
+              </button>
+              <div class="dropdown" id="notificationDropdown">
+                <a href="#" class="dropdown-item">New goal by Messi</a>
+                <a href="#" class="dropdown-item">Match starting in 10 mins</a>
+                <a href="#" class="dropdown-item">Weekly highlights ready</a>
+              </div>
+            </div>
 
-    <div class="header-right">
-      <button class="upload-btn" onclick="openUploadModal()">
-        <i class='bx bx-plus'></i>
-        <span>Upload</span>
-      </button>
+            <div class="message-container" style="position: relative;">
+              <button class="control-btn" id="messageBtn">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span class="notification-badge">2</span>
+              </button>
+              <div class="dropdown" id="messageDropdown">
+                <a href="#" class="dropdown-item">Message from John</a>
+                <a href="#" class="dropdown-item">Team chat update</a>
+              </div>
+            </div>
 
-      <div class="user-controls">
-        <!-- Notifications -->
-        <div class="notification-container" style="position: relative;">
-          <button class="control-btn" id="notificationBtn">
-            <i class="fa-solid fa-bell"></i>
-            <span class="notification-badge">3</span>
-          </button>
-          <div class="dropdown" id="notificationDropdown">
-            <a href="#" class="dropdown-item">New goal by Messi</a>
-            <a href="#" class="dropdown-item">Match starting in 10 mins</a>
-            <a href="#" class="dropdown-item">Weekly highlights ready</a>
+            <div class="profile-container" style="position: relative;">
+              <div class="profile" id="profileBtn">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
+              </div>
+              <div class="dropdown" id="profileDropdown">
+                <a href="#" class="dropdown-item">My Profile</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <a href="#" class="dropdown-item">Help</a>
+                <a href="#" class="dropdown-item">Logout</a>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Messages -->
-        <div class="message-container" style="position: relative;">
-          <button class="control-btn" id="messageBtn">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span class="notification-badge">2</span>
-          </button>
-          <div class="dropdown" id="messageDropdown">
-            <a href="#" class="dropdown-item">Message from John</a>
-            <a href="#" class="dropdown-item">Team chat update</a>
-          </div>
-        </div>
-
-        <!-- Profile -->
-        <div class="profile-container" style="position: relative;">
-          <div class="profile" id="profileBtn">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
-          </div>
-          <div class="dropdown" id="profileDropdown">
-            <a href="#" class="dropdown-item">My Profile</a>
-            <a href="#" class="dropdown-item">Settings</a>
-            <a href="#" class="dropdown-item">Help</a>
-            <a href="#" class="dropdown-item">Logout</a>
-          </div>
-        </div>
-      </div> <!-- ✅ closes user-controls -->
-    </div>
-  </div>
-</header>
+  </header>
 
   <!-- Events -->
   <section class="events">
@@ -1516,6 +1492,4 @@
   </script>
 </body>
 </html>
-
-
-
+  where is the error at the header tell me 
