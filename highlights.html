@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Live Score — Demo</title>
+  <title>Live Score — Social Platform</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
@@ -21,1085 +21,821 @@
       --muted: #d9dbe3;
       --max-width: 1200px;
     }
-     /* Instagram-style Header */
-    .header {
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding: 12px 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .header-content {
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    .header {
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       max-width: var(--max-width);
       margin: 0 auto;
+      height: 70px;
+    }
+
+    .header-left {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      gap: 3rem;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: 1px;
-      color: var(--text);
+      gap: 0.5rem;
       text-decoration: none;
-    }
-
-    .logo i {
       color: var(--accent);
-      font-size: 24px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
 
-    /* Navigation Menu */
-    .nav-menu {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .nav-menu a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      transition: color 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-menu a:hover {
-      color: var(--text);
-    }
-
-    .nav-menu a.active {
-      color: var(--text);
-    }
-
-    .nav-menu a i {
-      font-size: 18px;
-    }
-
-    /* Right Side Icons */
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .icon-btn {
-      width: 40px;
-      height: 40px;
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
       border-radius: 50%;
-      background: transparent;
-      border: none;
-      color: var(--text);
-      font-size: 20px;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s ease;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 1rem;
+      right: 1rem;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .nav-link i {
+      font-size: 18px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 18px;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 71, 87, 0.2);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .upload-btn {
+      background: var(--accent);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .upload-btn:hover {
+      background: #b52525;
+      transform: translateY(-1px);
+    }
+
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .profile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+    }
+
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .dropdown.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(255, 71, 87, 0.1);
+      color: white;
+    }
+
+    /* Main Content Area */
+    .main-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .site {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.06) 100%);
+      border-radius: 12px;
+      padding: 28px 40px;
+      box-shadow: 0 30px 40px rgba(70,40,120,0.35);
+    }
+
+    /* Stories */
+    .stories {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      padding-bottom: 8px;
+    }
+
+    .story {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      width: 92px;
+    }
+
+    .story .avatar {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #e9e9ea;
+      border: 4px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #222;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .story .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .story label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Feed grid */
+    .feed {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 360px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card .head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card .head .pf {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #e9e9ea;
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .card .head h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .card .media {
+      width: 100%;
+      height: 190px;
+      border-radius: 18px;
+      overflow: hidden;
+      display: block;
+      background: #222;
+    }
+
+    .card .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card .actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
 
     .icon-btn:hover {
-      background: rgba(255,255,255,0.1);
+      color: var(--text);
     }
 
-    .profile-pic {
-      width: 36px;
-      height: 36px;
+    .icon {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+      transition: transform 0.12s ease;
+    }
+
+    .icon-btn .icon:hover {
+      transform: scale(1.08);
+    }
+
+    .likes {
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .comments {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .comment-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .comment-row .dot {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 16px;
       color: white;
-      cursor: pointer;
-      overflow: hidden;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: "Montserrat", sans-serif;
-      background: linear-gradient(180deg, #2c2b45 0%, #141228 100%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      padding:20px;
-      display:flex;
-      justify-content:center;
-    }
-
-    .site {
-      width:100%;
-      max-width:var(--max-width);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.06) 100%);
-      border-radius:12px;
-      padding:28px 40px;
-      box-shadow: 0 30px 40px rgba(70,40,120,0.35);
-    }
-
-    /* Navigation */
-    .nav {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:20px;
-    }
-
-    .nav .left {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      font-size:22px;
-      letter-spacing:1px;
-    }
-
-    .nav .left i {
-      color:var(--accent);
-    }
-
-    .nav .links {
-      display:flex;
-      gap:28px;
-      font-size:22px;
-    }
-
-    .nav .links a {
-      color:var(--muted);
-      text-decoration:none;
-      transition:color .2s;
-    }
-
-    .nav .links a:hover {
-      color:var(--accent);
-    }
-
-    .profile {
-      width:48px;
-      height:48px;
-      border-radius:50%;
-      background:var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      font-size:20px;
-      color:white;
-    }
-
-    /* Stories */
-    .stories {
-      display:flex;
-      gap:28px;
-      align-items:center;
-      margin-bottom:28px;
-      flex-wrap:wrap;
-      padding-bottom:8px;
-    }
-
-    .story {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:10px;
-      text-align:center;
-      width:92px;
-    }
-
-    .story .avatar {
-      width:76px;
-      height:76px;
-      border-radius:50%;
-      background:#e9e9ea;
-      border:4px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:#222;
-      box-shadow:0 2px 6px rgba(0,0,0,0.25);
-      overflow:hidden;
-    }
-
-    .story .avatar img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      border-radius:50%;
-    }
-
-    .story label{
-      font-size:13px;
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    /* Feed grid */
-    .feed {
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:28px;
-      align-items:start;
-    }
-
-    .card {
-      background:var(--card-bg);
-      border-radius:16px;
-      padding:16px;
-      min-height:360px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .card .head {
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-
-    .card .head .pf {
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      background:#e9e9ea;
-      border:3px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#222;
-      font-weight:700;
-    }
-
-    .card .head h3{
-      margin:0;
-      font-size:20px;
-      font-weight:800;
-      color:var(--text);
-    }
-
-    .card .media {
-      width:100%;
-      height:190px;
-      border-radius:18px;
-      overflow:hidden;
-      display:block;
-      background:#222;
-    }
-
-    .card .media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .card .actions {
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-top:8px;
-    }
-
-    .icon-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      user-select:none;
-    }
-
-    .icon{
-      width:24px;
-      height:24px;
-      color:var(--accent);
-      transition:transform .12s ease;
-    }
-
-    .icon-btn .icon:hover{ transform:scale(1.08) }
-
-    .likes{
-      color:var(--muted);
-      font-weight:600;
-      margin-top:6px;
-      font-size:14px;
-    }
-
-    .desc{
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .comments{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:6px;
-    }
-
-    .comment-row{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-top:auto;
-    }
-
-    .comment-row .dot{
-      width:34px;
-      height:34px;
-      border-radius:50%;
-      background:var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:white;
-    }
-
-    .comment-row input{
-      flex:1;
-      background:transparent;
-      border:0;
-      border-bottom:1px dashed rgba(255,255,255,0.06);
-      padding:6px 8px;
-      color:var(--muted);
-      outline:none;
+    .comment-row input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.06);
+      padding: 6px 8px;
+      color: var(--muted);
+      outline: none;
     }
 
     /* Responsive */
-    @media (max-width:1100px){
-      .feed { grid-template-columns: repeat(2, 1fr) }
-      .story { width:auto }
+    @media (max-width: 1100px) {
+      .feed { 
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .story { 
+        width: auto;
+      }
     }
-    @media (max-width:720px){
-      .feed { grid-template-columns: 1fr }
-      .stories { justify-content:flex-start; overflow:auto; padding-bottom:8px }
-      .story { width:86px; flex:0 0 auto }
-      .site { padding:20px }
-      .nav { flex-direction:column; gap:16px }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 1rem;
+      }
+
+      .header-left {
+        gap: 1rem;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .user-controls {
+        gap: 0.5rem;
+      }
+
+      .feed { 
+        grid-template-columns: 1fr;
+      }
+      
+      .stories { 
+        justify-content: flex-start; 
+        overflow: auto; 
+        padding-bottom: 8px;
+      }
+      
+      .story { 
+        width: 86px; 
+        flex: 0 0 auto;
+      }
+      
+      .site { 
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Score Header</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="logo">
+          <div class="logo-icon">⚽</div>
+          Live Score
+        </a>
+        
+        <nav class="nav-menu">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-house"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="fa-solid fa-video"></i>
+              <span>Highlights</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-calendar-days"></i>
+              <span>Events</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-broadcast-tower"></i>
+              <span>Live</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-chart-simple"></i>
+              <span>Stats</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fa-solid fa-newspaper"></i>
+              <span>News</span>
+            </a>
+          </li>
+        </nav>
+      </div>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: white;
-            min-height: 100vh;
-        }
+      <div class="header-right">
+        <div class="user-controls">
+          <button class="upload-btn">
+            <i class="fa-solid fa-plus"></i>
+          </button>
 
-        .header {
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1400px;
-            margin: 0 auto;
-            height: 70px;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: #ff4757;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: #ff4757;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 71, 87, 0.1);
-        }
-
-        .nav-link.active {
-            color: #ff4757;
-            background: rgba(255, 71, 87, 0.15);
-        }
-
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 1rem;
-            right: 1rem;
-            height: 2px;
-            background: #ff4757;
-            border-radius: 1px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .search-container {
-            position: relative;
-        }
-
-        .search-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 0.6rem 1.5rem;
-            color: white;
-            width: 280px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .user-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .control-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 71, 87, 0.2);
-            color: #ff4757;
-            transform: translateY(-1px);
-        }
-
-        .upload-btn {
-            background: #ff4757;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .upload-btn:hover {
-            background: #ff3742;
-            transform: translateY(-1px);
-        }
-
-        .profile {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #ff4757;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .profile:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ff4757;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 0 1rem;
-            }
-
-            .header-left {
-                gap: 1rem;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .search-box {
-                width: 200px;
-            }
-
-            .search-box:focus {
-                width: 230px;
-            }
-
-            .user-controls {
-                gap: 0.5rem;
-            }
-        }
-
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .dropdown.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255, 71, 87, 0.1);
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <div class="header-container">
-            <div class="header-left">
-                <a href="#" class="logo">
-                    <div class="logo-icon">⚽</div>
-                    Live Score
-                </a>
-                
-                <nav class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active">
-                            Highlights
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Events
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Live
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Stats
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            News
-                        </a>
-                    </li>
-                </nav>
+          <div class="notification-container" style="position: relative;">
+            <button class="control-btn" id="notificationBtn">
+              <i class="fa-solid fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+            <div class="dropdown" id="notificationDropdown">
+              <a href="#" class="dropdown-item">New goal by Messi</a>
+              <a href="#" class="dropdown-item">Match starting in 10 mins</a>
+              <a href="#" class="dropdown-item">Weekly highlights ready</a>
             </div>
+          </div>
 
-            <div class="header-right">
-               
-
-                <div class="user-controls">
-                    <button class="upload-btn">
-                        +
-                    </button>
-
-                    <div class="notification-container" style="position: relative;">
-                        <button class="control-btn" id="notificationBtn">
-                            🔔
-                            <span class="notification-badge">3</span>
-                        </button>
-                        <div class="dropdown" id="notificationDropdown">
-                            <a href="#" class="dropdown-item">New goal by Messi</a>
-                            <a href="#" class="dropdown-item">Match starting in 10 mins</a>
-                            <a href="#" class="dropdown-item">Weekly highlights ready</a>
-                        </div>
-                    </div>
-
-                    <div class="message-container" style="position: relative;">
-                        <button class="control-btn" id="messageBtn">
-                            💬
-                            <span class="notification-badge">2</span>
-                        </button>
-                        <div class="dropdown" id="messageDropdown">
-                            <a href="#" class="dropdown-item">Message from John</a>
-                            <a href="#" class="dropdown-item">Team chat update</a>
-                        </div>
-                    </div>
-
-                    <div class="profile-container" style="position: relative;">
-                        <div class="profile" id="profileBtn">P</div>
-                        <div class="dropdown" id="profileDropdown">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Help</a>
-                            <a href="#" class="dropdown-item">Logout</a>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="mobile-menu-btn">☰</button>
+          <div class="message-container" style="position: relative;">
+            <button class="control-btn" id="messageBtn">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span class="notification-badge">2</span>
+            </button>
+            <div class="dropdown" id="messageDropdown">
+              <a href="#" class="dropdown-item">Message from John</a>
+              <a href="#" class="dropdown-item">Team chat update</a>
             </div>
+          </div>
+
+          <div class="profile-container" style="position: relative;">
+            <div class="profile" id="profileBtn">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile">
+            </div>
+            <div class="dropdown" id="profileDropdown">
+              <a href="#" class="dropdown-item">My Profile</a>
+              <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">Help</a>
+              <a href="#" class="dropdown-item">Logout</a>
+            </div>
+          </div>
         </div>
-    </header>
 
-    <!-- Demo content to show the header in action -->
-    <main style="padding: 2rem; min-height: calc(100vh - 70px);">
-        <h1>Your page content goes here...</h1>
-        <p>This header is sticky and will stay at the top when you scroll.</p>
-    </main>
-
-   
-
-  <div class="content">
-    
-    <div class="header-content">
-      <!-- Logo -->
-      <a href="index.html" class="logo">
-        <i class="fa-solid fa-futbol"></i>
-        Live Score
-      </a>
-
-      <!-- Navigation Menu -->
-      <nav class="nav-menu">
-        <a href="index.html">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="highlights.html">
-          <i class="fa-solid fa-video"></i>
-          <span>Highlights</span>
-        </a>
-        <a href="events.html" class="active">
-          <i class="fa-solid fa-calendar-days"></i>
-          <span>Events</span>
-        </a>
-        <a href="live.html">
-          <i class="fa-solid fa-broadcast-tower"></i>
-          <span>Live</span>
-        </a>
-        <a href="stats.html">
-          <i class="fa-solid fa-chart-simple"></i>
-          <span>Stats</span>
-        </a>
-        <a href="news.html">
-          <i class="fa-solid fa-newspaper"></i>
-          <span>News</span>
-        </a>
-      </nav>
-
-      <!-- Right Actions -->
-      <div class="header-actions">
-        <button class="icon-btn" onclick="openPostModal()" title="Create Post">
-          <i class="fa-solid fa-plus"></i>
-        </button>
-        <button class="icon-btn" title="Direct Messages">
-          <i class="fa-solid fa-paper-plane"></i>
-        </button>
-        <button class="icon-btn" title="Notifications">
-          <i class="fa-solid fa-bell"></i>
-        </button>
-        <div class="profile-pic">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
-        </div>
+        <button class="mobile-menu-btn">☰</button>
       </div>
     </div>
   </header>
-    <!-- Stories -->
-    <div class="stories">
-      <div class="story">
-        <div class="avatar" style="border-style:dashed;">+</div>
-        <label>Your Story</label>
-      </div>
-      <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
-        <label>Messi</label>
-      </div>
-      <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
-        <label>Ronaldo</label>
-      </div>
-      <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
-        <label>Marta</label>
-      </div>
-      <div class="story">
-        <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
-        <label>Neymar</label>
-      </div>
-    </div>
 
-    <!-- Feed -->
-    <div class="feed">
-      <!-- Card 1 -->
-      <article class="card" data-id="1" data-likes="15420">
-        <div class="head">
-          <div class="pf">PL</div>
-          <h3>footyhighlights</h3>
+  <!-- Main Content -->
+  <div class="main-container">
+    <div class="site">
+      <!-- Stories -->
+      <div class="stories">
+        <div class="story">
+          <div class="avatar" style="border-style:dashed;">+</div>
+          <label>Your Story</label>
         </div>
-        <a class="media" href="#"><img src="1.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(1)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+        <div class="story">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
+          <label>Messi</label>
         </div>
-        <div class="likes">15,420 likes</div>
-        <div class="desc">Amazing goal 🔥</div>
-        <div class="comments">View all 892 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
+        <div class="story">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
+          <label>Ronaldo</label>
+        </div>
+        <div class="story">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
+          <label>Marta</label>
+        </div>
+        <div class="story">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
+          <label>Neymar</label>
+        </div>
+      </div>
 
-      <!-- Card 2 -->
-      <article class="card" data-id="2" data-likes="30112">
-        <div class="head">
-          <div class="pf">CR</div>
-          <h3>cr7updates</h3>
-        </div>
-        <a class="media" href="#"><img src="2.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(2)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">30,112 likes</div>
-        <div class="desc">Cristiano is on fire! 💥</div>
-        <div class="comments">View all 1,200 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
+      <!-- Feed -->
+      <div class="feed">
+        <!-- Card 1 -->
+        <article class="card" data-id="1" data-likes="15420">
+          <div class="head">
+            <div class="pf">PL</div>
+            <h3>footyhighlights</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="Football highlight">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(1)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">15,420 likes</div>
+          <div class="desc">Amazing goal 🔥</div>
+          <div class="comments">View all 892 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
 
-      <!-- Card 3 -->
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
-      <article class="card" data-id="3" data-likes="50890">
-        <div class="head">
-          <div class="pf">LM</div>
-          <h3>messiupdates</h3>
-        </div>
-        <a class="media" href="#"><img src="3.jfif" alt=""></a>
-        <div class="actions">
-          <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
-          <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
-          <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
-        </div>
-        <div class="likes">50,890 likes</div>
-        <div class="desc">Legend at work ⚡</div>
-        <div class="comments">View all 3,245 comments</div>
-        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
-      </article>
+        <!-- Card 2 -->
+        <article class="card" data-id="2" data-likes="30112">
+          <div class="head">
+            <div class="pf">CR</div>
+            <h3>cr7updates</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=300&fit=crop" alt="Cristiano highlight">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(2)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">30,112 likes</div>
+          <div class="desc">Cristiano is on fire! 💥</div>
+          <div class="comments">View all 1,200 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" data-id="3" data-likes="50890">
+          <div class="head">
+            <div class="pf">LM</div>
+            <h3>messiupdates</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=500&h=300&fit=crop" alt="Messi highlight">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(3)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">50,890 likes</div>
+          <div class="desc">Legend at work ⚡</div>
+          <div class="comments">View all 3,245 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
+
+        <!-- Additional Cards -->
+        <article class="card" data-id="4" data-likes="25640">
+          <div class="head">
+            <div class="pf">NJ</div>
+            <h3>neymarjr</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&h=300&fit=crop" alt="Football action">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(4)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">25,640 likes</div>
+          <div class="desc">Skills on point! ⭐</div>
+          <div class="comments">View all 1,890 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
+
+        <article class="card" data-id="5" data-likes="18750">
+          <div class="head">
+            <div class="pf">MB</div>
+            <h3>mbappeupdates</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=500&h=300&fit=crop" alt="Football match">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(5)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">18,750 likes</div>
+          <div class="desc">Speed demon! 🚀</div>
+          <div class="comments">View all 967 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
+
+        <article class="card" data-id="6" data-likes="42100">
+          <div class="head">
+            <div class="pf">RL</div>
+            <h3>realmadrid</h3>
+          </div>
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1606107557309-065b95e60b44?w=500&h=300&fit=crop" alt="Team celebration">
+          </div>
+          <div class="actions">
+            <div class="icon-btn" onclick="toggleLike(6)"><i class="fa-solid fa-heart icon"></i> Like</div>
+            <div class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</div>
+            <div class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</div>
+          </div>
+          <div class="likes">42,100 likes</div>
+          <div class="desc">Hala Madrid! 👑</div>
+          <div class="comments">View all 2,156 comments</div>
+          <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+        </article>
+      </div>
     </div>
   </div>
 
   <script>
-     <script>
-        // Dropdown functionality
-        function setupDropdown(buttonId, dropdownId) {
-            const button = document.getElementById(buttonId);
-            const dropdown = document.getElementById(dropdownId);
-            
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                
-                // Close other dropdowns
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    if (d !== dropdown) {
-                        d.classList.remove('show');
-                    }
-                });
-                
-                // Toggle current dropdown
-                dropdown.classList.toggle('show');
-            });
-        }
-
-        // Setup all dropdowns
-        setupDropdown('notificationBtn', 'notificationDropdown');
-        setupDropdown('messageBtn', 'messageDropdown');
-        setupDropdown('profileBtn', 'profileDropdown');
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.classList.remove('show');
-            });
-        });
-
-        // Navigation active state
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('.nav-link').forEach(l => {
-                    l.classList.remove('active');
-                });
-                
-                // Add active class to clicked link
-                link.classList.add('active');
-            });
-        });
-
-        // Search functionality
-        const searchBox = document.querySelector('.search-box');
-        searchBox.addEventListener('input', (e) => {
-            const query = e.target.value;
-            if (query.length > 2) {
-                console.log('Searching for:', query);
-                // Add your search logic here
+    // Dropdown functionality
+    function setupDropdown(buttonId, dropdownId) {
+      const button = document.getElementById(buttonId);
+      const dropdown = document.getElementById(dropdownId);
+      
+      if (button && dropdown) {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          
+          // Close other dropdowns
+          document.querySelectorAll('.dropdown').forEach(d => {
+            if (d !== dropdown) {
+              d.classList.remove('show');
             }
+          });
+          
+          // Toggle current dropdown
+          dropdown.classList.toggle('show');
         });
+      }
+    }
 
-        // Upload button functionality
-        document.querySelector('.upload-btn').addEventListener('click', () => {
-            console.log('Upload clicked');
-            // Add your upload logic here
-        });
+    // Setup all dropdowns
+    setupDropdown('notificationBtn', 'notificationDropdown');
+    setupDropdown('messageBtn', 'messageDropdown');
+    setupDropdown('profileBtn', 'profileDropdown');
 
-        // Mobile menu toggle (basic implementation)
-        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
-            const navMenu = document.querySelector('.nav-menu');
-            if (navMenu.style.display === 'flex') {
-                navMenu.style.display = 'none';
-            } else {
-                navMenu.style.display = 'flex';
-                navMenu.style.position = 'absolute';
-                navMenu.style.top = '70px';
-                navMenu.style.left = '0';
-                navMenu.style.right = '0';
-                navMenu.style.background = 'rgba(26, 26, 46, 0.95)';
-                navMenu.style.flexDirection = 'column';
-                navMenu.style.padding = '1rem';
-                navMenu.style.gap = '0.5rem';
-            }
-        });
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.classList.remove('show');
+      });
+    });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
+    // Navigation active state
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        document.querySelectorAll('.nav-link').forEach(l => {
+          l.classList.remove('active');
         });
+        
+        // Add active class to clicked link
+        link.classList.add('active');
+      });
+    });
 
-        // Add scroll effect to header
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            lastScrollY = window.scrollY;
-        });
-    </script>
-    function toggleLike(id){
+    // Like functionality
+    function toggleLike(id) {
       const card = document.querySelector(`.card[data-id="${id}"]`);
-      if(!card) return;
+      if (!card) return;
 
       const icon = card.querySelector('.fa-heart');
       const likesElem = card.querySelector('.likes');
       let baseLikes = parseInt(card.dataset.likes);
       const liked = card.dataset.liked === "true";
 
-      if(liked){
+      if (liked) {
         card.dataset.liked = "false";
         icon.style.color = 'var(--accent)';
         likesElem.textContent = baseLikes.toLocaleString() + " likes";
@@ -1109,11 +845,29 @@
         likesElem.textContent = (baseLikes + 1).toLocaleString() + " likes";
       }
     }
-  </script>
-</body>
-</html>
 
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+      const navMenu = document.querySelector('.nav-menu');
+      if (navMenu.style.display === 'flex') {
+        navMenu.style.display = 'none';
+      } else {
+        navMenu.style.display = 'flex';
+        navMenu.style.position = 'absolute';
+        navMenu.style.top = '70px';
+        navMenu.style.left = '0';
+        navMenu.style.right = '0';
+        navMenu.style.background = 'rgba(26, 26, 46, 0.95)';
+        navMenu.style.flexDirection = 'column';
+        navMenu.style.padding = '1rem';
+        navMenu.style.gap = '0.5rem';
+        navMenu.style.zIndex = '999';
+      }
+    });
 
-
-
-
+    // Header scroll effect
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > lastScrollY && window.scrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
