@@ -1,36 +1,263 @@
- <!-- Live Section -->
-        <div class="content-section" id="live-section" style="display: none;">
-          <div class="section-header">
-            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
-              🔴 Live Matches
-            </h2>
-          </div>
-          
-          <div class="live-matches" style="display: grid; gap: 20px;">
-            <div class="live-match" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border: 2px solid var(--accent);">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <div style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800;">
-                  LIVE • 67'
-                </div>
-                <div style="color: var(--muted); font-size: 14px;">Premier League</div>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="text-align: center;">
-                  <div style="font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px;">Arsenal</div>
-                  <div style="font-size: 32px; font-weight: 800; color: var(--accent);">2</div>
-                </div>
-                <div style="color: var(--muted); font-size: 20px; font-weight: 800;">VS</div>
-                <div style="text-align: center;">
-                  <div style="font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px;">Chelsea</div>
-                  <div style="font-size: 32px; font-weight: 800; color: var(--accent);">1</div>
-                </div>
-              </div>
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Matches - LiveScore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-            <div style="color: var(--muted); text-align: center; padding: 40px;">
-              <div style="font-size: 48px; margin-bottom: 16px;">📺</div>
-              <h3 style="color: var(--text); margin-bottom: 8px;">No other live matches</h3>
-              <p>Check back later for more live action!</p>
-            </div>
-          </div>
+  <style>
+    :root {
+      --bg1: #25233c;
+      --bg2: #141228;
+      --accent: #c92b2b;
+      --card-bg: rgba(255,255,255,0.05);
+      --text: #f3f3f6;
+      --muted: #d9dbe3;
+      --header-bg: rgba(37, 35, 60, 0.95);
+      --nav-active: #c92b2b;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--header-bg);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 70px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--nav-active);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--nav-active);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 1rem 0;
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link.active {
+      color: var(--nav-active);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--nav-active);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* Upload Button */
+    .upload-btn {
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.3s;
+    }
+
+    .upload-btn:hover {
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
+      transform: translateY(-2px);
+    }
+
+    /* Live Matches */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .live-match {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 16px;
+      border: 2px solid var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .live-badge {
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .match-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .team {
+      text-align: center;
+    }
+
+    .team-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .score {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .vs {
+      color: var(--muted);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .no-live {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .no-live h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">⚽</div>
+          LiveScore
+        </a>
+        <nav class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="highlights.html" class="nav-link">Highlights</a>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="live.html" class="nav-link active">Live</a>
+          <a href="stats.html" class="nav-link">Stats</a>
+          <a href="news.html" class="nav-link">News</a>
+        </nav>
+      </div>
+      
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="section-header">
+      <h2>🔴 Live Matches</h2>
+    </div>
+
+    <!-- Example Live Match -->
+    <div class="live-match">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+        <span class="live-badge">LIVE • 67'</span>
+        <span style="color: var(--muted); font-size: 14px;">Premier League</span>
+      </div>
+      <div class="match-row">
+        <div class="team">
+          <div class="team-name">Arsenal</div>
+          <div class="score">2</div>
         </div>
+        <div class="vs">VS</div>
+        <div class="team">
+          <div class="team-name">Chelsea</div>
+          <div class="score">1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No More Matches -->
+    <div class="no-live">
+      <div style="font-size: 48px; margin-bottom: 16px;">📺</div>
+      <h3>No other live matches</h3>
+      <p>Check back later for more live action!</p>
+    </div>
+  </div>
+
+</body>
+</html>
