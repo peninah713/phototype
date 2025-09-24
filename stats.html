@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stats - LiveScore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <style>
+    :root {
+      --bg1: #25233c;
+      --bg2: #141228;
+      --accent: #c92b2b;
+      --card-bg: rgba(255,255,255,0.05);
+      --text: #f3f3f6;
+      --muted: #d9dbe3;
+      --header-bg: rgba(37, 35, 60, 0.95);
+      --nav-active: #c92b2b;
+    }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+      color: var(--text);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--header-bg);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 70px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--nav-active);
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--nav-active);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      padding: 1rem 0;
+      font-weight: 600;
+      font-size: 16px;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link.active {
+      color: var(--nav-active);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--nav-active);
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* Upload Button */
+    .upload-btn {
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.3s;
+    }
+
+    .upload-btn:hover {
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .stats-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .stats-card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 16px;
+    }
+
+    .stats-card h3 {
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stats-row:last-child {
+      border-bottom: none;
+    }
+
+    .stats-row span:first-child {
+      color: var(--text);
+    }
+
+    .stats-row span:last-child {
+      color: var(--accent);
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">⚽</div>
+          LiveScore
+        </a>
+        <nav class="nav-menu">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="highlights.html" class="nav-link">Highlights</a>
+          <a href="events.html" class="nav-link">Events</a>
+          <a href="live.html" class="nav-link">Live</a>
+          <a href="stats.html" class="nav-link active">Stats</a>
+          <a href="#" class="nav-link">News</a>
+        </nav>
+      </div>
+      <button class="upload-btn"><i class='bx bx-plus'></i> Upload</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="section-header">
+      <h2>📊 Statistics</h2>
+    </div>
+
+    <div class="stats-content">
+      <!-- Top Scorers -->
+      <div class="stats-card">
+        <h3>Top Scorers</h3>
+        <div class="stats-row"><span>1. Lionel Messi</span><span>34 goals</span></div>
+        <div class="stats-row"><span>2. Erling Haaland</span><span>32 goals</span></div>
+        <div class="stats-row"><span>3. Kylian Mbappé</span><span>29 goals</span></div>
+        <div class="stats-row"><span>4. Harry Kane</span><span>28 goals</span></div>
+      </div>
+
+      <!-- League Standings -->
+      <div class="stats-card">
+        <h3>League Standings</h3>
+        <div class="stats-row"><span>1. Manchester City</span><span>78 pts</span></div>
+        <div class="stats-row"><span>2. Arsenal</span><span>75 pts</span></div>
+        <div class="stats-row"><span>3. Liverpool</span><span>71 pts</span></div>
+        <div class="stats-row"><span>4. Chelsea</span><span>65 pts</span></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
