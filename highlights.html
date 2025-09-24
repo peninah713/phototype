@@ -23,7 +23,64 @@
       --header-bg: rgba(37, 35, 60, 0.95);
       --nav-active: #c92b2b;
     }
+    
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--nav-active);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo i {
+      font-size: 28px;
+    }
+
+    nav {
+      display: flex;
+      gap: 35px;
+    }
+
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px 0;
+      position: relative;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--nav-active);
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--nav-active);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -814,32 +871,18 @@
     <header class="header">
       <div class="header-container">
         <div class="header-left">
-          <a href="#" class="logo">
-            <div class="logo-icon">⚽</div>
-            LiveScore
-          </a>
-          
-          <nav class="nav-menu">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="highlights.html" class="nav-link active">Highlights</a>
-            </li>
-            <li class="nav-item">
-              <a href="events.html" class="nav-link ">Events</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Live</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Stats</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">News</a>
-            </li>
-          </nav>
-        </div>
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-futbol"></i> LiveScore
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="highlights.html">Highlights</a>
+        <a href="events.html" class="active">Events</a>
+        <a href="#" onclick="showLiveMatches()">Live</a>
+        <a href="#" onclick="showStats()">Stats</a>
+        <a href="#" onclick="showNews()">News</a>
+      </nav>
+    </div>
 
         <div class="header-right">
           <button class="upload-btn" onclick="openUploadModal()">
@@ -947,32 +990,300 @@
     <!-- Main Content -->
     <div class="main-container">
       <div class="site">
-        <!-- Stories -->
-        <div class="stories">
-          <div class="story">
-            <div class="avatar" style="border-style:dashed;">+</div>
-            <label>Your Story</label>
+        <!-- Home Section -->
+        <div class="content-section" id="home-section" style="display: none;">
+          <div class="section-header">
+            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
+              Welcome to LiveScore
+            </h2>
+            <p style="color: var(--muted); font-size: 18px; margin-bottom: 32px;">
+              Your ultimate destination for football highlights, live scores, and community content.
+            </p>
           </div>
-          <div class="story">
-            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
-            <label>Messi</label>
+          
+          <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 32px;">
+            <div class="stat-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; text-align: center;">
+              <div style="font-size: 48px; color: var(--accent); margin-bottom: 12px;">⚽</div>
+              <h3 style="color: var(--text); font-size: 24px; font-weight: 800; margin-bottom: 8px;">1,234</h3>
+              <p style="color: var(--muted); font-size: 14px;">Goals This Week</p>
+            </div>
+            <div class="stat-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; text-align: center;">
+              <div style="font-size: 48px; color: var(--accent); margin-bottom: 12px;">🏆</div>
+              <h3 style="color: var(--text); font-size: 24px; font-weight: 800; margin-bottom: 8px;">56</h3>
+              <p style="color: var(--muted); font-size: 14px;">Matches Today</p>
+            </div>
+            <div class="stat-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; text-align: center;">
+              <div style="font-size: 48px; color: var(--accent); margin-bottom: 12px;">👥</div>
+              <h3 style="color: var(--text); font-size: 24px; font-weight: 800; margin-bottom: 8px;">2.5M</h3>
+              <p style="color: var(--muted); font-size: 14px;">Active Users</p>
+            </div>
           </div>
-          <div class="story">
-            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
-            <label>Ronaldo</label>
-          </div>
-          <div class="story">
-            <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
-            <label>Marta</label>
-          </div>
-          <div class="story">
-            <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
-            <label>Neymar</label>
+
+          <div class="trending-section">
+            <h3 style="color: var(--text); font-size: 24px; font-weight: 800; margin-bottom: 20px;">🔥 Trending Now</h3>
+            <div style="background: var(--card-bg); padding: 20px; border-radius: 16px;">
+              <ul style="list-style: none; color: var(--muted);">
+                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">🥅 Messi's incredible free kick against Real Madrid</li>
+                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">⚡ Mbappe breaks speed record in Champions League</li>
+                <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">🏆 Barcelona advances to quarter-finals</li>
+                <li style="padding: 12px 0;">🎯 Ronaldo reaches 900 career goals milestone</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <!-- Feed -->
-        <div class="feed">
+        <!-- Events Section -->
+        <div class="content-section" id="events-section" style="display: none;">
+          <div class="section-header">
+            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
+              Upcoming Events
+            </h2>
+          </div>
+          
+          <div class="events-grid" style="display: grid; gap: 20px;">
+            <div class="event-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border-left: 4px solid var(--accent);">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                <div>
+                  <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 8px;">
+                    Barcelona vs Real Madrid
+                  </h3>
+                  <p style="color: var(--muted); font-size: 14px;">El Clasico - La Liga</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="color: var(--accent); font-weight: 800; font-size: 16px;">Today</div>
+                  <div style="color: var(--muted); font-size: 14px;">8:00 PM</div>
+                </div>
+              </div>
+              <div style="background: rgba(201, 43, 43, 0.1); padding: 12px; border-radius: 8px; color: var(--accent); font-size: 14px; font-weight: 600;">
+                🔴 LIVE in 2 hours
+              </div>
+            </div>
+
+            <div class="event-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border-left: 4px solid #2ecc71;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                <div>
+                  <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 8px;">
+                    Manchester City vs Liverpool
+                  </h3>
+                  <p style="color: var(--muted); font-size: 14px;">Premier League</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="color: #2ecc71; font-weight: 800; font-size: 16px;">Tomorrow</div>
+                  <div style="color: var(--muted); font-size: 14px;">3:00 PM</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px;">
+                <button style="background: #2ecc71; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                  Set Reminder
+                </button>
+                <button style="background: transparent; color: var(--muted); border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                  View Details
+                </button>
+              </div>
+            </div>
+
+            <div class="event-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border-left: 4px solid #f39c12;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                <div>
+                  <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 8px;">
+                    Champions League Draw
+                  </h3>
+                  <p style="color: var(--muted); font-size: 14px;">Quarter-Final Draw Ceremony</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="color: #f39c12; font-weight: 800; font-size: 16px;">March 15</div>
+                  <div style="color: var(--muted); font-size: 14px;">12:00 PM</div>
+                </div>
+              </div>
+              <div style="background: rgba(243, 156, 18, 0.1); padding: 12px; border-radius: 8px; color: #f39c12; font-size: 14px; font-weight: 600;">
+                📺 Watch Live Coverage
+              </div>
+            </div>
+
+            <div class="event-card" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border-left: 4px solid #9b59b6;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                <div>
+                  <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 8px;">
+                    Women's World Cup Final
+                  </h3>
+                  <p style="color: var(--muted); font-size: 14px;">FIFA Women's World Cup</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="color: #9b59b6; font-weight: 800; font-size: 16px;">July 20</div>
+                  <div style="color: var(--muted); font-size: 14px;">6:00 PM</div>
+                </div>
+              </div>
+              <div style="color: var(--muted); font-size: 14px;">
+                The biggest match in women's football. Don't miss the historic final!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Section -->
+        <div class="content-section" id="live-section" style="display: none;">
+          <div class="section-header">
+            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
+              🔴 Live Matches
+            </h2>
+          </div>
+          
+          <div class="live-matches" style="display: grid; gap: 20px;">
+            <div class="live-match" style="background: var(--card-bg); padding: 24px; border-radius: 16px; border: 2px solid var(--accent);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800;">
+                  LIVE • 67'
+                </div>
+                <div style="color: var(--muted); font-size: 14px;">Premier League</div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="text-align: center;">
+                  <div style="font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px;">Arsenal</div>
+                  <div style="font-size: 32px; font-weight: 800; color: var(--accent);">2</div>
+                </div>
+                <div style="color: var(--muted); font-size: 20px; font-weight: 800;">VS</div>
+                <div style="text-align: center;">
+                  <div style="font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px;">Chelsea</div>
+                  <div style="font-size: 32px; font-weight: 800; color: var(--accent);">1</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="color: var(--muted); text-align: center; padding: 40px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">📺</div>
+              <h3 style="color: var(--text); margin-bottom: 8px;">No other live matches</h3>
+              <p>Check back later for more live action!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="content-section" id="stats-section" style="display: none;">
+          <div class="section-header">
+            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
+              📊 Statistics
+            </h2>
+          </div>
+          
+          <div class="stats-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+            <div style="background: var(--card-bg); padding: 24px; border-radius: 16px;">
+              <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 20px;">Top Scorers</h3>
+              <div style="space-y: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">1. Lionel Messi</span>
+                  <span style="color: var(--accent); font-weight: 800;">34 goals</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">2. Erling Haaland</span>
+                  <span style="color: var(--accent); font-weight: 800;">32 goals</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">3. Kylian Mbappé</span>
+                  <span style="color: var(--accent); font-weight: 800;">29 goals</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                  <span style="color: var(--text);">4. Harry Kane</span>
+                  <span style="color: var(--accent); font-weight: 800;">28 goals</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="background: var(--card-bg); padding: 24px; border-radius: 16px;">
+              <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 20px;">League Standings</h3>
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">1. Manchester City</span>
+                  <span style="color: var(--accent); font-weight: 800;">78 pts</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">2. Arsenal</span>
+                  <span style="color: var(--accent); font-weight: 800;">75 pts</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <span style="color: var(--text);">3. Liverpool</span>
+                  <span style="color: var(--accent); font-weight: 800;">71 pts</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                  <span style="color: var(--text);">4. Chelsea</span>
+                  <span style="color: var(--accent); font-weight: 800;">65 pts</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="content-section" id="news-section" style="display: none;">
+          <div class="section-header">
+            <h2 style="color: var(--text); font-size: 32px; font-weight: 800; margin-bottom: 24px;">
+              📰 Latest News
+            </h2>
+          </div>
+          
+          <div class="news-grid" style="display: grid; gap: 20px;">
+            <article style="background: var(--card-bg); padding: 24px; border-radius: 16px;">
+              <div style="color: var(--accent); font-size: 12px; font-weight: 800; margin-bottom: 8px;">BREAKING NEWS</div>
+              <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 12px;">
+                Messi Signs New Contract Extension
+              </h3>
+              <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+                Lionel Messi has agreed to extend his contract with Paris Saint-Germain for another two years, keeping him at the club until 2025. The deal includes performance bonuses and a release clause.
+              </p>
+              <div style="color: var(--muted); font-size: 12px;">2 hours ago</div>
+            </article>
+
+            <article style="background: var(--card-bg); padding: 24px; border-radius: 16px;">
+              <div style="color: #2ecc71; font-size: 12px; font-weight: 800; margin-bottom: 8px;">TRANSFER</div>
+              <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 12px;">
+                Chelsea Completes £100M Signing
+              </h3>
+              <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+                Chelsea has successfully completed the signing of the young midfielder from Borussia Dortmund in a deal worth £100 million, making it one of the biggest transfers of the season.
+              </p>
+              <div style="color: var(--muted); font-size: 12px;">5 hours ago</div>
+            </article>
+
+            <article style="background: var(--card-bg); padding: 24px; border-radius: 16px;">
+              <div style="color: #f39c12; font-size: 12px; font-weight: 800; margin-bottom: 8px;">INJURY UPDATE</div>
+              <h3 style="color: var(--text); font-size: 20px; font-weight: 800; margin-bottom: 12px;">
+                Neymar Expected to Return Next Month
+              </h3>
+              <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+                PSG forward Neymar Jr. is making good progress in his recovery from ankle injury and is expected to return to full training next month, according to the club's medical team.
+              </p>
+              <div style="color: var(--muted); font-size: 12px;">1 day ago</div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Highlights Section (Default) -->
+        <div class="content-section" id="highlights-section">
+          <!-- Stories -->
+          <div class="stories">
+            <div class="story">
+              <div class="avatar" style="border-style:dashed;">+</div>
+              <label>Your Story</label>
+            </div>
+            <div class="story">
+              <div class="avatar"><img src="https://randomuser.me/api/portraits/men/11.jpg" alt=""></div>
+              <label>Messi</label>
+            </div>
+            <div class="story">
+              <div class="avatar"><img src="https://randomuser.me/api/portraits/men/12.jpg" alt=""></div>
+              <label>Ronaldo</label>
+            </div>
+            <div class="story">
+              <div class="avatar"><img src="https://randomuser.me/api/portraits/women/13.jpg" alt=""></div>
+              <label>Marta</label>
+            </div>
+            <div class="story">
+              <div class="avatar"><img src="https://randomuser.me/api/portraits/men/14.jpg" alt=""></div>
+              <label>Neymar</label>
+            </div>
+          </div>
+
+          <!-- Feed -->
+          <div class="feed">
           <!-- Card 1 -->
           <article class="card" data-id="1" data-likes="15420">
             <div class="head">
@@ -1093,7 +1404,8 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
   <script>
     // Modal functionality
@@ -1352,19 +1664,45 @@
       }
     });
 
+    // Navigation functionality
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Show selected section
+      const targetSection = document.getElementById(sectionName + '-section');
+      if (targetSection) {
+        targetSection.style.display = 'block';
+      }
+      
+      // Update active nav link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      const activeLink = document.querySelector(`[data-section="${sectionName}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+    }
+
     // Navigation active state
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         
-        // Remove active class from all links
-        document.querySelectorAll('.nav-link').forEach(l => {
-          l.classList.remove('active');
-        });
-        
-        // Add active class to clicked link
-        link.classList.add('active');
+        const section = link.getAttribute('data-section');
+        if (section) {
+          showSection(section);
+        }
       });
+    });
+
+    // Initialize with highlights section
+    document.addEventListener('DOMContentLoaded', () => {
+      showSection('highlights');
     });
 
     // Like functionality
