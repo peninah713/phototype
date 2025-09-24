@@ -478,6 +478,274 @@
       cursor: pointer;
     }
 
+    /* Modal Styles */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .upload-modal-content {
+      background: linear-gradient(145deg, #2a2850, #1e1b3c);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 550px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: scale(0.9) translateY(50px);
+      transition: all 0.3s ease;
+    }
+
+    .modal.show .upload-modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 28px;
+      cursor: pointer;
+      padding: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201, 43, 43, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .file-upload-area {
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .file-upload-area:hover {
+      border-color: var(--accent);
+      background: rgba(201, 43, 43, 0.05);
+    }
+
+    .file-upload-area.dragover {
+      border-color: var(--accent);
+      background: rgba(201, 43, 43, 0.1);
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .upload-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .upload-subtext {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 16px;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-bar.show {
+      opacity: 1;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #ff4757);
+      width: 0%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .upload-status {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-status.show {
+      opacity: 1;
+    }
+
+    .upload-status.success {
+      color: #2ecc71;
+    }
+
+    .upload-status.error {
+      color: #e74c3c;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      padding: 20px 0 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 24px;
+    }
+
+    .btn-secondary, .btn-primary {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4757, #c92b2b);
+      color: white;
+      box-shadow: 0 4px 15px rgba(201, 43, 43, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #c92b2b, #aa0000);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201, 43, 43, 0.4);
+    }
+
+    .btn-primary:disabled {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #uploadForm {
+      padding: 24px 28px;
+    }
+
+    .selected-file {
+      background: rgba(46, 204, 113, 0.1);
+      border: 2px solid #2ecc71;
+      color: #2ecc71;
+    }
+
+    .selected-file .upload-text {
+      color: #2ecc71;
+    }
+
     /* Responsive */
     @media (max-width: 1100px) {
       .feed { 
@@ -526,6 +794,16 @@
       
       .site { 
         padding: 20px;
+      }
+
+      .upload-modal-content {
+        width: 95%;
+        margin: 0 10px;
+      }
+
+      .modal-header, #uploadForm {
+        padding-left: 20px;
+        padding-right: 20px;
       }
     }
   </style>
@@ -611,6 +889,61 @@
       </div>
     </header>
 
+    <!-- Upload Modal -->
+    <div class="modal" id="uploadModal">
+      <div class="upload-modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Upload Video Highlight</h2>
+          <button class="close-btn" onclick="closeModal('uploadModal')">&times;</button>
+        </div>
+        
+        <form id="uploadForm">
+          <div class="form-group">
+            <label class="form-label">Video Category</label>
+            <select class="form-select" id="videoCategory" required>
+              <option value="">Select Category</option>
+              <option value="goals">Goals</option>
+              <option value="skills">Skills & Tricks</option>
+              <option value="matches">Full Matches</option>
+              <option value="training">Training</option>
+              <option value="celebrations">Celebrations</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Video Title</label>
+            <input type="text" class="form-input" id="videoTitle" placeholder="e.g., Amazing Goal by Messi" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Upload Video</label>
+            <div class="file-upload-area" id="fileUploadArea">
+              <div class="upload-icon">
+                <i class="fa-solid fa-video"></i>
+              </div>
+              <div class="upload-text">Drop your video file here or click to select</div>
+              <div class="upload-subtext">MP4, AVI, MOV up to 500MB</div>
+              <input type="file" id="videoFileInput" class="file-input" accept="video/*">
+            </div>
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="upload-status" id="uploadStatus"></div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Teams/Players</label>
+            <input type="text" class="form-input" id="videoPlayers" placeholder="e.g., Barcelona, Lionel Messi">
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
+            <button type="submit" class="btn-primary" id="uploadBtn">Upload Video</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Main Content -->
     <div class="main-container">
       <div class="site">
@@ -637,60 +970,6 @@
             <label>Neymar</label>
           </div>
         </div>
- <!-- Upload Modal -->
-  <div class="modal" id="uploadModal">
-    <div class="upload-modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title">Upload Video Highlight</h2>
-        <button class="close-btn" onclick="closeModal('uploadModal')">×</button>
-      </div>
-      
-      <form id="uploadForm">
-        <div class="form-group">
-          <label class="form-label">Video Category</label>
-          <select class="form-select" id="videoCategory" required>
-            <option value="">Select Category</option>
-            <option value="goals">Goals</option>
-            <option value="skills">Skills & Tricks</option>
-            <option value="matches">Full Matches</option>
-            <option value="training">Training</option>
-            <option value="celebrations">Celebrations</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Video Title</label>
-          <input type="text" class="form-input" id="videoTitle" placeholder="e.g., Amazing Goal by Messi" required>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Upload Video</label>
-          <div class="file-upload-area" id="fileUploadArea">
-            <div class="upload-icon">
-              <i class="fa-solid fa-video"></i>
-            </div>
-            <div class="upload-text">Drop your video file here or click to select</div>
-            <div class="upload-subtext">MP4, AVI, MOV up to 500MB</div>
-            <input type="file" id="videoFileInput" class="file-input" accept="video/*">
-          </div>
-          <div class="progress-bar" id="progressBar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-          <div class="upload-status" id="uploadStatus"></div>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label">Teams/Players</label>
-          <input type="text" class="form-input" id="videoPlayers" placeholder="e.g., Barcelona, Lionel Messi">
-        </div>
-        
-        <div class="modal-actions">
-          <button type="button" class="btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
-          <button type="submit" class="btn-primary" id="uploadBtn">Upload Video</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
         <!-- Feed -->
         <div class="feed">
@@ -817,6 +1096,226 @@
   </main>
 
   <script>
+    // Modal functionality
+    function openUploadModal() {
+      const modal = document.getElementById('uploadModal');
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('show');
+      document.body.style.overflow = 'auto';
+      
+      // Reset form
+      if (modalId === 'uploadModal') {
+        resetUploadForm();
+      }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('uploadModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('uploadModal')) {
+        closeModal('uploadModal');
+      }
+    });
+
+    // Escape key to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const openModal = document.querySelector('.modal.show');
+        if (openModal) {
+          closeModal(openModal.id);
+        }
+      }
+    });
+
+    // File upload functionality
+    const fileInput = document.getElementById('videoFileInput');
+    const uploadArea = document.getElementById('fileUploadArea');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const uploadBtn = document.getElementById('uploadBtn');
+    
+    let selectedFile = null;
+
+    // File drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    });
+
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      // Validate file type
+      const allowedTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/quicktime'];
+      if (!allowedTypes.includes(file.type)) {
+        showUploadStatus('Please select a valid video file (MP4, AVI, MOV)', 'error');
+        return;
+      }
+
+      // Validate file size (500MB limit)
+      const maxSize = 500 * 1024 * 1024; // 500MB in bytes
+      if (file.size > maxSize) {
+        showUploadStatus('File size must be less than 500MB', 'error');
+        return;
+      }
+
+      selectedFile = file;
+      
+      // Update UI to show selected file
+      uploadArea.classList.add('selected-file');
+      uploadArea.querySelector('.upload-text').textContent = `Selected: ${file.name}`;
+      uploadArea.querySelector('.upload-subtext').textContent = `${(file.size / (1024 * 1024)).toFixed(1)}MB`;
+      
+      showUploadStatus('File selected successfully!', 'success');
+    }
+
+    function showUploadStatus(message, type) {
+      uploadStatus.textContent = message;
+      uploadStatus.className = `upload-status show ${type}`;
+      
+      setTimeout(() => {
+        uploadStatus.classList.remove('show');
+      }, 3000);
+    }
+
+    // Form submission
+    document.getElementById('uploadForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      if (!selectedFile) {
+        showUploadStatus('Please select a video file', 'error');
+        return;
+      }
+
+      const formData = {
+        category: document.getElementById('videoCategory').value,
+        title: document.getElementById('videoTitle').value,
+        players: document.getElementById('videoPlayers').value,
+        file: selectedFile
+      };
+
+      if (!formData.category || !formData.title) {
+        showUploadStatus('Please fill in all required fields', 'error');
+        return;
+      }
+
+      // Simulate upload process
+      simulateUpload(formData);
+    });
+
+    function simulateUpload(formData) {
+      uploadBtn.disabled = true;
+      uploadBtn.textContent = 'Uploading...';
+      progressBar.classList.add('show');
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 100) progress = 100;
+        
+        progressFill.style.width = progress + '%';
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          
+          // Simulate processing time
+          setTimeout(() => {
+            showUploadStatus('Video uploaded successfully!', 'success');
+            
+            // Add new card to feed (simulate)
+            addNewCardToFeed(formData);
+            
+            // Close modal after success
+            setTimeout(() => {
+              closeModal('uploadModal');
+            }, 1500);
+            
+          }, 500);
+        }
+      }, 200);
+    }
+
+    function addNewCardToFeed(formData) {
+      const feed = document.querySelector('.feed');
+      const newId = Date.now();
+      
+      const newCard = document.createElement('article');
+      newCard.className = 'card';
+      newCard.setAttribute('data-id', newId);
+      newCard.setAttribute('data-likes', '0');
+      
+      newCard.innerHTML = `
+        <div class="head">
+          <div class="pf">ME</div>
+          <h3>You</h3>
+        </div>
+        <div class="media">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop" alt="${formData.title}">
+        </div>
+        <div class="actions">
+          <button class="icon-btn" onclick="toggleLike(${newId})"><i class="fa-solid fa-heart icon"></i> Like</button>
+          <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+          <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+        </div>
+        <div class="likes">0 likes</div>
+        <div class="desc">${formData.title} 🔥</div>
+        <div class="comments">View all 0 comments</div>
+        <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
+      `;
+      
+      // Add to beginning of feed
+      feed.insertBefore(newCard, feed.firstChild);
+      
+      // Animate in
+      newCard.style.opacity = '0';
+      newCard.style.transform = 'translateY(-20px)';
+      
+      setTimeout(() => {
+        newCard.style.transition = 'all 0.5s ease';
+        newCard.style.opacity = '1';
+        newCard.style.transform = 'translateY(0)';
+      }, 100);
+    }
+
+    function resetUploadForm() {
+      document.getElementById('uploadForm').reset();
+      selectedFile = null;
+      uploadBtn.disabled = false;
+      uploadBtn.textContent = 'Upload Video';
+      progressBar.classList.remove('show');
+      progressFill.style.width = '0%';
+      uploadStatus.classList.remove('show');
+      
+      // Reset file upload area
+      uploadArea.classList.remove('selected-file');
+      uploadArea.querySelector('.upload-text').textContent = 'Drop your video file here or click to select';
+      uploadArea.querySelector('.upload-subtext').textContent = 'MP4, AVI, MOV up to 500MB';
+    }
+
     // Dropdown functionality
     function setupDropdown(buttonId, dropdownId) {
       const button = document.getElementById(buttonId);
@@ -889,11 +1388,6 @@
       }
     }
 
-    // Upload modal placeholder
-    function openUploadModal() {
-      alert('Upload modal would open here!');
-    }
-
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     if (mobileMenuBtn) {
@@ -908,7 +1402,12 @@
           navMenu.style.left = '0';
           navMenu.style.right = '0';
           navMenu.style.background = 'var(--header-bg)';
-          navMenu.style.flexDirection
-
-
-
+          navMenu.style.flexDirection = 'column';
+          navMenu.style.padding = '1rem';
+          navMenu.style.borderTop = '1px solid rgba(255,255,255,0.1)';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
