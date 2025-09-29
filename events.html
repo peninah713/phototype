@@ -36,23 +36,26 @@
       --card-bg: rgba(255, 255, 255, 0.05);
       --border-color: rgba(255, 255, 255, 0.08);
     }
- .profile-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff0000, #cc0000);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
-    }
-    .profile-circle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+ .sign-in-btn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.sign-in-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+}
     }
      header {
       background: var(--header-bg);
@@ -1032,11 +1035,7 @@
 
         <div class="profile-container" style="position: relative;">
           <div class="profile" id="profileBtn">
-           <div style="padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, #ff0000, #cc0000); display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3); font-size: 14px; white-space: nowrap;" 
-     onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 20px rgba(255, 0, 0, 0.5)';" 
-     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 2px 10px rgba(255, 0, 0, 0.3)';"
-     onclick="window.location.href='profile.html'">
-  Sign In
+          <div class="sign-in-btn" onclick="window.location.href='profile.html'">Sign In</div>
 </div>
           </div>
           <div class="dropdown" id="profileDropdown">
@@ -1764,6 +1763,7 @@
 </body>
 </html>
   where is the error at the header tell me 
+
 
 
 
