@@ -37,6 +37,10 @@
         .header-text h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-text p {
@@ -65,8 +69,8 @@
         }
 
         .tab-btn.active {
-            background: white;
-            color: #667eea;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
             font-weight: 600;
         }
 
@@ -74,7 +78,7 @@
             background: white;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
             margin-bottom: 20px;
         }
 
@@ -106,7 +110,7 @@
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ff0000;
         }
 
         textarea {
@@ -125,25 +129,25 @@
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
             color: white;
             width: 100%;
         }
 
         .btn-primary:hover {
-            background: #5568d3;
+            background: linear-gradient(135deg, #cc0000, #990000);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         }
 
         .btn-outline {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #ff0000;
+            border: 2px solid #ff0000;
         }
 
         .btn-outline:hover {
-            background: #667eea;
+            background: #ff0000;
             color: white;
         }
 
@@ -193,19 +197,20 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff0000, #cc0000);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 2.5rem;
             font-weight: bold;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
         }
 
         .profile-name h1 {
             font-size: 2rem;
             margin-bottom: 10px;
+            color: white;
         }
 
         .badge {
@@ -218,9 +223,9 @@
             font-weight: 600;
         }
 
-        .badge-player { background: #d1fae5; color: #065f46; }
-        .badge-fan { background: #dbeafe; color: #1e40af; }
-        .badge-club { background: #e9d5ff; color: #6b21a8; }
+        .badge-player { background: #fee2e2; color: #991b1b; }
+        .badge-fan { background: #fef2f2; color: #7f1d1d; }
+        .badge-club { background: #fecaca; color: #7f1d1d; }
         .badge-sponsor { background: #fef3c7; color: #92400e; }
 
         .profile-actions {
@@ -262,7 +267,7 @@
         .stats-value {
             font-weight: bold;
             font-size: 1.2rem;
-            color: #667eea;
+            color: #ff0000;
         }
 
         .achievement-badge {
@@ -292,6 +297,7 @@
 
         .dot-green { background: #10b981; }
         .dot-blue { background: #3b82f6; }
+        .dot-red { background: #ff0000; }
 
         .alert {
             padding: 15px;
@@ -457,14 +463,14 @@
                     <div class="card">
                         <h2 class="card-title">Recent Activity</h2>
                         <div class="activity-item">
-                            <div class="activity-dot dot-green"></div>
+                            <div class="activity-dot dot-red"></div>
                             <div>
                                 <p><strong>Profile created</strong></p>
                                 <p style="font-size: 0.85rem; color: #999;">Just now</p>
                             </div>
                         </div>
                         <div class="activity-item">
-                            <div class="activity-dot dot-blue"></div>
+                            <div class="activity-dot dot-red"></div>
                             <div>
                                 <p><strong>Joined FootballHub</strong></p>
                                 <p style="font-size: 0.85rem; color: #999;">Today</p>
@@ -493,237 +499,171 @@
     </div>
 
     <script>
+        // Simulated user data
         let currentUser = null;
         let isEditing = false;
-        let editFormData = {};
 
         function switchTab(tab) {
             const loginForm = document.getElementById('loginForm');
             const registerForm = document.getElementById('registerForm');
-            const tabs = document.querySelectorAll('.tab-btn');
+            const tabBtns = document.querySelectorAll('.tab-btn');
             
-            tabs.forEach(t => t.classList.remove('active'));
+            tabBtns.forEach(btn => btn.classList.remove('active'));
             
             if (tab === 'login') {
                 loginForm.classList.remove('hidden');
                 registerForm.classList.add('hidden');
-                tabs[0].classList.add('active');
+                tabBtns[0].classList.add('active');
             } else {
                 loginForm.classList.add('hidden');
                 registerForm.classList.remove('hidden');
-                tabs[1].classList.add('active');
+                tabBtns[1].classList.add('active');
+                updateRegisterForm();
             }
-            clearErrors();
+            hideError();
         }
 
         function updateRegisterForm() {
             const userType = document.getElementById('userType').value;
             const dynamicFields = document.getElementById('dynamicFields');
             
-            let html = '';
+            let fieldsHTML = '';
             
-            if (userType === 'player') {
-                html = `
-                    <div class="form-group">
-                        <label>Position</label>
-                        <select id="position">
-                            <option value="">Select position</option>
-                            <option value="Goalkeeper">Goalkeeper</option>
-                            <option value="Defender">Defender</option>
-                            <option value="Midfielder">Midfielder</option>
-                            <option value="Forward">Forward</option>
-                        </select>
-                    </div>
-                    <div class="grid grid-2">
+            switch(userType) {
+                case 'player':
+                    fieldsHTML = `
                         <div class="form-group">
-                            <label>Age</label>
-                            <input type="number" id="age" min="16" max="50">
+                            <label>Position</label>
+                            <select id="position">
+                                <option>Forward</option>
+                                <option>Midfielder</option>
+                                <option>Defender</option>
+                                <option>Goalkeeper</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label>Height</label>
-                            <input type="text" id="height" placeholder="e.g. 6'1&quot;">
+                            <label>Jersey Number</label>
+                            <input type="number" id="jerseyNumber" min="1" max="99">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Weight</label>
-                        <input type="text" id="weight" placeholder="e.g. 165 lbs">
-                    </div>
-                    <div class="form-group">
-                        <label>Preferred Foot</label>
-                        <select id="preferredFoot">
-                            <option value="Right">Right</option>
-                            <option value="Left">Left</option>
-                            <option value="Both">Both</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Current Club</label>
-                        <input type="text" id="currentClub">
-                    </div>
-                `;
-            } else if (userType === 'fan') {
-                html = `
-                    <div class="form-group">
-                        <label>Favorite Team *</label>
-                        <input type="text" id="favoriteTeam" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Member Since</label>
-                        <input type="date" id="memberSince">
-                    </div>
-                `;
-            } else if (userType === 'club') {
-                html = `
-                    <div class="form-group">
-                        <label>Founded Year</label>
-                        <input type="number" id="founded" min="1800" max="2025">
-                    </div>
-                    <div class="form-group">
-                        <label>Stadium Name</label>
-                        <input type="text" id="stadium">
-                    </div>
-                    <div class="form-group">
-                        <label>Stadium Capacity</label>
-                        <input type="number" id="capacity" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Manager</label>
-                        <input type="text" id="manager">
-                    </div>
-                    <div class="form-group">
-                        <label>League</label>
-                        <input type="text" id="league">
-                    </div>
-                `;
-            } else if (userType === 'sponsor') {
-                html = `
-                    <div class="form-group">
-                        <label>Company Name *</label>
-                        <input type="text" id="company" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Industry</label>
-                        <input type="text" id="industry">
-                    </div>
-                    <div class="form-group">
-                        <label>Annual Sponsorship Budget</label>
-                        <select id="sponsorshipBudget">
-                            <option value="">Select budget range</option>
-                            <option value="under-50k">Under $50K</option>
-                            <option value="50k-250k">$50K - $250K</option>
-                            <option value="250k-1m">$250K - $1M</option>
-                            <option value="over-1m">Over $1M</option>
-                        </select>
-                    </div>
-                `;
+                    `;
+                    break;
+                case 'fan':
+                    fieldsHTML = `
+                        <div class="form-group">
+                            <label>Favorite Club</label>
+                            <input type="text" id="favoriteClub">
+                        </div>
+                    `;
+                    break;
+                case 'club':
+                    fieldsHTML = `
+                        <div class="form-group">
+                            <label>Club Name</label>
+                            <input type="text" id="clubName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Founded Year</label>
+                            <input type="number" id="foundedYear" min="1800" max="2024">
+                        </div>
+                    `;
+                    break;
+                case 'sponsor':
+                    fieldsHTML = `
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" id="companyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Industry</label>
+                            <input type="text" id="industry">
+                        </div>
+                    `;
+                    break;
             }
             
-            dynamicFields.innerHTML = html;
+            dynamicFields.innerHTML = fieldsHTML;
         }
 
-        function showErrors(errors) {
+        function showError(messages) {
             const errorAlert = document.getElementById('errorAlert');
             const errorList = document.getElementById('errorList');
             
-            if (errors.length > 0) {
-                errorList.innerHTML = errors.map(err => `<li>${err}</li>`).join('');
-                errorAlert.classList.remove('hidden');
-            } else {
-                errorAlert.classList.add('hidden');
+            if (typeof messages === 'string') {
+                messages = [messages];
             }
+            
+            errorList.innerHTML = messages.map(msg => `<li>${msg}</li>`).join('');
+            errorAlert.classList.remove('hidden');
         }
 
-        function clearErrors() {
+        function hideError() {
             document.getElementById('errorAlert').classList.add('hidden');
         }
 
-        function validateForm(data) {
-            const errors = [];
-            
-            if (!data.name || !data.name.trim()) errors.push("Name is required");
-            if (!data.email || !data.email.trim()) errors.push("Email is required");
-            if (data.email && !/\S+@\S+\.\S+/.test(data.email)) errors.push("Invalid email format");
-            
-            if (data.type === 'player' && data.age) {
-                if (data.age < 16 || data.age > 50) errors.push("Age must be between 16 and 50");
-            }
-            
-            if (data.type === 'club' && data.capacity) {
-                if (data.capacity < 0) errors.push("Capacity must be positive");
-            }
-            
-            return errors;
-        }
-
         function handleLogin() {
-            clearErrors();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
             
-            const mockUser = {
-                id: '1',
-                type: 'player',
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+            
+            // Simulate login
+            currentUser = {
                 name: 'Alex Morgan',
-                email: 'alex.morgan@example.com',
+                email: email,
+                type: 'player',
+                bio: 'Professional football player passionate about the game',
+                location: 'London, UK',
+                phone: '+44 20 1234 5678',
                 position: 'Forward',
-                age: 24,
-                height: '6\'1"',
-                weight: '165 lbs',
-                preferredFoot: 'Right',
-                currentClub: 'Manchester United',
-                achievements: ['Premier League Winner 2023', 'Champions League Finalist', 'Golden Boot 2022'],
-                bio: 'Professional footballer with 5 years of experience in top-tier leagues. Passionate about the game and committed to excellence.',
-                location: 'Manchester, UK',
-                phone: '+44 123 456 7890'
+                jerseyNumber: 13
             };
             
-            currentUser = mockUser;
             showProfile();
         }
 
         function handleRegister() {
-            clearErrors();
-            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
             const userType = document.getElementById('userType').value;
-            const data = {
-                id: Date.now().toString(),
+            
+            if (!name || !email || !password) {
+                showError('Please fill in all required fields');
+                return;
+            }
+            
+            // Build user object
+            currentUser = {
+                name: name,
+                email: email,
                 type: userType,
-                name: document.getElementById('regName').value,
-                email: document.getElementById('regEmail').value,
                 bio: document.getElementById('regBio').value,
                 location: document.getElementById('regLocation').value,
                 phone: document.getElementById('regPhone').value
             };
-
+            
             // Add type-specific fields
-            if (userType === 'player') {
-                data.position = document.getElementById('position')?.value;
-                data.age = parseInt(document.getElementById('age')?.value) || null;
-                data.height = document.getElementById('height')?.value;
-                data.weight = document.getElementById('weight')?.value;
-                data.preferredFoot = document.getElementById('preferredFoot')?.value;
-                data.currentClub = document.getElementById('currentClub')?.value;
-                data.achievements = [];
-            } else if (userType === 'fan') {
-                data.favoriteTeam = document.getElementById('favoriteTeam')?.value;
-                data.memberSince = document.getElementById('memberSince')?.value;
-            } else if (userType === 'club') {
-                data.founded = document.getElementById('founded')?.value;
-                data.stadium = document.getElementById('stadium')?.value;
-                data.capacity = parseInt(document.getElementById('capacity')?.value) || null;
-                data.manager = document.getElementById('manager')?.value;
-                data.league = document.getElementById('league')?.value;
-            } else if (userType === 'sponsor') {
-                data.company = document.getElementById('company')?.value;
-                data.industry = document.getElementById('industry')?.value;
-                data.sponsorshipBudget = document.getElementById('sponsorshipBudget')?.value;
+            switch(userType) {
+                case 'player':
+                    currentUser.position = document.getElementById('position').value;
+                    currentUser.jerseyNumber = document.getElementById('jerseyNumber').value;
+                    break;
+                case 'fan':
+                    currentUser.favoriteClub = document.getElementById('favoriteClub').value;
+                    break;
+                case 'club':
+                    currentUser.clubName = document.getElementById('clubName').value;
+                    currentUser.foundedYear = document.getElementById('foundedYear').value;
+                    break;
+                case 'sponsor':
+                    currentUser.companyName = document.getElementById('companyName').value;
+                    currentUser.industry = document.getElementById('industry').value;
+                    break;
             }
-
-            const errors = validateForm(data);
-            if (errors.length > 0) {
-                showErrors(errors);
-                return;
-            }
-
-            currentUser = data;
+            
             showProfile();
         }
 
@@ -731,117 +671,98 @@
             document.getElementById('authView').classList.add('hidden');
             document.getElementById('profileView').classList.remove('hidden');
             
-            renderProfile();
-        }
-
-        function renderProfile() {
-            if (!currentUser) return;
-
+            // Update profile display
             const initials = currentUser.name.split(' ').map(n => n[0]).join('');
             document.getElementById('profileAvatar').textContent = initials;
             document.getElementById('profileName').textContent = currentUser.name;
-
-            const badgeIcons = { player: '👤', fan: '⭐', club: '🏢', sponsor: '💰' };
-            const badgeClasses = { player: 'badge-player', fan: 'badge-fan', club: 'badge-club', sponsor: 'badge-sponsor' };
-
+            
+            // Update badge
+            const badgeIcons = {
+                player: '⚽',
+                fan: '🎉',
+                club: '🏆',
+                sponsor: '💼'
+            };
+            
+            const badgeClasses = {
+                player: 'badge-player',
+                fan: 'badge-fan',
+                club: 'badge-club',
+                sponsor: 'badge-sponsor'
+            };
+            
             const badge = document.getElementById('profileBadge');
-            badge.className = `badge ${badgeClasses[currentUser.type]}`;
+            badge.className = 'badge ' + badgeClasses[currentUser.type];
             document.getElementById('badgeIcon').textContent = badgeIcons[currentUser.type];
             document.getElementById('badgeText').textContent = currentUser.type.charAt(0).toUpperCase() + currentUser.type.slice(1);
-
-            renderProfileContent();
+            
+            displayProfileInfo();
         }
 
-        function renderProfileContent() {
+        function displayProfileInfo() {
             const content = document.getElementById('profileContent');
-            
-            let html = '';
-            
-            if (currentUser.bio) {
-                html += `
-                    <div class="form-group">
-                        <label style="color: #999;">Bio</label>
-                        <p style="color: #333;">${currentUser.bio}</p>
-                    </div>
-                `;
-            }
-            
-            html += '<div class="grid grid-2">';
-            
-            html += `<div class="info-item">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span>${currentUser.email}</span>
-            </div>`;
+            let html = `
+                <div class="info-item">
+                    <span>📧</span>
+                    <span>${currentUser.email}</span>
+                </div>
+            `;
             
             if (currentUser.location) {
-                html += `<div class="info-item">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span>${currentUser.location}</span>
-                </div>`;
+                html += `
+                    <div class="info-item">
+                        <span>📍</span>
+                        <span>${currentUser.location}</span>
+                    </div>
+                `;
             }
             
             if (currentUser.phone) {
-                html += `<div class="info-item">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    <span>${currentUser.phone}</span>
-                </div>`;
+                html += `
+                    <div class="info-item">
+                        <span>📱</span>
+                        <span>${currentUser.phone}</span>
+                    </div>
+                `;
             }
             
-            html += '</div>';
+            if (currentUser.bio) {
+                html += `
+                    <div style="margin-top: 20px;">
+                        <strong>Bio</strong>
+                        <p style="color: #666; margin-top: 8px;">${currentUser.bio}</p>
+                    </div>
+                `;
+            }
             
-            // Type-specific content
+            // Type-specific fields
             if (currentUser.type === 'player') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Player Details</h3>
-                        <div class="grid grid-2" style="font-size: 0.9rem;">
-                            ${currentUser.position ? `<div style="color: #666;">Position: <span style="font-weight: 600; color: #333;">${currentUser.position}</span></div>` : ''}
-                            ${currentUser.age ? `<div style="color: #666;">Age: <span style="font-weight: 600; color: #333;">${currentUser.age}</span></div>` : ''}
-                            ${currentUser.height ? `<div style="color: #666;">Height: <span style="font-weight: 600; color: #333;">${currentUser.height}</span></div>` : ''}
-                            ${currentUser.weight ? `<div style="color: #666;">Weight: <span style="font-weight: 600; color: #333;">${currentUser.weight}</span></div>` : ''}
-                            ${currentUser.preferredFoot ? `<div style="color: #666;">Preferred Foot: <span style="font-weight: 600; color: #333;">${currentUser.preferredFoot}</span></div>` : ''}
-                            ${currentUser.currentClub ? `<div style="color: #666;">Current Club: <span style="font-weight: 600; color: #333;">${currentUser.currentClub}</span></div>` : ''}
-                        </div>
-                        ${currentUser.achievements && currentUser.achievements.length > 0 ? `
-                            <div style="margin-top: 15px;">
-                                <h4 style="font-size: 1rem; margin-bottom: 10px; color: #555;">Achievements</h4>
-                                ${currentUser.achievements.map(ach => `<span class="achievement-badge">🏆 ${ach}</span>`).join('')}
-                            </div>
-                        ` : ''}
+                    <div style="margin-top: 20px;">
+                        <strong>Position:</strong> ${currentUser.position}<br>
+                        <strong>Jersey Number:</strong> #${currentUser.jerseyNumber}
                     </div>
                 `;
             } else if (currentUser.type === 'fan') {
-                html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Fan Details</h3>
-                        <div style="font-size: 0.9rem;">
-                            ${currentUser.favoriteTeam ? `<div style="color: #666; margin-bottom: 5px;">Favorite Team: <span style="font-weight: 600; color: #333;">${currentUser.favoriteTeam}</span></div>` : ''}
-                            ${currentUser.memberSince ? `<div style="color: #666;">Member Since: <span style="font-weight: 600; color: #333;">${currentUser.memberSince}</span></div>` : ''}
+                if (currentUser.favoriteClub) {
+                    html += `
+                        <div style="margin-top: 20px;">
+                            <strong>Favorite Club:</strong> ${currentUser.favoriteClub}
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             } else if (currentUser.type === 'club') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Club Details</h3>
-                        <div class="grid grid-2" style="font-size: 0.9rem;">
-                            ${currentUser.founded ? `<div style="color: #666;">Founded: <span style="font-weight: 600; color: #333;">${currentUser.founded}</span></div>` : ''}
-                            ${currentUser.stadium ? `<div style="color: #666;">Stadium: <span style="font-weight: 600; color: #333;">${currentUser.stadium}</span></div>` : ''}
-                            ${currentUser.capacity ? `<div style="color: #666;">Capacity: <span style="font-weight: 600; color: #333;">${currentUser.capacity.toLocaleString()}</span></div>` : ''}
-                            ${currentUser.league ? `<div style="color: #666;">League: <span style="font-weight: 600; color: #333;">${currentUser.league}</span></div>` : ''}
-                            ${currentUser.manager ? `<div style="color: #666;">Manager: <span style="font-weight: 600; color: #333;">${currentUser.manager}</span></div>` : ''}
-                        </div>
+                    <div style="margin-top: 20px;">
+                        <strong>Club Name:</strong> ${currentUser.clubName}<br>
+                        <strong>Founded:</strong> ${currentUser.foundedYear}
                     </div>
                 `;
             } else if (currentUser.type === 'sponsor') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Sponsor Details</h3>
-                        <div class="grid grid-2" style="font-size: 0.9rem;">
-                            ${currentUser.company ? `<div style="color: #666;">Company: <span style="font-weight: 600; color: #333;">${currentUser.company}</span></div>` : ''}
-                            ${currentUser.industry ? `<div style="color: #666;">Industry: <span style="font-weight: 600; color: #333;">${currentUser.industry}</span></div>` : ''}
-                            ${currentUser.sponsorshipBudget ? `<div style="color: #666;">Budget: <span style="font-weight: 600; color: #333;">${currentUser.sponsorshipBudget}</span></div>` : ''}
-                        </div>
+                    <div style="margin-top: 20px;">
+                        <strong>Company:</strong> ${currentUser.companyName}<br>
+                        <strong>Industry:</strong> ${currentUser.industry}
                     </div>
                 `;
             }
@@ -851,224 +772,138 @@
 
         function toggleEdit() {
             isEditing = true;
-            editFormData = { ...currentUser };
-            
             document.getElementById('profileContent').classList.add('hidden');
             document.getElementById('profileEditForm').classList.remove('hidden');
             document.getElementById('editBtn').classList.add('hidden');
             document.getElementById('saveBtn').classList.remove('hidden');
             document.getElementById('cancelBtn').classList.remove('hidden');
             
-            renderEditForm();
-        }
-
-        function renderEditForm() {
-            const form = document.getElementById('profileEditForm');
-            
-            let html = `
+            // Build edit form
+            let html = 
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="editName" value="${currentUser.name}">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editEmail" value="${currentUser.email}">
+                </div>
                 <div class="form-group">
                     <label>Bio</label>
-                    <textarea id="editBio">${editFormData.bio || ''}</textarea>
+                    <textarea id="editBio">${currentUser.bio || ''}</textarea>
                 </div>
-                <div class="grid grid-2">
-                    <div class="form-group">
-                        <label>Location</label>
-                        <input type="text" id="editLocation" value="${editFormData.location || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="tel" id="editPhone" value="${editFormData.phone || ''}">
-                    </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="editLocation" value="${currentUser.location || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" id="editPhone" value="${currentUser.phone || ''}">
                 </div>
             `;
-
-            // Add type-specific edit fields
-            if (editFormData.type === 'player') {
-                html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Player Details</h3>
-                        <div class="form-group">
-                            <label>Position</label>
-                            <select id="editPosition">
-                                <option value="">Select position</option>
-                                <option value="Goalkeeper" ${editFormData.position === 'Goalkeeper' ? 'selected' : ''}>Goalkeeper</option>
-                                <option value="Defender" ${editFormData.position === 'Defender' ? 'selected' : ''}>Defender</option>
-                                <option value="Midfielder" ${editFormData.position === 'Midfielder' ? 'selected' : ''}>Midfielder</option>
-                                <option value="Forward" ${editFormData.position === 'Forward' ? 'selected' : ''}>Forward</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-2">
-                            <div class="form-group">
-                                <label>Age</label>
-                                <input type="number" id="editAge" value="${editFormData.age || ''}" min="16" max="50">
-                            </div>
-                            <div class="form-group">
-                                <label>Height</label>
-                                <input type="text" id="editHeight" value="${editFormData.height || ''}" placeholder="e.g. 6'1&quot;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Weight</label>
-                            <input type="text" id="editWeight" value="${editFormData.weight || ''}" placeholder="e.g. 165 lbs">
-                        </div>
-                        <div class="form-group">
-                            <label>Preferred Foot</label>
-                            <select id="editPreferredFoot">
-                                <option value="Right" ${editFormData.preferredFoot === 'Right' ? 'selected' : ''}>Right</option>
-                                <option value="Left" ${editFormData.preferredFoot === 'Left' ? 'selected' : ''}>Left</option>
-                                <option value="Both" ${editFormData.preferredFoot === 'Both' ? 'selected' : ''}>Both</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Current Club</label>
-                            <input type="text" id="editCurrentClub" value="${editFormData.currentClub || ''}">
-                        </div>
+            
+            // Add type-specific fields
+            if (currentUser.type === 'player') {
+                html += 
+                    <div class="form-group">
+                        <label>Position</label>
+                        <select id="editPosition">
+                            <option ${currentUser.position === 'Forward' ? 'selected' : ''}>Forward</option>
+                            <option ${currentUser.position === 'Midfielder' ? 'selected' : ''}>Midfielder</option>
+                            <option ${currentUser.position === 'Defender' ? 'selected' : ''}>Defender</option>
+                            <option ${currentUser.position === 'Goalkeeper' ? 'selected' : ''}>Goalkeeper</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Jersey Number</label>
+                        <input type="number" id="editJerseyNumber" value="${currentUser.jerseyNumber || ''}" min="1" max="99">
                     </div>
                 `;
-            } else if (editFormData.type === 'fan') {
+            } else if (currentUser.type === 'fan') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Fan Details</h3>
-                        <div class="form-group">
-                            <label>Favorite Team</label>
-                            <input type="text" id="editFavoriteTeam" value="${editFormData.favoriteTeam || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Member Since</label>
-                            <input type="date" id="editMemberSince" value="${editFormData.memberSince || ''}">
-                        </div>
+                    <div class="form-group">
+                        <label>Favorite Club</label>
+                        <input type="text" id="editFavoriteClub" value="${currentUser.favoriteClub || ''}">
                     </div>
                 `;
-            } else if (editFormData.type === 'club') {
+            } else if (currentUser.type === 'club') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Club Details</h3>
-                        <div class="form-group">
-                            <label>Founded Year</label>
-                            <input type="number" id="editFounded" value="${editFormData.founded || ''}" min="1800" max="2025">
-                        </div>
-                        <div class="form-group">
-                            <label>Stadium Name</label>
-                            <input type="text" id="editStadium" value="${editFormData.stadium || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Stadium Capacity</label>
-                            <input type="number" id="editCapacity" value="${editFormData.capacity || ''}" min="0">
-                        </div>
-                        <div class="form-group">
-                            <label>Manager</label>
-                            <input type="text" id="editManager" value="${editFormData.manager || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>League</label>
-                            <input type="text" id="editLeague" value="${editFormData.league || ''}">
-                        </div>
+                    <div class="form-group">
+                        <label>Club Name</label>
+                        <input type="text" id="editClubName" value="${currentUser.clubName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Founded Year</label>
+                        <input type="number" id="editFoundedYear" value="${currentUser.foundedYear || ''}" min="1800" max="2024">
                     </div>
                 `;
-            } else if (editFormData.type === 'sponsor') {
+            } else if (currentUser.type === 'sponsor') {
                 html += `
-                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
-                        <h3 class="section-title">Sponsor Details</h3>
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" id="editCompany" value="${editFormData.company || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Industry</label>
-                            <input type="text" id="editIndustry" value="${editFormData.industry || ''}">
-                        </div>
-                        <div class="form-group">
-                            <label>Annual Sponsorship Budget</label>
-                            <select id="editSponsorshipBudget">
-                                <option value="">Select budget range</option>
-                                <option value="under-50k" ${editFormData.sponsorshipBudget === 'under-50k' ? 'selected' : ''}>Under $50K</option>
-                                <option value="50k-250k" ${editFormData.sponsorshipBudget === '50k-250k' ? 'selected' : ''}>$50K - $250K</option>
-                                <option value="250k-1m" ${editFormData.sponsorshipBudget === '250k-1m' ? 'selected' : ''}>$250K - $1M</option>
-                                <option value="over-1m" ${editFormData.sponsorshipBudget === 'over-1m' ? 'selected' : ''}>Over $1M</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="editCompanyName" value="${currentUser.companyName || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Industry</label>
+                        <input type="text" id="editIndustry" value="${currentUser.industry || ''}">
                     </div>
                 `;
             }
             
-            form.innerHTML = html;
+            document.getElementById('profileEditForm').innerHTML = html;
         }
 
         function saveProfile() {
-            clearErrors();
+            currentUser.name = document.getElementById('editName').value;
+            currentUser.email = document.getElementById('editEmail').value;
+            currentUser.bio = document.getElementById('editBio').value;
+            currentUser.location = document.getElementById('editLocation').value;
+            currentUser.phone = document.getElementById('editPhone').value;
             
-            editFormData.bio = document.getElementById('editBio').value;
-            editFormData.location = document.getElementById('editLocation').value;
-            editFormData.phone = document.getElementById('editPhone').value;
-
             // Save type-specific fields
-            if (editFormData.type === 'player') {
-                editFormData.position = document.getElementById('editPosition')?.value;
-                editFormData.age = parseInt(document.getElementById('editAge')?.value) || null;
-                editFormData.height = document.getElementById('editHeight')?.value;
-                editFormData.weight = document.getElementById('editWeight')?.value;
-                editFormData.preferredFoot = document.getElementById('editPreferredFoot')?.value;
-                editFormData.currentClub = document.getElementById('editCurrentClub')?.value;
-            } else if (editFormData.type === 'fan') {
-                editFormData.favoriteTeam = document.getElementById('editFavoriteTeam')?.value;
-                editFormData.memberSince = document.getElementById('editMemberSince')?.value;
-            } else if (editFormData.type === 'club') {
-                editFormData.founded = document.getElementById('editFounded')?.value;
-                editFormData.stadium = document.getElementById('editStadium')?.value;
-                editFormData.capacity = parseInt(document.getElementById('editCapacity')?.value) || null;
-                editFormData.manager = document.getElementById('editManager')?.value;
-                editFormData.league = document.getElementById('editLeague')?.value;
-            } else if (editFormData.type === 'sponsor') {
-                editFormData.company = document.getElementById('editCompany')?.value;
-                editFormData.industry = document.getElementById('editIndustry')?.value;
-                editFormData.sponsorshipBudget = document.getElementById('editSponsorshipBudget')?.value;
+            if (currentUser.type === 'player') {
+                currentUser.position = document.getElementById('editPosition').value;
+                currentUser.jerseyNumber = document.getElementById('editJerseyNumber').value;
+            } else if (currentUser.type === 'fan') {
+                currentUser.favoriteClub = document.getElementById('editFavoriteClub').value;
+            } else if (currentUser.type === 'club') {
+                currentUser.clubName = document.getElementById('editClubName').value;
+                currentUser.foundedYear = document.getElementById('editFoundedYear').value;
+            } else if (currentUser.type === 'sponsor') {
+                currentUser.companyName = document.getElementById('editCompanyName').value;
+                currentUser.industry = document.getElementById('editIndustry').value;
             }
             
-            const errors = validateForm(editFormData);
-            if (errors.length > 0) {
-                showErrors(errors);
-                return;
-            }
-            
-            currentUser = { ...currentUser, ...editFormData };
             cancelEdit();
-            renderProfile();
+            
+            // Update profile name display
+            document.getElementById('profileName').textContent = currentUser.name;
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('profileAvatar').textContent = initials;
         }
 
         function cancelEdit() {
             isEditing = false;
-            editFormData = {};
-            clearErrors();
-            
             document.getElementById('profileContent').classList.remove('hidden');
             document.getElementById('profileEditForm').classList.add('hidden');
             document.getElementById('editBtn').classList.remove('hidden');
             document.getElementById('saveBtn').classList.add('hidden');
             document.getElementById('cancelBtn').classList.add('hidden');
+            displayProfileInfo();
         }
 
         function handleLogout() {
             currentUser = null;
-            isEditing = false;
-            editFormData = {};
-            
             document.getElementById('authView').classList.remove('hidden');
             document.getElementById('profileView').classList.add('hidden');
             
             // Reset forms
             document.getElementById('loginEmail').value = '';
             document.getElementById('loginPassword').value = '';
-            document.getElementById('regName').value = '';
-            document.getElementById('regEmail').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regBio').value = '';
-            document.getElementById('regLocation').value = '';
-            document.getElementById('regPhone').value = '';
-            
             switchTab('login');
         }
 
-        // Initialize on load
+        // Initialize
         updateRegisterForm();
     </script>
 </body>
