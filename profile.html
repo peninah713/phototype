@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-             background: linear-gradient(135deg, #0f0c29, #24243e, #302b63);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -46,8 +46,7 @@
 
         .tabs {
             display: flex;
-           background: red;
-
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 5px;
             margin-bottom: 20px;
@@ -344,7 +343,7 @@
         <div id="authView">
             <div class="auth-container">
                 <div class="header-text">
-                     <i class='bx bx-football'></i> <span>Live Score</span>
+                    <h1>⚽ FootballHub</h1>
                     <p>Join our community of players, fans, clubs, and sponsors</p>
                 </div>
 
@@ -513,23 +512,6 @@
                 loginForm.classList.add('hidden');
                 registerForm.classList.remove('hidden');
                 tabs[1].classList.add('active');
-                function renderProfile() {
-            if (!currentUser) return;
-
-            const initials = currentUser.name.split(' ').map(n => n[0]).join('');
-            document.getElementById('profileAvatar').textContent = initials;
-            document.getElementById('profileName').textContent = currentUser.name;
-
-            const badgeIcons = { player: '👤', fan: '⭐', club: '🏢', sponsor: '💰' };
-            const badgeClasses = { player: 'badge-player', fan: 'badge-fan', club: 'badge-club', sponsor: 'badge-sponsor' };
-
-            const badge = document.getElementById('profileBadge');
-            badge.className = `badge ${badgeClasses[currentUser.type]}`;
-            document.getElementById('badgeIcon').textContent = badgeIcons[currentUser.type];
-            document.getElementById('badgeText').textContent = currentUser.type.charAt(0).toUpperCase() + currentUser.type.slice(1);
-
-            renderProfileContent();
-        }
             }
             clearErrors();
         }
@@ -755,34 +737,18 @@
         function renderProfile() {
             if (!currentUser) return;
 
-            // Update avatar
             const initials = currentUser.name.split(' ').map(n => n[0]).join('');
             document.getElementById('profileAvatar').textContent = initials;
-            
-            // Update name
             document.getElementById('profileName').textContent = currentUser.name;
-            
-            // Update badge
-            const badgeIcons = {
-                player: '👤',
-                fan: '⭐',
-                club: '🏢',
-                sponsor: '💰'
-            };
-            
-            const badgeClasses = {
-                player: 'badge-player',
-                fan: 'badge-fan',
-                club: 'badge-club',
-                sponsor: 'badge-sponsor'
-            };
-            
+
+            const badgeIcons = { player: '👤', fan: '⭐', club: '🏢', sponsor: '💰' };
+            const badgeClasses = { player: 'badge-player', fan: 'badge-fan', club: 'badge-club', sponsor: 'badge-sponsor' };
+
             const badge = document.getElementById('profileBadge');
             badge.className = `badge ${badgeClasses[currentUser.type]}`;
             document.getElementById('badgeIcon').textContent = badgeIcons[currentUser.type];
             document.getElementById('badgeText').textContent = currentUser.type.charAt(0).toUpperCase() + currentUser.type.slice(1);
-            
-            // Render profile content
+
             renderProfileContent();
         }
 
@@ -825,6 +791,26 @@
             
             // Type-specific content
             if (currentUser.type === 'player') {
+                html += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
+                        <h3 class="section-title">Player Details</h3>
+                        <div class="grid grid-2" style="font-size: 0.9rem;">
+                            ${currentUser.position ? `<div style="color: #666;">Position: <span style="font-weight: 600; color: #333;">${currentUser.position}</span></div>` : ''}
+                            ${currentUser.age ? `<div style="color: #666;">Age: <span style="font-weight: 600; color: #333;">${currentUser.age}</span></div>` : ''}
+                            ${currentUser.height ? `<div style="color: #666;">Height: <span style="font-weight: 600; color: #333;">${currentUser.height}</span></div>` : ''}
+                            ${currentUser.weight ? `<div style="color: #666;">Weight: <span style="font-weight: 600; color: #333;">${currentUser.weight}</span></div>` : ''}
+                            ${currentUser.preferredFoot ? `<div style="color: #666;">Preferred Foot: <span style="font-weight: 600; color: #333;">${currentUser.preferredFoot}</span></div>` : ''}
+                            ${currentUser.currentClub ? `<div style="color: #666;">Current Club: <span style="font-weight: 600; color: #333;">${currentUser.currentClub}</span></div>` : ''}
+                        </div>
+                        ${currentUser.achievements && currentUser.achievements.length > 0 ? `
+                            <div style="margin-top: 15px;">
+                                <h4 style="font-size: 1rem; margin-bottom: 10px; color: #555;">Achievements</h4>
+                                ${currentUser.achievements.map(ach => `<span class="achievement-badge">🏆 ${ach}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            } else if (currentUser.type === 'fan') {
                 html += `
                     <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
                         <h3 class="section-title">Fan Details</h3>
@@ -879,7 +865,7 @@
         function renderEditForm() {
             const form = document.getElementById('profileEditForm');
             
-            let html = 
+            let html = `
                 <div class="form-group">
                     <label>Bio</label>
                     <textarea id="editBio">${editFormData.bio || ''}</textarea>
@@ -895,6 +881,115 @@
                     </div>
                 </div>
             `;
+
+            // Add type-specific edit fields
+            if (editFormData.type === 'player') {
+                html += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
+                        <h3 class="section-title">Player Details</h3>
+                        <div class="form-group">
+                            <label>Position</label>
+                            <select id="editPosition">
+                                <option value="">Select position</option>
+                                <option value="Goalkeeper" ${editFormData.position === 'Goalkeeper' ? 'selected' : ''}>Goalkeeper</option>
+                                <option value="Defender" ${editFormData.position === 'Defender' ? 'selected' : ''}>Defender</option>
+                                <option value="Midfielder" ${editFormData.position === 'Midfielder' ? 'selected' : ''}>Midfielder</option>
+                                <option value="Forward" ${editFormData.position === 'Forward' ? 'selected' : ''}>Forward</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-2">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="editAge" value="${editFormData.age || ''}" min="16" max="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Height</label>
+                                <input type="text" id="editHeight" value="${editFormData.height || ''}" placeholder="e.g. 6'1&quot;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Weight</label>
+                            <input type="text" id="editWeight" value="${editFormData.weight || ''}" placeholder="e.g. 165 lbs">
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Foot</label>
+                            <select id="editPreferredFoot">
+                                <option value="Right" ${editFormData.preferredFoot === 'Right' ? 'selected' : ''}>Right</option>
+                                <option value="Left" ${editFormData.preferredFoot === 'Left' ? 'selected' : ''}>Left</option>
+                                <option value="Both" ${editFormData.preferredFoot === 'Both' ? 'selected' : ''}>Both</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Club</label>
+                            <input type="text" id="editCurrentClub" value="${editFormData.currentClub || ''}">
+                        </div>
+                    </div>
+                `;
+            } else if (editFormData.type === 'fan') {
+                html += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
+                        <h3 class="section-title">Fan Details</h3>
+                        <div class="form-group">
+                            <label>Favorite Team</label>
+                            <input type="text" id="editFavoriteTeam" value="${editFormData.favoriteTeam || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Member Since</label>
+                            <input type="date" id="editMemberSince" value="${editFormData.memberSince || ''}">
+                        </div>
+                    </div>
+                `;
+            } else if (editFormData.type === 'club') {
+                html += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
+                        <h3 class="section-title">Club Details</h3>
+                        <div class="form-group">
+                            <label>Founded Year</label>
+                            <input type="number" id="editFounded" value="${editFormData.founded || ''}" min="1800" max="2025">
+                        </div>
+                        <div class="form-group">
+                            <label>Stadium Name</label>
+                            <input type="text" id="editStadium" value="${editFormData.stadium || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Stadium Capacity</label>
+                            <input type="number" id="editCapacity" value="${editFormData.capacity || ''}" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Manager</label>
+                            <input type="text" id="editManager" value="${editFormData.manager || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>League</label>
+                            <input type="text" id="editLeague" value="${editFormData.league || ''}">
+                        </div>
+                    </div>
+                `;
+            } else if (editFormData.type === 'sponsor') {
+                html += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #f3f4f6;">
+                        <h3 class="section-title">Sponsor Details</h3>
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" id="editCompany" value="${editFormData.company || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Industry</label>
+                            <input type="text" id="editIndustry" value="${editFormData.industry || ''}">
+                        </div>
+                        <div class="form-group">
+                            <label>Annual Sponsorship Budget</label>
+                            <select id="editSponsorshipBudget">
+                                <option value="">Select budget range</option>
+                                <option value="under-50k" ${editFormData.sponsorshipBudget === 'under-50k' ? 'selected' : ''}>Under $50K</option>
+                                <option value="50k-250k" ${editFormData.sponsorshipBudget === '50k-250k' ? 'selected' : ''}>$50K - $250K</option>
+                                <option value="250k-1m" ${editFormData.sponsorshipBudget === '250k-1m' ? 'selected' : ''}>$250K - $1M</option>
+                                <option value="over-1m" ${editFormData.sponsorshipBudget === 'over-1m' ? 'selected' : ''}>Over $1M</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }
             
             form.innerHTML = html;
         }
@@ -905,6 +1000,29 @@
             editFormData.bio = document.getElementById('editBio').value;
             editFormData.location = document.getElementById('editLocation').value;
             editFormData.phone = document.getElementById('editPhone').value;
+
+            // Save type-specific fields
+            if (editFormData.type === 'player') {
+                editFormData.position = document.getElementById('editPosition')?.value;
+                editFormData.age = parseInt(document.getElementById('editAge')?.value) || null;
+                editFormData.height = document.getElementById('editHeight')?.value;
+                editFormData.weight = document.getElementById('editWeight')?.value;
+                editFormData.preferredFoot = document.getElementById('editPreferredFoot')?.value;
+                editFormData.currentClub = document.getElementById('editCurrentClub')?.value;
+            } else if (editFormData.type === 'fan') {
+                editFormData.favoriteTeam = document.getElementById('editFavoriteTeam')?.value;
+                editFormData.memberSince = document.getElementById('editMemberSince')?.value;
+            } else if (editFormData.type === 'club') {
+                editFormData.founded = document.getElementById('editFounded')?.value;
+                editFormData.stadium = document.getElementById('editStadium')?.value;
+                editFormData.capacity = parseInt(document.getElementById('editCapacity')?.value) || null;
+                editFormData.manager = document.getElementById('editManager')?.value;
+                editFormData.league = document.getElementById('editLeague')?.value;
+            } else if (editFormData.type === 'sponsor') {
+                editFormData.company = document.getElementById('editCompany')?.value;
+                editFormData.industry = document.getElementById('editIndustry')?.value;
+                editFormData.sponsorshipBudget = document.getElementById('editSponsorshipBudget')?.value;
+            }
             
             const errors = validateForm(editFormData);
             if (errors.length > 0) {
@@ -955,4 +1073,3 @@
     </script>
 </body>
 </html>
-                        
