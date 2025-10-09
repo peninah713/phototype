@@ -972,90 +972,57 @@
   </style>
 </head>
 <body>
+<!-- ======== HEADER SECTION ======== -->
+<header style="background: linear-gradient(90deg, #0c0c22, #181842); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; color: white; font-family: 'Segoe UI', sans-serif; position: sticky; top: 0; z-index: 1000;">
 
-  <!-- Header -->
- <header>
-    <div class="header-left">
-      <a href="index.html" class="logo">
-        <i class="fa-solid fa-futbol"></i> LiveScore
-      </a>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="highlights.html">Highlights</a>
-        <a href="events.html" class="active">Events</a>
-       
-      </nav>
+  <!-- Left: Logo + Nav -->
+  <div style="display: flex; align-items: center; gap: 40px;">
+    <!-- Logo -->
+    <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+      <div style="width: 12px; height: 12px; background: red; border-radius: 50%;"></div>
+      <span style="font-size: 20px; font-weight: 700;">Live Score</span>
     </div>
 
-    <div class="header-right">
-      <button class="upload-btn" onclick="openUploadModal()">
-        <i class="fa-solid fa-upload"></i> Upload
+    <!-- Navigation -->
+    <nav style="display: flex; align-items: center; gap: 24px; font-size: 15px;">
+      <a href="index.html" style="text-decoration: none; color: #ff3333; font-weight: 600;">Home</a>
+      <a href="highlights.html" style="text-decoration: none; color: white;">Highlights</a>
+      <a href="events.html" style="text-decoration: none; color: white;">Events</a>
+      <a href="scouts.html" style="text-decoration: none; color: white;">Scouts</a>
+      <a href="sponsors.html" style="text-decoration: none; color: white;">Sponsors</a>
+      <a href="search.html" style="text-decoration: none; color: white;">Search</a>
+    </nav>
+  </div>
+
+  <!-- Right: Search + Buttons -->
+  <div style="display: flex; align-items: center; gap: 16px;">
+    <!-- Search bar -->
+    <div style="display: flex; align-items: center; background: #1f1f35; border-radius: 30px; padding: 6px 12px; width: 320px;">
+      <input 
+        type="text" 
+        placeholder="Search football highlights..." 
+        style="flex: 1; background: transparent; border: none; outline: none; color: white; font-size: 14px;"
+      />
+      <button 
+        style="background: red; border: none; border-radius: 50%; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer;">
+        <span style="color: white; font-size: 16px;">🔍</span>
       </button>
-      
-      <div class="user-controls">
-        <div class="notification-container" style="position: relative;">
-          <button class="control-btn" id="notificationBtn">
-            <i class="fa-solid fa-bell"></i>
-            <span class="notification-badge">3</span>
-          </button>
-          <div class="dropdown" id="notificationDropdown">
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-futbol"></i>
-              New goal by Messi
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-clock"></i>
-              Match starting in 10 mins
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-video"></i>
-              Weekly highlights ready
-            </a>
-          </div>
-        </div>
-
-        <div class="message-container" style="position: relative;">
-          <button class="control-btn" id="messageBtn">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span class="notification-badge">2</span>
-          </button>
-          <div class="dropdown" id="messageDropdown">
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-user"></i>
-              Message from John
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-users"></i>
-              Team chat update
-            </a>
-          </div>
-        </div>
-
-        
-</div>
-          </div>
-          <div class="dropdown" id="profileDropdown">
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-user"></i>
-              My Profile
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-cog"></i>
-              Settings
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-question-circle"></i>
-              Help
-            </a>
-            <a href="#" class="dropdown-item">
-              <i class="fa-solid fa-sign-out-alt"></i>
-              Logout
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
-  </header>
+
+    <!-- Upload Button -->
+    <button 
+      style="background: red; color: white; border: none; padding: 8px 20px; border-radius: 25px; font-weight: 600; cursor: pointer;">
+      + Upload
+    </button>
+
+    <!-- Sign In Button -->
+    <button 
+      style="background: transparent; color: white; border: 2px solid red; padding: 8px 20px; border-radius: 25px; font-weight: 600; cursor: pointer;">
+      Sign In
+    </button>
+  </div>
+</header>
+<!-- ======== END HEADER ======== -->
 
 
   <!-- Events -->
@@ -1759,6 +1726,7 @@
 </body>
 </html>
  
+
 
 
 
