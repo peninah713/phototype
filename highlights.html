@@ -887,6 +887,9 @@
   <main>
    <!DOCTYPE html>
 <html lang="en">
+<head>8">
+    <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1148,13 +1151,13 @@
             <!-- Navigation Menu with Action Buttons -->
             <nav>
                 <div class="nav-links">
-                    <a href="#" class="nav-link active">Home</a>
-                    <a href="#" class="nav-link">Highlights</a>
-                    <a href="#" class="nav-link">Events</a>
-                    <a href="#" class="nav-link">Events</a>
-                    <a href="#" class="nav-link">scouts</a>
-                    <a href="#" class="nav-link">Sponsors</a>
-                    <a href="#" class="nav-link">Search</a>
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="highlights.html" class="nav-link">Highlights</a>
+                    <a href="events.html" class="nav-link">Events</a>
+                    <a href="events.html" class="nav-link">Events</a>
+                    <a href="scouts.html" class="nav-link">scouts</a>
+                    <a href="sponsors.html" class="nav-link">Sponsors</a>
+                    <a href="search.html" class="nav-link">Search</a>
                 </div>
 
                 <div class="header-actions">
@@ -1167,56 +1170,7 @@
             </nav>
         </div>
     </header>
-    <!-- REUSABLE HEADER - END -->
-
-    <!-- Your Page Content Goes Here -->
-    <div class="page-content">
-        <div class="content-placeholder">
-            <h2>Your Page Content Here</h2>
-            <p>This is where your page-specific content will go.<br>
-            The header above can be copied and reused on any page.</p>
-        </div>
-    </div>
-
-    <script>
-        // Optional: Add active state to current page
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            
-            // You can customize this to match your page names
-            const pageMapping = {
-                'index.html': 0,
-                'highlights.html': 1,
-                'events.html': 2,
-                'scouts.html': 4,
-                'sponsors.html': 5,
-                'search.html': 6
-            };
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            const activeIndex = pageMapping[currentPage];
-            
-            if (activeIndex !== undefined) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                navLinks[activeIndex].classList.add('active');
-            }
-        });
-
-        // Optional: Button click handlers
-        document.querySelector('.upload-btn').addEventListener('click', function() {
-            alert('Upload functionality - implement your upload logic here');
-        });
-
-        document.querySelector('.notification-btn').addEventListener('click', function() {
-            alert('Notifications - implement your notification system here');
-        });
-
-        document.querySelector('.signin-btn').addEventListener('click', function() {
-            alert('Sign In - implement your authentication here');
-        });
-    </script>
-</body>
-</html>
+  
 
 
     <!-- Upload Modal -->
@@ -2036,6 +1990,7 @@
   </script>
 </body>
 </html>
+
 
 
 
