@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Selector | FootballHub</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Boxicons for all icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles to match the dark theme */
+        :root {
+            --accent: #c92b2b; /* Red/Accent */
+        }
+        
+        /* Setting up custom Tailwind colors using the theme variables */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#1a1a33',
+                        'secondary-dark': '#2a2a50',
+                        'accent-red': 'var(--accent)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+
+        /* General Body and Container Styling */
+        body {
+            /* Consistent background gradient */
+            background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+            color: white;
+            min-height: 100vh;
+            margin: 0; 
+            padding-top: 80px; /* Space for the fixed header */
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom Styles for the Dropdown (recreating shadcn look) */
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-radius: 4px;
+            margin: 2px 4px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-header {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-footer {
+            padding: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar/Header (The focus of the request) -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-primary-dark shadow-xl border-b border-gray-700">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- 1. Logo/Title (Left) -->
+            <div class="flex items-center">
+                <span class="text-2xl font-extrabold tracking-wider text-white">
+                    FootballHub
+                </span>
+            </div>
+
+            <!-- 2. Central Navigation Icons -->
+            <div class="flex items-center space-x-6">
+                <!-- Mock Icons for Home, Search, Events (Selected), Calendar -->
+                <button class="p-2 rounded-full hover:bg-secondary-dark transition-colors text-gray-300 hidden sm:block" title="Home">
+                    <i class='bx bxs-home text-xl'></i>
+                </button>
+                <button class="p-2 rounded-full hover:bg-secondary-dark transition-colors text-gray-300 hidden sm:block" title="Search">
+                    <i class='bx bx-search text-xl'></i>
+                </button>
+                <!-- Active Link/Icon -->
+                <button class="p-2 rounded-full transition-colors text-accent-red border-b-2 border-accent-red hidden sm:block" title="Events">
+                    <i class='bx bx-football text-2xl'></i>
+                </button>
+                <button class="p-2 rounded-full hover:bg-secondary-dark transition-colors text-gray-300 hidden sm:block" title="Calendar">
+                    <i class='bx bx-calendar text-xl'></i>
+                </button>
+            </div>
+
+            <!-- 3. Right Utilities (Language, Notifications, Auth) -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                
+                <!-- Language Selector Component (The functional dropdown) -->
+                <div id="languageSelectorContainer" class="relative">
+                    
+                    <!-- Trigger Button: Click this to show the dropdown -->
+                    <button id="dropdownTrigger" type="button" 
+                        class="flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
+                               text-white hover:bg-secondary-dark h-10 px-3 focus:ring-2 focus:ring-accent-red focus:outline-none">
+                        <!-- Content injected by JS (e.g., 🇸🇴 so) -->
+                    </button>
+
+                    <!-- Dropdown Content: Hidden by default, appears on click -->
+                    <div id="dropdownContent" 
+                        class="absolute z-50 right-0 top-full mt-2 w-72 origin-top-right rounded-lg bg-gray-900 shadow-2xl 
+                               ring-1 ring-black ring-opacity-5 focus:outline-none max-h-96 overflow-y-auto hidden">
+                        <!-- Content injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Notification Icon with Badge -->
+                <button class="relative p-2 rounded-full hover:bg-secondary-dark transition-colors text-white" title="Notifications">
+                    <i class='bx bx-bell text-xl'></i>
+                    <!-- Red badge for '3' notifications -->
+                    <span class="absolute top-1 right-1 h-4 w-4 rounded-full bg-accent-red text-xs font-bold flex items-center justify-center border-2 border-primary-dark">
+                        3
+                    </span>
+                </button>
+
+                <!-- Sign In Button -->
+                <button class="bg-accent-red hover:bg-red-700 text-white font-medium py-2 px-3 sm:px-4 rounded-lg text-sm transition-colors shadow-lg">
+                    Sign In
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area (Minimal) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-center">
+        <div class="p-10 bg-secondary-dark rounded-xl shadow-2xl border border-gray-700">
+            <p class="text-gray-400">
+                Header is above. Click the language button to view the dropdown menu.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // --- 1. DATA DEFINITIONS ---
+        const languages = [
+            // Major Languages
+            { code: "en", name: "English", flag: "🇬🇧", region: "Global" },
+            { code: "sw", name: "Swahili", flag: "🇰🇪", region: "East Africa" },
+            { code: "fr", name: "French", flag: "🇫🇷", region: "West/Central Africa" },
+            { code: "ar", name: "Arabic", flag: "🇸🇦", region: "North Africa" },
+            { code: "pt", name: "Portuguese", flag: "🇵🇹", region: "Southern Africa" },
+
+            // East African Languages
+            { code: "om", name: "Oromo", flag: "🇪🇹", region: "East Africa" },
+            { code: "am", name: "Amharic", flag: "🇪🇹", region: "East Africa" },
+            { code: "so", name: "Somali", flag: "🇸🇴", region: "East Africa" },
+            { code: "rw", name: "Kinyarwanda", flag: "🇷🇼", region: "East Africa" },
+            { code: "rn", name: "Kirundi", flag: "🇧🇮", region: "East Africa" },
+
+            // West African Languages
+            { code: "ha", name: "Hausa", flag: "🇳🇬", region: "West Africa" },
+            { code: "yo", name: "Yoruba", flag: "🇳🇬", region: "West Africa" },
+            { code: "ig", name: "Igbo", flag: "🇳🇬", region: "West Africa" },
+            { code: "ff", name: "Fulani", flag: "🇸🇳", region: "West Africa" },
+            { code: "wo", name: "Wolof", flag: "🇸🇳", region: "West Africa" },
+            { code: "bm", name: "Bambara", flag: "🇲🇱", region: "West Africa" },
+
+            // Southern African Languages
+            { code: "zu", name: "Zulu", flag: "🇿🇦", region: "Southern Africa" },
+            { code: "xh", name: "Xhosa", flag: "🇿🇦", region: "Southern Africa" },
+            { code: "st", name: "Sesotho", flag: "🇱🇸", region: "Southern Africa" },
+            { code: "tn", name: "Setswana", flag: "🇧🇼", region: "Southern Africa" },
+            { code: "sn", name: "Shona", flag: "🇿🇼", region: "Southern Africa" },
+            { code: "ny", name: "Chichewa", flag: "🇲🇼", region: "Southern Africa" },
+
+            // Central African Languages
+            { code: "ln", name: "Lingala", flag: "🇨🇩", region: "Central Africa" },
+            { code: "kg", name: "Kongo", flag: "🇨🇩", region: "Central Africa" },
+            { code: "sg", name: "Sango", flag: "🇨🇫", region: "Central Africa" },
+
+            // North African Languages
+            { code: "ber", name: "Berber", flag: "🇲🇦", region: "North Africa" },
+            { code: "kab", name: "Kabyle", flag: "🇩🇿", region: "North Africa" },
+        ];
+
+        // Group languages by region
+        const groupedLanguages = languages.reduce((acc, lang) => {
+            if (!acc[lang.region]) {
+                acc[lang.region] = [];
+            }
+            acc[lang.region].push(lang);
+            return acc;
+        }, {});
+
+        // --- 2. STATE MANAGEMENT ---
+        let selectedLanguage = languages.find(lang => lang.code === "so"); 
+        let isDropdownOpen = false;
+
+        // --- 3. DOM ELEMENTS ---
+        const dropdownTrigger = document.getElementById('dropdownTrigger');
+        const dropdownContent = document.getElementById('dropdownContent');
+
+        // Check icon SVG
+        const checkIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-accent-red">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+        `;
+
+        // --- 4. RENDER FUNCTIONS ---
+
+        function renderTrigger() {
+            // Shows only the flag and the lowercase code, like "🇸🇴 so"
+            dropdownTrigger.innerHTML = `
+                <span class="mr-1">${selectedLanguage.flag}</span>
+                <span>${selectedLanguage.code.toLowerCase()}</span>
+            `;
+            
+            // Apply subtle button styling
+            dropdownTrigger.className = `flex items-center justify-center rounded-lg text-sm font-medium transition-colors 
+                                         text-white hover:bg-secondary-dark h-10 px-3 focus:ring-2 focus:ring-accent-red focus:outline-none`;
+        }
+
+        function renderDropdownContent() {
+            let contentHtml = `
+                <div class="dropdown-header flex items-center justify-between">
+                    <span class="text-sm font-semibold text-white">Select Language</span>
+                    <!-- Badge showing count -->
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                          bg-green-900 text-green-300 border border-green-700">
+                        ${languages.length}+ Languages
+                    </span>
+                </div>
+                <!-- Separator -->
+                <div class="h-px bg-gray-700 mx-4"></div>
+            `;
+
+            for (const region in groupedLanguages) {
+                // Region header
+                contentHtml += `
+                    <div class="px-4 py-2 text-xs font-semibold text-gray-400 bg-gray-800 uppercase tracking-wider">
+                        ${region}
+                    </div>
+                `;
+
+                // Language items
+                groupedLanguages[region].forEach(language => {
+                    const isSelected = selectedLanguage.code === language.code;
+                    
+                    contentHtml += `
+                        <div class="dropdown-item" data-code="${language.code}" onclick="handleLanguageChange('${language.code}')">
+                            <span class="mr-2">${language.flag}</span>
+                            <span class="flex-1 text-sm">${language.name}</span>
+                            ${isSelected ? checkIcon : ''}
+                        </div>
+                    `;
+                });
+            }
+
+            // Footer
+            contentHtml += `
+                <div class="dropdown-footer">
+                    🌍 Supporting grassroots football across all African regions
+                </div>
+            `;
+
+            dropdownContent.innerHTML = contentHtml;
+        }
+
+        function toggleDropdown() {
+            isDropdownOpen = !isDropdownOpen;
+            dropdownContent.classList.toggle('hidden', !isDropdownOpen);
+            dropdownTrigger.setAttribute('aria-expanded', isDropdownOpen);
+        }
+
+        // --- 5. EVENT HANDLERS ---
+        
+        function handleLanguageChange(code) {
+            const newLang = languages.find(lang => lang.code === code);
+            if (newLang) {
+                selectedLanguage = newLang;
+                console.log(`Language set to: ${newLang.name} (${newLang.code})`);
+                // Re-render both parts of the component
+                renderTrigger();
+                renderDropdownContent();
+                toggleDropdown(); // Close after selection
+            }
+        }
+
+        // --- 6. INITIALIZATION & LISTENERS ---
+
+        function init() {
+            // Set initial selected language to Somali (so) to match the visual reference
+            selectedLanguage = languages.find(lang => lang.code === "so");
+            if (!selectedLanguage) selectedLanguage = languages[0]; // Fallback to English
+
+            renderTrigger();
+            renderDropdownContent();
+
+            dropdownTrigger.addEventListener('click', toggleDropdown);
+
+            // Close dropdown if user clicks outside
+            document.addEventListener('click', (event) => {
+                const isClickInside = document.getElementById('languageSelectorContainer').contains(event.target);
+                if (!isClickInside && isDropdownOpen) {
+                    toggleDropdown();
+                }
+            });
+
+             // Expose function globally for the inline onclick (necessary for raw JS templates)
+            window.handleLanguageChange = handleLanguageChange;
+        }
+
+        window.onload = init;
+    </script>
+
+</body>
+</html>
