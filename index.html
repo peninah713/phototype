@@ -1,1 +1,1019 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Score - Football Highlights</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #302b63 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 25px;
+      background: linear-gradient(135deg, #1a1a33 0%, #2a2a50 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+    }
+    .logo i { 
+      color: #ff0000; 
+      font-size: 28px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    .search-bar {
+      display: flex;
+      flex: 0.5;
+      max-width: 500px;
+      position: relative;
+      margin: 0 30px;
+    }
+    .search-bar input {
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .search-bar input:focus {
+      border-color: #ff0000;
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    .search-bar button {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .search-bar button:hover {
+      background: linear-gradient(135deg, #cc0000, #aa0000);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .top-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    
+    .upload-btn {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+      font-size: 14px;
+    }
+    
+    .upload-btn:hover {
+      background: linear-gradient(135deg, #cc0000, #aa0000);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+    }
+    
+    .upload-btn i {
+      font-size: 18px;
+    }
+    
+    .top-icons > i {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: 50%;
+      position: relative;
+    }
+    .top-icons > i:hover {
+      color: #ff0000;
+      background: rgba(255, 0, 0, 0.1);
+      transform: scale(1.2);
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: #ff0000;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: bold;
+      border: 2px solid #1a1a33;
+    }
+    
+    .language-selector {
+      position: relative;
+    }
+    
+    .language-trigger {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      color: white;
+    }
+    
+    .language-trigger:hover {
+      background: rgba(255, 0, 0, 0.1);
+      border-color: #ff0000;
+    }
+    
+    .language-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 320px;
+      max-height: 500px;
+      overflow-y: auto;
+      background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .language-dropdown.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .dropdown-header {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .dropdown-header span {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .language-badge {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4CAF50;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+    
+    .region-header {
+      padding: 10px 15px;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 11px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .language-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      gap: 12px;
+    }
+    
+    .language-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .language-item.selected {
+      background: rgba(255, 0, 0, 0.1);
+    }
+    
+    .language-flag {
+      font-size: 20px;
+    }
+    
+    .language-name {
+      flex: 1;
+      font-size: 14px;
+    }
+    
+    .check-icon {
+      color: #ff0000;
+      font-size: 18px;
+      opacity: 0;
+    }
+    
+    .language-item.selected .check-icon {
+      opacity: 1;
+    }
+    
+    .dropdown-footer {
+      padding: 12px 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+    
+    .sign-in-btn {
+      padding: 10px 20px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .sign-in-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+    }
+
+    .horizontal-nav {
+      background: linear-gradient(135deg, #1a1a33 0%, #2a2a50 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 25px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 20px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: white;
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .nav-link.active {
+      color: #ff0000;
+      background: rgba(255, 0, 0, 0.15);
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #ff0000;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .highlights {
+      padding: 25px;
+      overflow-y: auto;
+      max-height: calc(100vh - 140px);
+    }
+    .highlights h1 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff0000, #ff4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .filter-section {
+      margin-bottom: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 14px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border-color: #ff0000;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+      align-items: start;
+    }
+    
+    .video-card {
+      background: linear-gradient(145deg, #1a1a2e 0%, #2d2d5a 100%);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      backdrop-filter: blur(10px);
+      height: fit-content;
+    }
+    
+    .video-card:hover { 
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 60px rgba(255, 0, 0, 0.3);
+      border-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      border-radius: 20px 20px 0 0;
+      height: 220px;
+    }
+    
+    .video-card iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.4s ease;
+    }
+    
+    .video-card:hover iframe {
+      transform: scale(1.05);
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(204, 0, 0, 0.9));
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: white;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+    
+    .video-card:hover .play-overlay {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .video-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+    }
+    
+    .author-name {
+      font-size: 14px;
+      color: #b8b8c8;
+      font-weight: 600;
+    }
+
+    .video-info { 
+      padding: 22px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
+      backdrop-filter: blur(15px);
+    }
+    
+    .video-info .title {
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 18px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    .video-info .meta {
+      font-size: 14px;
+      color: #b8b8c8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .video-info .duration {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
+    }
+
+    .video-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 22px;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+    }
+    
+    .video-actions i {
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 20px;
+      color: #b8b8c8;
+    }
+    
+    .video-actions i:hover {
+      background: rgba(255, 0, 0, 0.2);
+      color: #ff0000;
+      transform: scale(1.2);
+    }
+
+    .highlights::-webkit-scrollbar,
+    .language-dropdown::-webkit-scrollbar {
+      width: 8px;
+    }
+    .highlights::-webkit-scrollbar-track,
+    .language-dropdown::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    .highlights::-webkit-scrollbar-thumb,
+    .language-dropdown::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border-radius: 10px;
+    }
+
+    @media (max-width: 1200px) {
+      .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .search-bar {
+        order: 3;
+        flex: 1;
+        max-width: none;
+        margin: 10px 0 0 0;
+      }
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .highlights {
+        padding: 15px;
+      }
+      .language-dropdown {
+        width: 280px;
+      }
+      .nav-links {
+        overflow-x: auto;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="top-bar">
+      <div class="logo">
+        <i class='bx bx-football'></i> <span>Live Score</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search football highlights..." onkeyup="searchVideos()" />
+        <button onclick="performSearch()"><i class='bx bx-search'></i></button>
+      </div>
+      
+      <div class="top-icons">
+        <div class="language-selector">
+          <div class="language-trigger" id="languageTrigger" onclick="toggleLanguageDropdown()">
+            <span id="selectedFlag"> language</span>
+            <span id="selectedCode">🌎</span>
+          </div>
+          <div class="language-dropdown" id="languageDropdown">
+            <div class="dropdown-header">
+              <span>Select Language</span>
+              <span class="language-badge" id="languageCount">40+ Languages</span>
+            </div>
+            <div id="languageList"></div>
+            <div class="dropdown-footer">
+              🌍 Supporting grassroots football across all African regions
+            </div>
+          </div>
+        </div>
+        
+        <button class="upload-btn" onclick="showToast('Upload feature coming soon!')">
+          <i class='bx bx-plus'></i>
+          <span>Upload</span>
+        </button>
+        
+        <i class='bx bx-bell' title="Notifications" onclick="showToast('🔔 No new notifications')">
+          <span class="notification-badge">3</span>
+        </i>
+        
+        <div class="sign-in-btn" onclick="showToast('👤 Sign in feature coming soon!')">Sign In</div>
+      </div>
+    </header>
+
+    <nav class="horizontal-nav">
+      <div class="nav-container">
+        <div class="nav-links">
+          <a href="#" class="nav-link active"><span>Home</span></a>
+          <a href="#" class="nav-link"><span>Highlights</span></a>
+          <a href="#" class="nav-link"><span>Events</span></a>
+          <a href="#" class="nav-link"><span>Scouts</span></a>
+          <a href="#" class="nav-link"><span>Sponsors</span></a>
+          <a href="#" class="nav-link"><span>Search</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="highlights">
+      <div class="section-header">
+        <h1>Top Football Highlights</h1>
+      </div>
+      
+      <div class="filter-section">
+        <button class="filter-btn active" onclick="filterVideos('all')">All</button>
+        <button class="filter-btn" onclick="filterVideos('goals')">Goals</button>
+        <button class="filter-btn" onclick="filterVideos('skills')">Skills</button>
+        <button class="filter-btn" onclick="filterVideos('matches')">Full Matches</button>
+        <button class="filter-btn" onclick="filterVideos('training')">Training</button>
+      </div>
+
+      <div class="video-grid" id="videoGrid">
+        <div class="video-card" data-category="goals">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/8-92w5L55Zg" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FS</div>
+              <div class="author-name">Football Stars</div>
+            </div>
+            <p class="title">Messi Top 10 Goals - Legendary Moments</p>
+            <div class="meta">
+              <span>2.3M views • 1 year ago</span>
+              <span class="duration">10:45</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="training">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FT</div>
+              <div class="author-name">Football Training</div>
+            </div>
+            <p class="title">Professional Football Training Session</p>
+            <div class="meta">
+              <span>680k views • 4 days ago</span>
+              <span class="duration">22:15</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const languages = [
+      { code: "en", name: "English", flag: "🇬🇧", region: "Global" },
+      { code: "sw", name: "Swahili", flag: "🇰🇪", region: "East Africa" },
+      { code: "fr", name: "French", flag: "🇫🇷", region: "West/Central Africa" },
+      { code: "ar", name: "Arabic", flag: "🇸🇦", region: "North Africa" },
+      { code: "pt", name: "Portuguese", flag: "🇵🇹", region: "Southern Africa" },
+      { code: "om", name: "Oromo", flag: "🇪🇹", region: "East Africa" },
+      { code: "am", name: "Amharic", flag: "🇪🇹", region: "East Africa" },
+      { code: "so", name: "Somali", flag: "🇸🇴", region: "East Africa" },
+      { code: "rw", name: "Kinyarwanda", flag: "🇷🇼", region: "East Africa" },
+      { code: "rn", name: "Kirundi", flag: "🇧🇮", region: "East Africa" },
+      { code: "ha", name: "Hausa", flag: "🇳🇬", region: "West Africa" },
+      { code: "yo", name: "Yoruba", flag: "🇳🇬", region: "West Africa" },
+      { code: "ig", name: "Igbo", flag: "🇳🇬", region: "West Africa" },
+      { code: "ff", name: "Fulani", flag: "🇸🇳", region: "West Africa" },
+      { code: "wo", name: "Wolof", flag: "🇸🇳", region: "West Africa" },
+      { code: "bm", name: "Bambara", flag: "🇲🇱", region: "West Africa" },
+      { code: "zu", name: "Zulu", flag: "🇿🇦", region: "Southern Africa" },
+      { code: "xh", name: "Xhosa", flag: "🇿🇦", region: "Southern Africa" },
+      { code: "st", name: "Sesotho", flag: "🇱🇸", region: "Southern Africa" },
+      { code: "tn", name: "Setswana", flag: "🇧🇼", region: "Southern Africa" },
+      { code: "sn", name: "Shona", flag: "🇿🇼", region: "Southern Africa" },
+      { code: "ny", name: "Chichewa", flag: "🇲🇼", region: "Southern Africa" },
+      { code: "ln", name: "Lingala", flag: "🇨🇩", region: "Central Africa" },
+      { code: "kg", name: "Kongo", flag: "🇨🇩", region: "Central Africa" },
+      { code: "sg", name: "Sango", flag: "🇨🇫", region: "Central Africa" },
+      { code: "ber", name: "Berber", flag: "🇲🇦", region: "North Africa" },
+      { code: "kab", name: "Kabyle", flag: "🇩🇿", region: "North Africa" },
+    ];
+
+    let selectedLanguage = languages.find(lang => lang.code === "so");
+    let isDropdownOpen = false;
+
+    function groupLanguagesByRegion() {
+      return languages.reduce((acc, lang) => {
+        if (!acc[lang.region]) acc[lang.region] = [];
+        acc[lang.region].push(lang);
+        return acc;
+      }, {});
+    }
+
+    function renderLanguageDropdown() {
+      const groupedLanguages = groupLanguagesByRegion();
+      let html = '';
+      
+      for (const region in groupedLanguages) {
+        html += `<div class="region-header">${region}</div>`;
+        
+        groupedLanguages[region].forEach(lang => {
+          const isSelected = selectedLanguage.code === lang.code;
+          html += `
+            <div class="language-item ${isSelected ? 'selected' : ''}" onclick="selectLanguage('${lang.code}')">
+              <span class="language-flag">${lang.flag}</span>
+              <span class="language-name">${lang.name}</span>
+              <i class='bx bx-check check-icon'></i>
+            </div>
+          `;
+        });
+      }
+      
+      document.getElementById('languageList').innerHTML = html;
+      document.getElementById('selectedFlag').textContent = selectedLanguage.flag;
+      document.getElementById('selectedCode').textContent = selectedLanguage.code;
+    }
+
+    function toggleLanguageDropdown() {
+      isDropdownOpen = !isDropdownOpen;
+      document.getElementById('languageDropdown').classList.toggle('show', isDropdownOpen);
+    }
+
+    function selectLanguage(code) {
+      const lang = languages.find(l => l.code === code);
+      if (lang) {
+        selectedLanguage = lang;
+        renderLanguageDropdown();
+        toggleLanguageDropdown();
+        showToast(`Language changed to ${lang.name}`);
+      }
+    }
+
+    function filterVideos(category) {
+      const cards = document.querySelectorAll('.video-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchVideos() {
+      const input = document.getElementById('searchInput');
+      const cards = document.querySelectorAll('.video-card');
+      const searchTerm = input.value.toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.querySelector('.title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function performSearch() {
+      searchVideos();
+      showToast('Search completed!');
+    }
+
+    function likeVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 0, 0)' ? '' : '#ff0000';
+      showToast(element.style.color === 'rgb(255, 0, 0)' ? '❤️ Video liked!' : 'Like removed');
+    }
+
+    function saveVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 215, 0)' ? '' : '#ffd700';
+      showToast(element.style.color === 'rgb(255, 215, 0)' ? '💾 Video saved!' : 'Video unsaved');
+    }
+
+    function shareVideo(element) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Football Highlight',
+          text: 'Check out this amazing football highlight!',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('🔗 Link copied to clipboard!');
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ff0000, #cc0000);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+        backdrop-filter: blur(10px);
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderLanguageDropdown();
+      
+      document.addEventListener('click', (e) => {
+        const languageSelector = document.querySelector('.language-selector');
+        if (!languageSelector.contains(e.target) && isDropdownOpen) {
+          toggleLanguageDropdown();
+        }
+      });
+    });
+
+    console.log("Live Score Football Highlights ready!");
+  </script>
+</body>
+</html>like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/zZxL8Ky-fYI" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">CR</div>
+              <div class="author-name">CR7 Highlights</div>
+            </div>
+            <p class="title">Cristiano Ronaldo Skills & Tricks Collection</p>
+            <div class="meta">
+              <span>1.8M views • 2 months ago</span>
+              <span class="duration">8:32</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/bxUqL2qYwH0" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">NJ</div>
+              <div class="author-name">Neymar Jr FC</div>
+            </div>
+            <p class="title">Neymar Jr Ultimate Skill Compilation</p>
+            <div class="meta">
+              <span>960k views • 3 weeks ago</span>
+              <span class="duration">12:20</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="matches">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">CL</div>
+              <div class="author-name">Champions League</div>
+            </div>
+            <p class="title">Champions League Final Best Moments</p>
+            <div class="meta">
+              <span>3.2M views • 1 week ago</span>
+              <span class="duration">15:30</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="goals">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">PL</div>
+              <div class="author-name">Premier League</div>
+            </div>
+            <p class="title">Premier League Goals of the Season</p>
+            <div class="meta">
+              <span>1.5M views • 2 days ago</span>
+              <span class="duration">9:45</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-
