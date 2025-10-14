@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -406,10 +405,9 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
       gap: 25px;
       margin-top: 20px;
-      align-items: start;
     }
     
     .video-card {
@@ -421,7 +419,8 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
       backdrop-filter: blur(10px);
-      height: fit-content;
+      display: flex;
+      flex-direction: column;
     }
     
     .video-card:hover { 
@@ -434,7 +433,6 @@
       position: relative;
       overflow: hidden;
       background: #000;
-      border-radius: 20px 20px 0 0;
       height: 220px;
     }
     
@@ -468,6 +466,7 @@
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
       backdrop-filter: blur(10px);
+      pointer-events: none;
     }
     
     .video-card:hover .play-overlay {
@@ -506,6 +505,7 @@
       padding: 22px;
       background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
       backdrop-filter: blur(15px);
+      flex: 1;
     }
     
     .video-info .title {
@@ -565,6 +565,154 @@
       transform: scale(1.2);
     }
 
+    /* Upload Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .upload-modal {
+      background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .modal-header h2 {
+      font-size: 24px;
+      background: linear-gradient(135deg, #ff0000, #ff4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .close-modal {
+      cursor: pointer;
+      font-size: 28px;
+      color: #b8b8c8;
+      transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #ff0000;
+      transform: rotate(90deg);
+    }
+
+    .upload-area {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .upload-area:hover {
+      border-color: #ff0000;
+      background: rgba(255, 0, 0, 0.1);
+    }
+
+    .upload-area.drag-over {
+      border-color: #ff0000;
+      background: rgba(255, 0, 0, 0.15);
+    }
+
+    .upload-icon {
+      font-size: 64px;
+      color: #ff0000;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #b8b8c8;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #ff0000;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+    }
+
+    .file-input {
+      display: none;
+    }
+
     .highlights::-webkit-scrollbar,
     .language-dropdown::-webkit-scrollbar {
       width: 8px;
@@ -582,7 +730,7 @@
 
     @media (max-width: 1200px) {
       .video-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       }
     }
 
@@ -633,8 +781,8 @@
       <div class="top-icons">
         <div class="language-selector">
           <div class="language-trigger" id="languageTrigger" onclick="toggleLanguageDropdown()">
-            <span id="selectedFlag"> language</span>
-            <span id="selectedCode">🌎</span>
+            <span id="selectedFlag">🌎</span>
+            <span id="selectedCode">EN</span>
           </div>
           <div class="language-dropdown" id="languageDropdown">
             <div class="dropdown-header">
@@ -648,7 +796,7 @@
           </div>
         </div>
         
-        <button class="upload-btn" onclick="showToast('Upload feature coming soon!')">
+        <button class="upload-btn" onclick="openUploadModal()">
           <i class='bx bx-plus'></i>
           <span>Upload</span>
         </button>
@@ -664,12 +812,12 @@
     <nav class="horizontal-nav">
       <div class="nav-container">
         <div class="nav-links">
-          <a href="index.html" class="nav-link active"><span>Home</span></a>
-          <a href="highlights.html" class="nav-link"><span>Highlights</span></a>
-          <a href="events.html" class="nav-link"><span>Events</span></a>
-          <a href="players.html" class="nav-link"><span>Players</span></a>
-          <a href="sponspors.html" class="nav-link"><span>Sponsors</span></a>
-          <a href="search.html" class="nav-link"><span>Search</span></a>
+          <a href="#" class="nav-link active"><span>Home</span></a>
+          <a href="#" class="nav-link"><span>Highlights</span></a>
+          <a href="#" class="nav-link"><span>Events</span></a>
+          <a href="#" class="nav-link"><span>Players</span></a>
+          <a href="#" class="nav-link"><span>Sponsors</span></a>
+          <a href="#" class="nav-link"><span>Search</span></a>
         </div>
       </div>
     </nav>
@@ -691,245 +839,6 @@
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
             <iframe src="https://www.youtube.com/embed/8-92w5L55Zg" allowfullscreen></iframe>
-            <div class="play-overlay"><i class='bx bx-play'></i></div>
-          </div>
-          <div class="video-info">
-            <div class="video-author">
-              <div class="author-avatar">FS</div>
-              <div class="author-name">Football Stars</div>
-            </div>
-            <p class="title">Messi Top 10 Goals - Legendary Moments</p>
-            <div class="meta">
-              <span>2.3M views • 1 year ago</span>
-              <span class="duration">10:45</span>
-            </div>
-          </div>
-          <div class="video-actions">
-            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
-            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
-            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
-            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
-          </div>
-        </div>
-
-        <div class="video-card" data-category="training">
-          <div class="video-thumbnail">
-            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
-            <div class="play-overlay"><i class='bx bx-play'></i></div>
-          </div>
-          <div class="video-info">
-            <div class="video-author">
-              <div class="author-avatar">FT</div>
-              <div class="author-name">Football Training</div>
-            </div>
-            <p class="title">Professional Football Training Session</p>
-            <div class="meta">
-              <span>680k views • 4 days ago</span>
-              <span class="duration">22:15</span>
-            </div>
-          </div>
-          <div class="video-actions">
-            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
-            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
-            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
-            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    const languages = [
-      { code: "en", name: "English", flag: "🇬🇧", region: "Global" },
-      { code: "sw", name: "Swahili", flag: "🇰🇪", region: "East Africa" },
-      { code: "fr", name: "French", flag: "🇫🇷", region: "West/Central Africa" },
-      { code: "ar", name: "Arabic", flag: "🇸🇦", region: "North Africa" },
-      { code: "pt", name: "Portuguese", flag: "🇵🇹", region: "Southern Africa" },
-      { code: "om", name: "Oromo", flag: "🇪🇹", region: "East Africa" },
-      { code: "am", name: "Amharic", flag: "🇪🇹", region: "East Africa" },
-      { code: "so", name: "Somali", flag: "🇸🇴", region: "East Africa" },
-      { code: "rw", name: "Kinyarwanda", flag: "🇷🇼", region: "East Africa" },
-      { code: "rn", name: "Kirundi", flag: "🇧🇮", region: "East Africa" },
-      { code: "ha", name: "Hausa", flag: "🇳🇬", region: "West Africa" },
-      { code: "yo", name: "Yoruba", flag: "🇳🇬", region: "West Africa" },
-      { code: "ig", name: "Igbo", flag: "🇳🇬", region: "West Africa" },
-      { code: "ff", name: "Fulani", flag: "🇸🇳", region: "West Africa" },
-      { code: "wo", name: "Wolof", flag: "🇸🇳", region: "West Africa" },
-      { code: "bm", name: "Bambara", flag: "🇲🇱", region: "West Africa" },
-      { code: "zu", name: "Zulu", flag: "🇿🇦", region: "Southern Africa" },
-      { code: "xh", name: "Xhosa", flag: "🇿🇦", region: "Southern Africa" },
-      { code: "st", name: "Sesotho", flag: "🇱🇸", region: "Southern Africa" },
-      { code: "tn", name: "Setswana", flag: "🇧🇼", region: "Southern Africa" },
-      { code: "sn", name: "Shona", flag: "🇿🇼", region: "Southern Africa" },
-      { code: "ny", name: "Chichewa", flag: "🇲🇼", region: "Southern Africa" },
-      { code: "ln", name: "Lingala", flag: "🇨🇩", region: "Central Africa" },
-      { code: "kg", name: "Kongo", flag: "🇨🇩", region: "Central Africa" },
-      { code: "sg", name: "Sango", flag: "🇨🇫", region: "Central Africa" },
-      { code: "ber", name: "Berber", flag: "🇲🇦", region: "North Africa" },
-      { code: "kab", name: "Kabyle", flag: "🇩🇿", region: "North Africa" },
-    ];
-
-    let selectedLanguage = languages.find(lang => lang.code === "so");
-    let isDropdownOpen = false;
-
-    function groupLanguagesByRegion() {
-      return languages.reduce((acc, lang) => {
-        if (!acc[lang.region]) acc[lang.region] = [];
-        acc[lang.region].push(lang);
-        return acc;
-      }, {});
-    }
-
-    function renderLanguageDropdown() {
-      const groupedLanguages = groupLanguagesByRegion();
-      let html = '';
-      
-      for (const region in groupedLanguages) {
-        html += `<div class="region-header">${region}</div>`;
-        
-        groupedLanguages[region].forEach(lang => {
-          const isSelected = selectedLanguage.code === lang.code;
-          html += `
-            <div class="language-item ${isSelected ? 'selected' : ''}" onclick="selectLanguage('${lang.code}')">
-              <span class="language-flag">${lang.flag}</span>
-              <span class="language-name">${lang.name}</span>
-              <i class='bx bx-check check-icon'></i>
-            </div>
-          `;
-        });
-      }
-      
-      document.getElementById('languageList').innerHTML = html;
-      document.getElementById('selectedFlag').textContent = selectedLanguage.flag;
-      document.getElementById('selectedCode').textContent = selectedLanguage.code;
-    }
-
-    function toggleLanguageDropdown() {
-      isDropdownOpen = !isDropdownOpen;
-      document.getElementById('languageDropdown').classList.toggle('show', isDropdownOpen);
-    }
-
-    function selectLanguage(code) {
-      const lang = languages.find(l => l.code === code);
-      if (lang) {
-        selectedLanguage = lang;
-        renderLanguageDropdown();
-        toggleLanguageDropdown();
-        showToast(`Language changed to ${lang.name}`);
-      }
-    }
-
-    function filterVideos(category) {
-      const cards = document.querySelectorAll('.video-card');
-      const buttons = document.querySelectorAll('.filter-btn');
-      
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'block';
-          card.style.animation = 'fadeIn 0.5s ease';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    function searchVideos() {
-      const input = document.getElementById('searchInput');
-      const cards = document.querySelectorAll('.video-card');
-      const searchTerm = input.value.toLowerCase();
-
-      cards.forEach(card => {
-        const title = card.querySelector('.title').textContent.toLowerCase();
-        if (title.includes(searchTerm)) {
-          card.style.display = 'block';
-          card.style.animation = 'fadeIn 0.5s ease';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    function performSearch() {
-      searchVideos();
-      showToast('Search completed!');
-    }
-
-    function likeVideo(element) {
-      element.style.color = element.style.color === 'rgb(255, 0, 0)' ? '' : '#ff0000';
-      showToast(element.style.color === 'rgb(255, 0, 0)' ? '❤️ Video liked!' : 'Like removed');
-    }
-
-    function saveVideo(element) {
-      element.style.color = element.style.color === 'rgb(255, 215, 0)' ? '' : '#ffd700';
-      showToast(element.style.color === 'rgb(255, 215, 0)' ? '💾 Video saved!' : 'Video unsaved');
-    }
-
-    function shareVideo(element) {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Football Highlight',
-          text: 'Check out this amazing football highlight!',
-          url: window.location.href
-        });
-      } else {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('🔗 Link copied to clipboard!');
-      }
-    }
-
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #ff0000, #cc0000);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        font-weight: 500;
-        animation: slideIn 0.3s ease;
-        backdrop-filter: blur(10px);
-      `;
-      toast.textContent = message;
-      document.body.appendChild(toast);
-
-      setTimeout(() => {
-        toast.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => document.body.removeChild(toast), 300);
-      }, 3000);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      renderLanguageDropdown();
-      
-      document.addEventListener('click', (e) => {
-        const languageSelector = document.querySelector('.language-selector');
-        if (!languageSelector.contains(e.target) && isDropdownOpen) {
-          toggleLanguageDropdown();
-        }
-      });
-    });
-
-    console.log("Live Score Football Highlights ready!");
-  </script>
-</body>
-</html>like' title="Like" onclick="likeVideo(this)"></i>
-            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
-            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
-            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
-          </div>
-        </div>
-
-        <div class="video-card" data-category="skills">
-          <div class="video-thumbnail">
-            <iframe src="https://www.youtube.com/embed/zZxL8Ky-fYI" allowfullscreen></iframe>
             <div class="play-overlay"><i class='bx bx-play'></i></div>
           </div>
           <div class="video-info">
@@ -1001,7 +910,7 @@
 
         <div class="video-card" data-category="goals">
           <div class="video-thumbnail">
-            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
             <div class="play-overlay"><i class='bx bx-play'></i></div>
           </div>
           <div class="video-info">
@@ -1016,10 +925,404 @@
             </div>
           </div>
           <div class="video-actions">
-            <i class='bx bx-
-              console.log("Live Score Football Highlights ready!");
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+
+        <div class="video-card" data-category="training">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/H_IDhgKNsbQ" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FT</div>
+              <div class="author-name">Football Training</div>
+            </div>
+            <p class="title">Professional Football Training Session</p>
+            <div class="meta">
+              <span>680k views • 4 days ago</span>
+              <span class="duration">22:15</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="upload-modal">
+      <div class="modal-header">
+        <h2>Upload Video</h2>
+        <i class='bx bx-x close-modal' onclick="closeUploadModal()"></i>
+      </div>
+      
+      <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+        <i class='bx bx-cloud-upload upload-icon'></i>
+        <h3>Drag & Drop your video here</h3>
+        <p style="color: #b8b8c8; margin-top: 10px;">or click to browse</p>
+        <input type="file" id="fileInput" class="file-input" accept="video/*" onchange="handleFileSelect(event)">
+      </div>
+
+      <form id="uploadForm" onsubmit="handleUpload(event)">
+        <div class="form-group">
+          <label for="videoTitle">Video Title *</label>
+          <input type="text" id="videoTitle" placeholder="Enter video title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="videoCategory">Category *</label>
+          <select id="videoCategory" required>
+            <option value="">Select category</option>
+            <option value="goals">Goals</option>
+            <option value="skills">Skills</option>
+            <option value="matches">Full Matches</option>
+            <option value="training">Training</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="videoDescription">Description</label>
+          <textarea id="videoDescription" placeholder="Enter video description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="videoUrl">YouTube URL (Optional)</label>
+          <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=...">
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <i class='bx bx-upload'></i> Upload Video
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const languages = [
+      { code: "en", name: "English", flag: "🇬🇧", region: "Global" },
+      { code: "sw", name: "Swahili", flag: "🇰🇪", region: "East Africa" },
+      { code: "fr", name: "French", flag: "🇫🇷", region: "West/Central Africa" },
+      { code: "ar", name: "Arabic", flag: "🇸🇦", region: "North Africa" },
+      { code: "pt", name: "Portuguese", flag: "🇵🇹", region: "Southern Africa" },
+      { code: "om", name: "Oromo", flag: "🇪🇹", region: "East Africa" },
+      { code: "am", name: "Amharic", flag: "🇪🇹", region: "East Africa" },
+      { code: "so", name: "Somali", flag: "🇸🇴", region: "East Africa" },
+      { code: "rw", name: "Kinyarwanda", flag: "🇷🇼", region: "East Africa" },
+      { code: "rn", name: "Kirundi", flag: "🇧🇮", region: "East Africa" },
+      { code: "ha", name: "Hausa", flag: "🇳🇬", region: "West Africa" },
+      { code: "yo", name: "Yoruba", flag: "🇳🇬", region: "West Africa" },
+      { code: "ig", name: "Igbo", flag: "🇳🇬", region: "West Africa" },
+      { code: "ff", name: "Fulani", flag: "🇸🇳", region: "West Africa" },
+      { code: "wo", name: "Wolof", flag: "🇸🇳", region: "West Africa" },
+      { code: "bm", name: "Bambara", flag: "🇲🇱", region: "West Africa" },
+      { code: "zu", name: "Zulu", flag: "🇿🇦", region: "Southern Africa" },
+      { code: "xh", name: "Xhosa", flag: "🇿🇦", region: "Southern Africa" },
+      { code: "st", name: "Sesotho", flag: "🇱🇸", region: "Southern Africa" },
+      { code: "tn", name: "Setswana", flag: "🇧🇼", region: "Southern Africa" },
+      { code: "sn", name: "Shona", flag: "🇿🇼", region: "Southern Africa" },
+      { code: "ny", name: "Chichewa", flag: "🇲🇼", region: "Southern Africa" },
+      { code: "ln", name: "Lingala", flag: "🇨🇩", region: "Central Africa" },
+      { code: "kg", name: "Kongo", flag: "🇨🇩", region: "Central Africa" },
+      { code: "sg", name: "Sango", flag: "🇨🇫", region: "Central Africa" },
+      { code: "ber", name: "Berber", flag: "🇲🇦", region: "North Africa" },
+      { code: "kab", name: "Kabyle", flag: "🇩🇿", region: "North Africa" },
+    ];
+
+    let selectedLanguage = languages.find(lang => lang.code === "en");
+    let isDropdownOpen = false;
+    let uploadedFile = null;
+
+    function groupLanguagesByRegion() {
+      return languages.reduce((acc, lang) => {
+        if (!acc[lang.region]) acc[lang.region] = [];
+        acc[lang.region].push(lang);
+        return acc;
+      }, {});
+    }
+
+    function renderLanguageDropdown() {
+      const groupedLanguages = groupLanguagesByRegion();
+      let html = '';
+      
+      for (const region in groupedLanguages) {
+        html += `<div class="region-header">${region}</div>`;
+        
+        groupedLanguages[region].forEach(lang => {
+          const isSelected = selectedLanguage.code === lang.code;
+          html += `
+            <div class="language-item ${isSelected ? 'selected' : ''}" onclick="selectLanguage('${lang.code}')">
+              <span class="language-flag">${lang.flag}</span>
+              <span class="language-name">${lang.name}</span>
+              <i class='bx bx-check check-icon'></i>
+            </div>
+          `;
+        });
+      }
+      
+      document.getElementById('languageList').innerHTML = html;
+      document.getElementById('selectedFlag').textContent = selectedLanguage.flag;
+      document.getElementById('selectedCode').textContent = selectedLanguage.code.toUpperCase();
+    }
+
+    function toggleLanguageDropdown() {
+      isDropdownOpen = !isDropdownOpen;
+      document.getElementById('languageDropdown').classList.toggle('show', isDropdownOpen);
+    }
+
+    function selectLanguage(code) {
+      const lang = languages.find(l => l.code === code);
+      if (lang) {
+        selectedLanguage = lang;
+        renderLanguageDropdown();
+        toggleLanguageDropdown();
+        showToast(`🌍 Language changed to ${lang.name}`);
+      }
+    }
+
+    function filterVideos(category) {
+      const cards = document.querySelectorAll('.video-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchVideos() {
+      const input = document.getElementById('searchInput');
+      const cards = document.querySelectorAll('.video-card');
+      const searchTerm = input.value.toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.querySelector('.title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function performSearch() {
+      searchVideos();
+      showToast('🔍 Search completed!');
+    }
+
+    function likeVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 0, 0)' ? '' : '#ff0000';
+      showToast(element.style.color === 'rgb(255, 0, 0)' ? '❤️ Video liked!' : 'Like removed');
+    }
+
+    function saveVideo(element) {
+      element.style.color = element.style.color === 'rgb(255, 215, 0)' ? '' : '#ffd700';
+      showToast(element.style.color === 'rgb(255, 215, 0)' ? '💾 Video saved!' : 'Video unsaved');
+    }
+
+    function shareVideo(element) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Football Highlight',
+          text: 'Check out this amazing football highlight!',
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('🔗 Link copied to clipboard!');
+      }
+    }
+
+    function openUploadModal() {
+      document.getElementById('uploadModal').classList.add('show');
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.remove('show');
+      document.getElementById('uploadForm').reset();
+      uploadedFile = null;
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (file) {
+        uploadedFile = file;
+        showToast(`✅ File selected: ${file.name}`);
+      }
+    }
+
+    function handleUpload(event) {
+      event.preventDefault();
+      
+      const title = document.getElementById('videoTitle').value;
+      const category = document.getElementById('videoCategory').value;
+      const description = document.getElementById('videoDescription').value;
+      const videoUrl = document.getElementById('videoUrl').value;
+
+      // Simulate upload
+      showToast('⏳ Uploading video...');
+      
+      setTimeout(() => {
+        // Create new video card
+        const videoGrid = document.getElementById('videoGrid');
+        const newCard = document.createElement('div');
+        newCard.className = 'video-card';
+        newCard.setAttribute('data-category', category);
+        
+        const embedUrl = videoUrl ? videoUrl.replace('watch?v=', 'embed/') : 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+        
+        newCard.innerHTML = `
+          <div class="video-thumbnail">
+            <iframe src="${embedUrl}" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='bx bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">YOU</div>
+              <div class="author-name">Your Channel</div>
+            </div>
+            <p class="title">${title}</p>
+            <div class="meta">
+              <span>Just now</span>
+              <span class="duration">NEW</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        `;
+        
+        videoGrid.insertBefore(newCard, videoGrid.firstChild);
+        newCard.style.animation = 'fadeIn 0.5s ease';
+        
+        showToast('✅ Video uploaded successfully!');
+        closeUploadModal();
+      }, 2000);
+    }
+
+    // Drag and drop functionality
+    const uploadArea = document.getElementById('uploadArea');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, () => {
+        uploadArea.classList.add('drag-over');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, () => {
+        uploadArea.classList.remove('drag-over');
+      }, false);
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      const files = dt.files;
+      
+      if (files.length > 0) {
+        uploadedFile = files[0];
+        showToast(`✅ File dropped: ${files[0].name}`);
+      }
+    }, false);
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ff0000, #cc0000);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        font-weight: 500;
+        animation: slideIn 0.3s ease;
+        backdrop-filter: blur(10px);
+      `;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderLanguageDropdown();
+      
+      document.addEventListener('click', (e) => {
+        const languageSelector = document.querySelector('.language-selector');
+        if (!languageSelector.contains(e.target) && isDropdownOpen) {
+          toggleLanguageDropdown();
+        }
+      });
+
+      // Close modal on outside click
+      document.getElementById('uploadModal').addEventListener('click', (e) => {
+        if (e.target.id === 'uploadModal') {
+          closeUploadModal();
+        }
+      });
+    });
+
+    console.log("⚽ Live Score Football Highlights ready!");
   </script>
 </body>
-</html>
+</html> bx-play'></i></div>
+          </div>
+          <div class="video-info">
+            <div class="video-author">
+              <div class="author-avatar">FS</div>
+              <div class="author-name">Football Stars</div>
+            </div>
+            <p class="title">Messi Top 10 Goals - Legendary Moments</p>
+            <div class="meta">
+              <span>2.3M views • 1 year ago</span>
+              <span class="duration">10:45</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <i class='bx bx-like' title="Like" onclick="likeVideo(this)"></i>
+            <i class='bx bx-bookmark' title="Save" onclick="saveVideo(this)"></i>
+            <i class='bx bx-share' title="Share" onclick="shareVideo(this)"></i>
+            <i class='bx bx-dots-horizontal-rounded' title="More"></i>
+          </div>
+        </div>
 
-
+        <div class="video-card" data-category="skills">
+          <div class="video-thumbnail">
+            <iframe src="https://www.youtube.com/embed/zZxL8Ky-fYI" allowfullscreen></iframe>
+            <div class="play-overlay"><i class='
