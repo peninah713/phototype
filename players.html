@@ -10,7 +10,7 @@
         :root {
             --bg1: #25233c;
             --bg2: #141228;
-            --accent: #c92b2b; /* Original Red/Accent */
+            --accent: #c92b2b;
             --card-bg: rgba(255,255,255,0.05);
             --text: #f3f3f6;
             --muted: #d9dbe3;
@@ -181,6 +181,11 @@
             box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
             font-size: 14px;
         }
+        .upload-btn:hover {
+            background: linear-gradient(135deg, #cc0000, #aa0000);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+        }
         .top-icons > i {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -212,90 +217,506 @@
             box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
         }
 
-        /* --- Content Area & Player Cards (Existing Styles, now consistent) --- */
+        /* --- Content Area & Player Cards --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
         }
         h1 {
             font-size: 2em;
             margin-bottom: 10px;
-            color: var(--text);
-            /* Consistent gradient heading */
             background: linear-gradient(135deg, #ff0000, #ff4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .subtitle {
+            color: var(--muted);
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
         .players {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 30px;
         }
         .player-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
+            background: linear-gradient(145deg, #1a1a2e 0%, #2d2d5a 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
         }
         .player-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(255, 0, 0, 0.3);
+            border-color: rgba(255, 0, 0, 0.5);
         }
+
+        .player-image-container {
+            position: relative;
+            height: 280px;
+            background: linear-gradient(135deg, #1a1a33, #2a2a50);
+            overflow: hidden;
+        }
+
+        .player-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .player-card:hover .player-image {
+            transform: scale(1.1);
+        }
+
+        .player-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .position-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .player-content {
+            padding: 20px;
+        }
+
         .player-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 15px;
         }
         .player-info h3 {
             margin: 0;
             color: white;
+            font-size: 1.4em;
+            font-weight: 700;
         }
         .player-info p {
             color: var(--muted);
             font-size: 0.9em;
-            margin: 5px 0 0;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .rating {
-            background: gold;
-            color: black;
-            font-weight: bold;
-            padding: 3px 10px;
-            border-radius: 10px;
+        .player-info i {
+            color: #ff0000;
+            font-size: 14px;
         }
+
         .stats {
             display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            text-align: center;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .stats div {
-            flex: 1;
+            text-align: center;
         }
         .stats span {
             display: block;
             font-weight: bold;
             color: white;
+            font-size: 1.3em;
+            margin-bottom: 5px;
         }
+        .stats small {
+            color: var(--muted);
+            font-size: 0.85em;
+        }
+
         .skills {
             margin-top: 15px;
         }
+        .skill-item {
+            margin-bottom: 12px;
+        }
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .skill-label span:first-child {
+            color: var(--muted);
+        }
+        .skill-label span:last-child {
+            color: white;
+            font-weight: bold;
+        }
         .bar {
-            background: #333;
-            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 10px;
+            height: 8px;
         }
         .bar-fill {
-            height: 6px;
-            background: var(--accent);
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff4444);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .player-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .profile-modal, .contact-modal {
+            background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.3s ease;
+        }
+
+        .contact-modal {
+            max-width: 600px;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: linear-gradient(145deg, #1f1f3f, #2a2a5f);
+            z-index: 10;
+        }
+
+        .modal-header-bar h2 {
+            font-size: 24px;
+            background: linear-gradient(135deg, #ff0000, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .close-modal {
+            cursor: pointer;
+            font-size: 28px;
+            color: #b8b8c8;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .close-modal:hover {
+            color: #ff0000;
+            transform: rotate(90deg);
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .profile-image-section {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-rating-large {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .profile-info-section h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .profile-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .profile-detail i {
+            color: #ff0000;
+            font-size: 20px;
+        }
+
+        .profile-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .profile-stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .profile-stat-box:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .profile-stat-box i {
+            font-size: 28px;
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            margin: 5px 0;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .profile-skills-detailed {
+            margin-top: 25px;
+        }
+
+        .profile-skills-detailed h3 {
+            margin-bottom: 15px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Contact Modal Styles */
+        .contact-content {
+            padding: 30px;
+        }
+
+        .contact-player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-player-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-player-info h3 {
+            margin: 0;
+            color: white;
+            font-size: 20px;
+        }
+
+        .contact-player-info p {
+            margin: 5px 0 0 0;
+            color: var(--muted);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #b8b8c8;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: #ff0000;
+            font-size: 18px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #ff0000;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .full-width {
+            width: 100%;
         }
 
         /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-overlay {
+                padding: 10px;
+            }
+
+            .profile-modal, .contact-modal {
+                max-height: 95vh;
+            }
+        }
+
         @media (max-width: 768px) {
             .top-bar {
                 padding: 15px;
@@ -314,6 +735,9 @@
             .nav-link {
                 padding: 10px 15px;
                 font-size: 14px;
+            }
+            .players {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -344,7 +768,7 @@
     <nav class="horizontal-nav">
         <div class="nav-container">
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">
+                <a href="index.html" class="nav-link">
                     <span>Home</span>
                 </a>
                 <a href="highlights.html" class="nav-link">
@@ -353,8 +777,8 @@
                 <a href="events.html" class="nav-link">
                     <span>Events</span>
                 </a>
-                <a href="players.html" class="nav-link">
-                    <span>Playes</span>
+                <a href="players.html" class="nav-link active">
+                    <span>Players</span>
                 </a>
                 <a href="sponsors.html" class="nav-link">
                     <span>Sponsors</span>
@@ -368,25 +792,90 @@
 
     <div class="container">
         <h1>Scout Discovery</h1>
-        <p>Find and recruit the best football talent in Kenya</p>
+        <p class="subtitle">Find and recruit the best football talent in Kenya</p>
 
-        <div class="players" id="playerList">
-            </div>
+        <div class="players" id="playerList"></div>
     </div>
 
     <script>
-        // 1. DATA AND DOM ELEMENTS
+        // Player data with placeholder images
         const players = [
-            { name: "James Ochieng", age: 22, position: "Forward", club: "Gor Mahia FC", goals: 23, assists: 12, rating: 8.7, speed: 92, skill: 85 },
-            { name: "Michael Wanjala", age: 19, position: "Midfielder", club: "Bandari FC", goals: 8, assists: 15, rating: 8.2, speed: 78, skill: 88 },
-            { name: "David Kamau", age: 24, position: "Defender", club: "AFC Leopards", goals: 3, assists: 7, rating: 8.5, speed: 75, skill: 80 },
-            { name: "Brian Omondi", age: 21, position: "Winger", club: "Ulinzi Stars", goals: 14, assists: 18, rating: 8.4, speed: 94, skill: 82 },
-            { name: "Kevin Otieno", age: 20, position: "Goalkeeper", club: "Tusker FC", goals: 0, assists: 0, rating: 8.0, speed: 70, skill: 86 },
+            { 
+                name: "James Ochieng", 
+                age: 22, 
+                position: "Forward", 
+                club: "Gor Mahia FC", 
+                goals: 23, 
+                assists: 12, 
+                rating: 8.7, 
+                speed: 92, 
+                skill: 85,
+                image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop"
+            },
+            { 
+                name: "Michael Wanjala", 
+                age: 19, 
+                position: "Midfielder", 
+                club: "Bandari FC", 
+                goals: 8, 
+                assists: 15, 
+                rating: 8.2, 
+                speed: 78, 
+                skill: 88,
+                image: "https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=400&h=500&fit=crop"
+            },
+            { 
+                name: "David Kamau", 
+                age: 24, 
+                position: "Defender", 
+                club: "AFC Leopards", 
+                goals: 3, 
+                assists: 7, 
+                rating: 8.5, 
+                speed: 75, 
+                skill: 80,
+                image: "https://images.unsplash.com/photo-1624880357913-a8539238245b?w=400&h=500&fit=crop"
+            },
+            { 
+                name: "Brian Omondi", 
+                age: 21, 
+                position: "Winger", 
+                club: "Ulinzi Stars", 
+                goals: 14, 
+                assists: 18, 
+                rating: 8.4, 
+                speed: 94, 
+                skill: 82,
+                image: "https://images.unsplash.com/photo-1614632537423-1e6c2e0f0b30?w=400&h=500&fit=crop"
+            },
+            { 
+                name: "Kevin Otieno", 
+                age: 20, 
+                position: "Goalkeeper", 
+                club: "Tusker FC", 
+                goals: 0, 
+                assists: 0, 
+                rating: 8.0, 
+                speed: 70, 
+                skill: 86,
+                image: "https://images.unsplash.com/photo-1611816063714-1e943c4aa258?w=400&h=500&fit=crop"
+            },
+            { 
+                name: "Peter Njuguna", 
+                age: 23, 
+                position: "Striker", 
+                club: "Kakamega Homeboyz", 
+                goals: 19, 
+                assists: 9, 
+                rating: 8.3, 
+                speed: 88, 
+                skill: 83,
+                image: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=400&h=500&fit=crop"
+            },
         ];
 
         const playerList = document.getElementById("playerList");
 
-        // 2. OPTIMIZED DOM RENDERING FUNCTION (using map/join for performance)
         function displayPlayers(list) {
             if (list.length === 0) {
                  playerList.innerHTML = '<p style="text-align:center; color: var(--muted); grid-column: 1 / -1;">No players matched your search query.</p>';
@@ -395,31 +884,78 @@
 
             const playerHTML = list.map(player => `
                 <div class="player-card">
-                    <div class="player-header">
-                        <div class="player-info">
-                            <h3>${player.name}</h3>
-                            <p>${player.age} yrs • ${player.position}</p>
-                            <p>${player.club}</p>
+                    <div class="player-image-container">
+                        <img src="${player.image}" alt="${player.name}" class="player-image">
+                        <div class="player-badge">${player.rating}</div>
+                        <div class="position-badge">
+                            <i class='bx bx-${getPositionIcon(player.position)}'></i> ${player.position}
                         </div>
-                        <div class="rating">${player.rating}</div>
                     </div>
-                    <div class="stats">
-                        <div><span>${player.goals}</span>Goals</div>
-                        <div><span>${player.assists}</span>Assists</div>
-                    </div>
-                    <div class="skills">
-                        <p>Speed</p>
-                        <div class="bar"><div class="bar-fill" style="width:${player.speed}%;"></div></div>
-                        <p>Skill</p>
-                        <div class="bar"><div class="bar-fill" style="width:${player.skill}%;"></div></div>
+                    <div class="player-content">
+                        <div class="player-header">
+                            <div class="player-info">
+                                <h3>${player.name}</h3>
+                                <p><i class='bx bx-calendar'></i>${player.age} years old</p>
+                                <p><i class='bx bx-football'></i>${player.club}</p>
+                            </div>
+                        </div>
+                        <div class="stats">
+                            <div>
+                                <span>${player.goals}</span>
+                                <small>Goals</small>
+                            </div>
+                            <div>
+                                <span>${player.assists}</span>
+                                <small>Assists</small>
+                            </div>
+                        </div>
+                        <div class="skills">
+                            <div class="skill-item">
+                                <div class="skill-label">
+                                    <span>Speed</span>
+                                    <span>${player.speed}%</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="bar-fill" style="width:${player.speed}%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-label">
+                                    <span>Skill</span>
+                                    <span>${player.skill}%</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="bar-fill" style="width:${player.skill}%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="player-actions">
+                            <button class="action-btn btn-primary" onclick="viewProfile('${player.name}')">
+                                <i class='bx bx-user'></i> View Profile
+                            </button>
+                            <button class="action-btn btn-secondary" onclick="contactScout('${player.name}')">
+                                <i class='bx bx-message-dots'></i> Contact
+                            </button>
+                        </div>
                     </div>
                 </div>
-            `).join(''); // Join the array into a single string
+            `).join('');
 
-            playerList.innerHTML = playerHTML; // Write to the DOM *once*
+            playerList.innerHTML = playerHTML;
         }
 
-        // 3. SEARCH FUNCTION
+        function getPositionIcon(position) {
+            const icons = {
+                'Forward': 'target',
+                'Striker': 'target',
+                'Midfielder': 'trophy',
+                'Defender': 'shield',
+                'Winger': 'fast-forward',
+                'Goalkeeper': 'shield-alt'
+            };
+            return icons[position] || 'football';
+        }
+
         function searchPlayer() {
             const query = document.getElementById("searchInput").value.toLowerCase().trim();
 
@@ -432,25 +968,226 @@
             displayPlayers(filtered);
         }
 
-        // 4. ACTION FUNCTIONS (Consolidated from both script blocks)
+        function viewProfile(name) {
+            const player = players.find(p => p.name === name);
+            if (player) {
+                openProfileModal(player);
+            }
+        }
+
+        function contactScout(name) {
+            const player = players.find(p => p.name === name);
+            if (player) {
+                openContactModal(player);
+            }
+        }
+
+        function openProfileModal(player) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="profile-modal">
+                    <div class="modal-header-bar">
+                        <h2>Player Profile</h2>
+                        <i class='bx bx-x close-modal' onclick="this.closest('.modal-overlay').remove()"></i>
+                    </div>
+                    <div class="profile-content">
+                        <div class="profile-image-section">
+                            <img src="${player.image}" alt="${player.name}" class="profile-image">
+                            <div class="profile-rating-large">${player.rating}</div>
+                        </div>
+                        <div class="profile-info-section">
+                            <h2>${player.name}</h2>
+                            <div class="profile-detail">
+                                <i class='bx bx-calendar'></i>
+                                <span>${player.age} years old</span>
+                            </div>
+                            <div class="profile-detail">
+                                <i class='bx bx-football'></i>
+                                <span>${player.club}</span>
+                            </div>
+                            <div class="profile-detail">
+                                <i class='bx bx-target'></i>
+                                <span>${player.position}</span>
+                            </div>
+                            
+                            <div class="profile-stats-grid">
+                                <div class="profile-stat-box">
+                                    <i class='bx bx-target'></i>
+                                    <span class="stat-value">${player.goals}</span>
+                                    <span class="stat-label">Goals</span>
+                                </div>
+                                <div class="profile-stat-box">
+                                    <i class='bx bx-share-alt'></i>
+                                    <span class="stat-value">${player.assists}</span>
+                                    <span class="stat-label">Assists</span>
+                                </div>
+                                <div class="profile-stat-box">
+                                    <i class='bx bx-run'></i>
+                                    <span class="stat-value">${player.speed}</span>
+                                    <span class="stat-label">Speed</span>
+                                </div>
+                                <div class="profile-stat-box">
+                                    <i class='bx bx-trophy'></i>
+                                    <span class="stat-value">${player.skill}</span>
+                                    <span class="stat-label">Skill</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-skills-detailed">
+                                <h3>Detailed Skills</h3>
+                                <div class="skill-item">
+                                    <div class="skill-label">
+                                        <span><i class='bx bx-run'></i> Speed & Agility</span>
+                                        <span>${player.speed}%</span>
+                                    </div>
+                                    <div class="bar">
+                                        <div class="bar-fill" style="width:${player.speed}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label">
+                                        <span><i class='bx bx-trophy'></i> Technical Skill</span>
+                                        <span>${player.skill}%</span>
+                                    </div>
+                                    <div class="bar">
+                                        <div class="bar-fill" style="width:${player.skill}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label">
+                                        <span><i class='bx bx-brain'></i> Game Intelligence</span>
+                                        <span>${Math.round((player.rating / 10) * 100)}%</span>
+                                    </div>
+                                    <div class="bar">
+                                        <div class="bar-fill" style="width:${(player.rating / 10) * 100}%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-actions">
+                                <button class="action-btn btn-primary" onclick="contactScout('${player.name}'); this.closest('.modal-overlay').remove();">
+                                    <i class='bx bx-message-dots'></i> Contact Scout
+                                </button>
+                                <button class="action-btn btn-secondary" onclick="sharePlayer('${player.name}')">
+                                    <i class='bx bx-share'></i> Share Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function openContactModal(player) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="contact-modal">
+                    <div class="modal-header-bar">
+                        <h2>Contact Scout</h2>
+                        <i class='bx bx-x close-modal' onclick="this.closest('.modal-overlay').remove()"></i>
+                    </div>
+                    <div class="contact-content">
+                        <div class="contact-player-info">
+                            <img src="${player.image}" alt="${player.name}" class="contact-player-image">
+                            <div>
+                                <h3>${player.name}</h3>
+                                <p>${player.position} • ${player.club}</p>
+                            </div>
+                        </div>
+                        
+                        <form class="contact-form" onsubmit="sendContactMessage(event, '${player.name}')">
+                            <div class="form-group">
+                                <label><i class='bx bx-user'></i> Your Name</label>
+                                <input type="text" required placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label><i class='bx bx-envelope'></i> Email Address</label>
+                                <input type="email" required placeholder="your.email@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label><i class='bx bx-phone'></i> Phone Number</label>
+                                <input type="tel" required placeholder="+254 700 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label><i class='bx bx-briefcase'></i> Organization/Club</label>
+                                <input type="text" required placeholder="Your club or organization">
+                            </div>
+                            <div class="form-group">
+                                <label><i class='bx bx-message-detail'></i> Message</label>
+                                <textarea required placeholder="Tell us about your interest in this player..." rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="action-btn btn-primary full-width">
+                                <i class='bx bx-send'></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function sendContactMessage(event, playerName) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                name: form[0].value,
+                email: form[1].value,
+                phone: form[2].value,
+                organization: form[3].value,
+                message: form[4].value,
+                player: playerName
+            };
+            
+            showToast('✅ Message sent successfully! The scout will contact you soon.');
+            form.closest('.modal-overlay').remove();
+            console.log('Contact form data:', formData);
+        }
+
+        function sharePlayer(name) {
+            const player = players.find(p => p.name === name);
+            const shareText = `Check out ${player.name} - ${player.position} at ${player.club}! Rating: ${player.rating} ⚽`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: `${player.name} - Player Profile`,
+                    text: shareText,
+                    url: window.location.href
+                }).then(() => {
+                    showToast('✅ Profile shared successfully!');
+                }).catch(() => {
+                    copyToClipboard(shareText);
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            showToast('📋 Profile info copied to clipboard!');
+        }
+
         function showNotifications() {
             showToast('🔔 No new notifications');
         }
 
         function openUploadModal() {
-            showToast('Upload modal opening...');
+            showToast('📤 Upload modal opening...');
         }
 
         function performSearch() {
-             showToast(`Search completed for: ${document.getElementById('searchInput').value}`);
+             showToast(`🔍 Search completed for: ${document.getElementById('searchInput').value}`);
         }
         
         function signIn() {
-             showToast("Sign-in functionality triggered!");
-             // Note: window.location.href='profile.html' was in the original HTML, but keeping the JS function for consistency.
+             showToast("👤 Sign-in functionality triggered!");
         }
 
-        // 5. TOAST NOTIFICATION FUNCTIONALITY
         function showToast(message) {
             const toast = document.createElement('div');
             toast.style.cssText = `
@@ -462,9 +1199,10 @@
                 padding: 12px 20px;
                 border-radius: 8px;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
+                z-index: 10000;
                 font-weight: 500;
-                animation: slideIn 0.3s ease;
+                animation: fadeIn 0.3s ease;
+                backdrop-filter: blur(10px);
             `;
             toast.textContent = message;
             document.body.appendChild(toast);
@@ -476,9 +1214,8 @@
             }, 3000);
         }
 
-        // 6. INITIALIZATION
         displayPlayers(players);
-        console.log("Scout Discovery page loaded.");
+        console.log("⚽ Scout Discovery page loaded with player images!");
     </script>
 
 </body>
