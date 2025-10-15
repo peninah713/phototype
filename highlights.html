@@ -934,4 +934,254 @@
           <div class="comments">View all 3,245 comments</div>
           <div class="comment-row"><div class="dot">P</div><input type="text" placeholder="Add a comment..."></div>
         </article>
+</style>
+</head>
+<body>
+  <script>
+    // State management
+    let videoData = [];
+    let likedPosts = new Set();
+    let postComments = {};
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadSampleData();
+    });
+
+    function loadSampleData() {
+      // Sample initial posts
+      videoData = [
+        { id: 1, username: 'footyhighlights', likes: 15420, desc: 'Amazing goal 🔥', comments: 892, pfInitials: 'PL', img: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&h=300&fit=crop' },
+        { id: 2, username: 'cr7updates', likes: 30112, desc: 'Cristiano is on fire! 💥', comments: 1200, pfInitials: 'CR', img: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=300&fit=crop' },
+        { id: 3, username: 'messiupdates', likes: 50890, desc: 'Legend at work ⚡', comments: 3245, pfInitials: 'LM', img: 'https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=500&h=300&fit=crop' }
+      ];
+      
+      // Initialize comment storage
+      videoData.forEach(post => {
+        postComments[post.id] = [];
+      });
+    }
+
+    // Like functionality
+    function toggleLike(postId) {
+      const card = document.querySelector(`[data-id="${postId}"]`);
+      const likesDiv = card.querySelector('.likes');
+      const likeBtn = card.querySelector('.icon-btn');
+      const heartIcon = likeBtn.querySelector('.fa-heart');
+      
+      let currentLikes = parseInt(card.getAttribute('data-likes'));
+      
+      if (likedPosts.has(postId)) {
+        // Unlike
+        likedPosts.delete(postId);
+        currentLikes--;
+        heartIcon.style.color = '#c92b2b';
+        heartIcon.style.fill = 'none';
+      } else {
+        // Like
+        likedPosts.add(postId);
+        currentLikes++;
+        heartIcon.style.color = '#ff0000';
+        heartIcon.style.fill = '#ff0000';
+        
+        // Animation
+        heartIcon.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          heartIcon.style.transform = 'scale(1)';
+        }, 200);
+      }
+      
+      card.setAttribute('data-likes', currentLikes);
+      likesDiv.textContent = formatNumber(currentLikes) + ' likes';
+    }
+
+    // Comment functionality
+    function addComment(postId, input) {
+      const commentText = input.value.trim();
+      if (!commentText) return;
+      
+      const card = document.querySelector(`[data-id="${postId}"]`);
+      const commentsDiv = card.querySelector('.comments');
+      
+      // Add comment to storage
+      if (!postComments[postId]) {
+        postComments[postId] = [];
+      }
+      postComments[postId].push({
+        text: commentText,
+        user: 'You',
+        timestamp: new Date()
+      });
+      
+      // Update comment count
+      const commentCount = postComments[postId].length;
+      commentsDiv.textContent = `View all ${commentCount} comment${commentCount !== 1 ? 's' : ''}`;
+      
+      // Clear input
+      input.value = '';
+      
+      // Show success feedback
+      input.placeholder = 'Comment added! ✓';
+      setTimeout(() => {
+        input.placeholder = 'Add a comment...';
+      }, 2000);
+    }
+
+    // Upload modal functions
+    function openUploadModal() {
+      document.getElementById('uploadModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('uploadModal').classList.remove('show');
+      document.getElementById('uploadForm').reset();
+    }
+
+    // File upload handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const fileInput = document.getElementById('videoFileInput');
+      const fileUploadArea = document.getElementById('fileUploadArea');
+      
+      fileUploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const uploadText = fileUploadArea.querySelector('.upload-text');
+          uploadText.textContent = `Selected: ${file.name}`;
+          uploadText.style.color = '#00ff88';
+        }
+      });
+
+      // Handle form submission
+      document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        handleVideoUpload();
+      });
+    });
+
+    function handleVideoUpload() {
+      const fileInput = document.getElementById('videoFileInput');
+      const titleInput = document.getElementById('videoTitle');
+      const categoryInput = document.getElementById('videoCategory');
+      const playersInput = document.getElementById('videoPlayers');
+      
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a video file');
+        return;
+      }
+      
+      // Create a new story with the uploaded video
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const videoUrl = e.target.result;
+        addNewStory(titleInput.value, videoUrl, file.type);
+        addNewPost(titleInput.value, videoUrl, playersInput.value, file.type);
+        closeModal();
+        
+        // Show success message
+        alert('Video uploaded successfully! Check your story and feed.');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function addNewStory(title, mediaUrl, mediaType) {
+      const storiesContainer = document.querySelector('.stories');
+      const newStory = document.createElement('div');
+      newStory.className = 'story';
+      
+      const isVideo = mediaType.startsWith('video/');
+      const mediaElement = isVideo 
+        ? `<video src="${mediaUrl}" style="width: 100%; height: 100%; object-fit: cover;"></video>`
+        : `<img src="${mediaUrl}" alt="${title}">`;
+      
+      newStory.innerHTML = `
+        <div class="avatar">${mediaElement}</div>
+        <label>Your Video</label>
+      `;
+      
+      // Insert after "Your Story"
+      storiesContainer.insertBefore(newStory, storiesContainer.children[1]);
+    }
+
+    function addNewPost(title, mediaUrl, players, mediaType) {
+      const feed = document.querySelector('.feed');
+      const newPostId = Date.now();
+      const isVideo = mediaType.startsWith('video/');
+      
+      const newCard = document.createElement('article');
+      newCard.className = 'card';
+      newCard.setAttribute('data-id', newPostId);
+      newCard.setAttribute('data-likes', '0');
+      
+      const mediaElement = isVideo 
+        ? `<video src="${mediaUrl}" controls style="width: 100%; height: 100%; object-fit: cover;"></video>`
+        : `<img src="${mediaUrl}" alt="${title}">`;
+      
+      newCard.innerHTML = `
+        <div class="head">
+          <div class="pf">YOU</div>
+          <h3>Your Upload</h3>
+        </div>
+        <div class="media">${mediaElement}</div>
+        <div class="actions">
+          <button class="icon-btn" onclick="toggleLike(${newPostId})"><i class="fa-solid fa-heart icon"></i> Like</button>
+          <button class="icon-btn"><i class="fa-solid fa-thumbs-up icon"></i> Up</button>
+          <button class="icon-btn"><i class="fa-solid fa-share icon"></i> Share</button>
+        </div>
+        <div class="likes">0 likes</div>
+        <div class="desc">${title} ${players ? '- ' + players : ''}</div>
+        <div class="comments">No comments yet</div>
+        <div class="comment-row">
+          <div class="dot">Y</div>
+          <input type="text" placeholder="Add a comment..." onkeypress="if(event.key==='Enter') addComment(${newPostId}, this)">
+        </div>
+      `;
+      
+      // Add to beginning of feed
+      feed.insertBefore(newCard, feed.firstChild);
+      
+      // Initialize comment storage for new post
+      postComments[newPostId] = [];
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function searchVideos() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      
+      cards.forEach(card => {
+        const username = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('.desc').textContent.toLowerCase();
+        
+        if (username.includes(searchTerm) || desc.includes(searchTerm)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = searchTerm ? 'none' : 'flex';
+        }
+      });
+    }
+
+    function performSearch() {
+      searchVideos();
+    }
+
+    function showNotifications() {
+      alert('You have 3 new notifications:\n\n• footyhighlights liked your video\n• New comment on your post\n• cr7updates started following you');
+    }
+
+    // Close modal when clicking outside
+    document.addEventListener('click', function(e) {
+      const modal = document.getElementById('uploadModal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
 
