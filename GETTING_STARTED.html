@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - FootballHub HTML Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e1b4b;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #4a5568;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            background: linear-gradient(135deg, #1e1b4b 0%, #2d2a5f 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .intro p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .flow-section {
+            background: #f7fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .flow-step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .flow-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: #1e1b4b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .step-content h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: #1e1b4b;
+        }
+
+        .step-content p {
+            margin: 0;
+        }
+
+        .file-list {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .file-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .file-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: #eff6ff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #1e1b4b;
+            margin-bottom: 0.25rem;
+        }
+
+        .file-desc {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #10b981;
+            color: white;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: #1e1b4b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #2d2a5f;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .feature-card h4 {
+            color: #1e1b4b;
+            margin-bottom: 0.5rem;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #f7fafc;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #e53e3e;
+        }
+
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .warning strong {
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 FootballHub - Getting Started Guide</h1>
+        
+        <div class="intro">
+            <h3 style="margin-top: 0; color: white;">Welcome to the HTML/CSS/JS Version!</h3>
+            <p>This is a complete, production-ready version of FootballHub built with pure vanilla JavaScript. No frameworks, no build tools, no dependencies - just open and run!</p>
+        </div>
+
+        <h2>📁 Project Structure</h2>
+        <div class="file-list">
+            <div class="file-item">
+                <div class="file-icon">🏠</div>
+                <div>
+                    <div class="file-name">index.html <span class="badge">START HERE</span></div>
+                    <div class="file-desc">Landing page with hero section, features showcase, and CTAs</div>
+                </div>
+            </div>
+            <div class="file-item">
+                <div class="file-icon">🔐</div>
+                <div>
+                    <div class="file-name">auth.html</div>
+                    <div class="file-desc">Registration and login with tabbed interface</div>
+                </div>
+            </div>
+            <div class="file-item">
+                <div class="file-icon">👤</div>
+                <div>
+                    <div class="file-name">profile-setup.html</div>
+                    <div class="file-desc">3-step wizard: User Type → Details → Bio with live preview</div>
+                </div>
+            </div>
+            <div class="file-item">
+                <div class="file-icon">🎯</div>
+                <div>
+                    <div class="file-name">onboarding.html</div>
+                    <div class="file-desc">Interactive welcome tour personalized for each user type</div>
+                </div>
+            </div>
+            <div class="file-item">
+                <div class="file-icon">📱</div>
+                <div>
+                    <div class="file-name">app.html</div>
+                    <div class="file-desc">Main dashboard with Videos, Social, Events, and Profile pages</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🚀 Quick Start (3 Steps)</h2>
+        <div class="flow-section">
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Open index.html in your browser</h4>
+                    <p>Double-click <code>index.html</code> or drag it into your browser. You'll see the professional landing page.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Click "Get Started Free"</h4>
+                    <p>Experience the complete registration flow just like a real user would.</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Explore the app!</h4>
+                    <p>Navigate through Videos, Social Feed, Events, and your Profile using the bottom navigation.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>📱 Complete User Experience Flow</h2>
+        
+        <h3>New User Journey:</h3>
+        <ol>
+            <li><strong>Landing Page</strong> - Hero section, features, user types, stats</li>
+            <li><strong>Registration</strong> - Enter name, email, phone, password</li>
+            <li><strong>Profile Setup - Step 1</strong> - Choose role: Player, Fan, Club, or Sponsor</li>
+            <li><strong>Profile Setup - Step 2</strong> - Add role-specific details (position, favorite team, etc.)</li>
+            <li><strong>Profile Setup - Step 3</strong> - Write bio with character counter and live preview</li>
+            <li><strong>Welcome Tour</strong> - 5 personalized steps explaining key features</li>
+            <li><strong>Main App</strong> - Access all features with bottom navigation</li>
+        </ol>
+
+        <h3>Returning User Journey:</h3>
+        <ol>
+            <li><strong>Landing Page</strong> - Click "Sign In"</li>
+            <li><strong>Login</strong> - Enter credentials (demo mode accepts any)</li>
+            <li><strong>Main App</strong> - Direct access, skipping setup and onboarding</li>
+        </ol>
+
+        <h2>✨ Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🎨 Modern UI</h4>
+                <p>Clean design with smooth animations and #1e1b4b brand color</p>
+            </div>
+            <div class="feature-card">
+                <h4>📱 Responsive</h4>
+                <p>Works perfectly on mobile and desktop</p>
+            </div>
+            <div class="feature-card">
+                <h4>💾 LocalStorage</h4>
+                <p>Persistent sessions and user data</p>
+            </div>
+            <div class="feature-card">
+                <h4>🎯 User Types</h4>
+                <p>Different experiences for Players, Fans, Clubs, Sponsors</p>
+            </div>
+        </div>
+
+        <h2>🎮 Try Different User Types</h2>
+        <p>The app provides unique experiences based on user type:</p>
+        <ul>
+            <li><strong>Player</strong> - Position, club, date of birth, personalized training content</li>
+            <li><strong>Fan</strong> - Favorite team selection, match viewing experience</li>
+            <li><strong>Club</strong> - Club name, talent discovery features</li>
+            <li><strong>Sponsor</strong> - Company name, industry, partnership opportunities</li>
+        </ul>
+
+        <div class="warning">
+            <strong>💡 Demo Mode:</strong> All logins are accepted for demonstration purposes. In production, you would connect this to a real backend API.
+        </div>
+
+        <h2>🛠️ Technical Details</h2>
+        <ul>
+            <li><strong>No Dependencies</strong> - Pure HTML, CSS, and JavaScript</li>
+            <li><strong>No Build Tools</strong> - No webpack, no npm, just open and run</li>
+            <li><strong>Modern CSS</strong> - Grid, Flexbox, CSS animations</li>
+            <li><strong>SVG Icons</strong> - Scalable vector graphics for crisp visuals</li>
+            <li><strong>LocalStorage API</strong> - Client-side data persistence</li>
+            <li><strong>Form Validation</strong> - Built-in HTML5 validation + custom checks</li>
+        </ul>
+
+        <h2>🌐 Deployment</h2>
+        <p>To deploy this app:</p>
+        <ol>
+            <li>Upload all HTML files to your web hosting</li>
+            <li>No configuration needed</li>
+            <li>Works on: Netlify, Vercel, GitHub Pages, or any static host</li>
+        </ol>
+
+        <h2>🎓 Learning Path</h2>
+        <p>To understand and customize this code:</p>
+        <ul>
+            <li>Study <code>index.html</code> for modern CSS layouts</li>
+            <li>Check <code>profile-setup.html</code> for multi-step forms</li>
+            <li>Review <code>onboarding.html</code> for modal overlays</li>
+            <li>Explore <code>app.html</code> for single-page navigation</li>
+        </ul>
+
+        <h2>📞 Next Steps</h2>
+        <p>Ready to see it in action?</p>
+        
+        <a href="index.html" class="btn">
+            🚀 Launch FootballHub
+        </a>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0; text-align: center; color: #a0aec0;">
+            <p>© 2025 FootballHub (Ludisco). All rights reserved.</p>
+            <p style="margin-top: 0.5rem;">Built with ❤️ for Africa's Football Community</p>
+        </div>
+    </div>
+</body>
+</html>
